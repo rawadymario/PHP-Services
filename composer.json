@@ -1,0 +1,23 @@
+{
+	"name": "rawadymario/services",
+	"description": "All Services used in RawadyMario Projects",
+	"keywords": ["rawadymario", "services"],
+	"homepage": "https://github.com/rawadymario/rawadymario-services",
+	"type": "library",
+	"license": "proprietary",
+	"require": {
+	  "php": ">=7.4.9"
+	},
+	"authors": [
+	  {
+		"name": "Mario Rawady",
+		"email": "rawady_mario@hotmail.com"
+	  }
+	],
+	"minimum-stability": "stable",
+	"autoload": {
+		"psr-4": {
+			"RawadyMario": "src/"
+		}
+	}
+  }
