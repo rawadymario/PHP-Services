@@ -1,4 +1,6 @@
 ## Common Services Used in all Projects
+To install Via Composer: `composer require rawadymario/services`
+
 ---
 ## Helpers
 > Default Functions
