@@ -1,0 +1,59 @@
+{
+	"date": {
+		"years": {
+			"en": "Years",
+			"fr": "Ans",
+			"ar": "سنوات"
+		},
+		"year": {
+			"en": "Year",
+			"fr": "An",
+			"ar": "سنة"
+		},
+		"months": {
+			"en": "Months",
+			"fr": "Mois",
+			"ar": "شهور"
+		},
+		"month": {
+			"en": "Month",
+			"fr": "Mois",
+			"ar": "شهر"
+		},
+		"days": {
+			"en": "Days",
+			"fr": "Jours",
+			"ar": "أيام"
+		},
+		"day": {
+			"en": "Day",
+			"fr": "Jour",
+			"ar": "يوم"
+		},
+		"yesterday": {
+			"en": "Yesterday",
+			"fr": "Hier",
+			"ar": "أمس"
+		},
+		"tomorrow": {
+			"en": "Tomorrow",
+			"fr": "Demain",
+			"ar": "غدا"
+		},
+		"today": {
+			"en": "Today",
+			"fr": "Aujourd'hui",
+			"ar": "اليوم"
+		},
+		"at": {
+			"en": "at",
+			"fr": "à",
+			"ar": "في"
+		},
+		"and": {
+			"en": "and",
+			"fr": "et",
+			"ar": "و"
+		}
+	}
+}
