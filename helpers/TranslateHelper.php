@@ -35,7 +35,8 @@
 				$lang = LangHelper::$ACTIVE;
 			}
 	
-			if (isset(self::$VALS[$key][$lang])) {
+			$str = $key;
+			if (isset(self::$VALS[$key]) && isset(self::$VALS[$key][$lang])) {
 				$str = self::$VALS[$key][$lang];
 			}
 			else if ($returnEmpty) {

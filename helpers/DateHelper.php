@@ -9,46 +9,55 @@
 		/**
 		 * Cleans a date before inserting it to database
 		 */
-		function CleanDate(string $val):string {
+		function CleanDate(
+			string $val
+		): string {
 			if (Helper::StringNullOrEmpty($val)) {
 				return "null";
 			}
-			else {
-				return "'$val'";
-			}
+			
+			return "'$val'";
 		}
 
 
 		/**
 		 * Returns selected date format from the given date
 		 */
-		public static function RenderDate(string $date, string $format=DateFormats::DATE_FORMAT_SAVE, ?string $lang="", bool $isStr=false): string {
+		public static function RenderDate(
+			string $date,
+			string $format=DateFormats::DATE_FORMAT_SAVE,
+			?string $lang="",
+			bool $isStr=false
+		): string {
+			if (Helper::StringNullOrEmpty($date) || empty($date)) {
+				return "";
+			}
+
 			if (Helper::StringNullOrEmpty($lang)) {
 				$lang = LangHelper::$ACTIVE;
 			}
 
-			if (!Helper::StringNullOrEmpty($date) && !empty($date)) {
-				if (!$isStr) {
-					$date = strtotime($date);
-				}
-				$dateEn = date($format, $date);
+			if (!$isStr) {
+				$date = strtotime($date);
+			}
+			$dateEn = date($format, $date);
 
-				if ($lang != "en") {
-					return LangHelper::DateFromEnglish($dateEn, $lang);
-				}
-
+			if ($lang === "en") {
 				return $dateEn;
 			}
-			else {
-				return "";
-			}
+
+			return LangHelper::DateFromEnglish($dateEn, $lang);
 		}
 		
 
 		/**
 		 * Returns selected date format from the given strdate
 		 */
-		public static function RenderDateFromTime(int $dateStr, string $format=DateFormats::DATE_FORMAT_SAVE, ?string $lang=""): string {
+		public static function RenderDateFromTime(
+			int $dateStr,
+			string $format=DateFormats::DATE_FORMAT_SAVE,
+			?string $lang=""
+		): string {
 			if (Helper::StringNullOrEmpty($lang)) {
 				$lang = LangHelper::$ACTIVE;
 			}
