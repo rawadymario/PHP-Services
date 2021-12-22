@@ -507,13 +507,13 @@
 		/**
 		 * Generate Key Value String from Array
 		 */
-		public static function GererateKeyValueStringFromArray(array $params, string $keyPrefix="") : string {
+		public static function GererateKeyValueStringFromArray(array $params=[], string $keyPrefix="", string $keyValueJoin="=", string $valueHolder="\"", string $elemsJoin="") : string {
 			$str = "";
 	
 			foreach ($params AS $k => $v) {
 				$k = $keyPrefix . $k;
 				
-				$str .= ($str != "" ? " " : "") . "$k=\"$v\"";
+				$str .= ($str != "" ? " " : "") . $k . $keyValueJoin . $valueHolder . $v . $valueHolder . $elemsJoin;
 			}
 	
 			return $str;

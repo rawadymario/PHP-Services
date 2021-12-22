@@ -1,6 +1,8 @@
 ## Common Services Used in all Projects
 To install Via Composer: `composer require rawadymario/services`
 
+Packagist Link: [https://packagist.org/packages/rawadymario/services](https://packagist.org/packages/rawadymario/services)
+
 ---
 ## Helpers
 > Default Functions
