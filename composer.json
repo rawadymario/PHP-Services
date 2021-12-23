@@ -18,6 +18,12 @@
 	"autoload": {
 		"psr-4": {
 			"RawadyMario\\": "src/"
-		}
-	}
+		},
+		"classmap": [
+            ""
+        ]
+	},
+	"require-dev": {
+        "phpunit/phpunit": "^9"
+    }
   }
