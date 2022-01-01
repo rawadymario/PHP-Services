@@ -11,15 +11,13 @@
 		/**
 		 * Returns a Clean String
 		 */
-		public static function CleanString(string $str, bool $escapeString=false): string {
-			global $conn;
-			
+		public static function CleanString(
+			string $str
+		): string {
 			$str = trim($str);
 			$str = stripslashes($str);
 	
-			if ($escapeString) {
-				$str = mysqli_real_escape_string($conn, $str);
-			}
+			//TODO: mysqli escape ?
 			
 			return $str;
 		}
@@ -28,8 +26,11 @@
 		/**
 		 * Converts HTML tags in a string to be visible, and vice versa
 		 */
-		public static function CleanHtmlText(string $data, bool $convertSpecialChars=true): string {
-			$data = stripslashes(trim($data));
+		public static function CleanHtmlText(
+			string $data,
+			bool $convertSpecialChars=true
+		): string {
+			$data = self::CleanString($data);
 
 			if ($convertSpecialChars) {
 				$data = htmlspecialchars($data, ENT_QUOTES);
@@ -42,7 +43,9 @@
 		/**
 		 * Converts a value to a boolean
 		 */
-		public static function ConvertToBool($val) : bool {
+		public static function ConvertToBool(
+			$val
+		) : bool {
 			switch (gettype($val)) {
 				case "string":
 					$val = trim($val);
@@ -57,71 +60,52 @@
 				
 				case "integer":
 				case "double":
-					$val = Helper::ConvertToInt($val);
+					$val = Helper::ConvertToDec($val);
 					return $val > 0;
 					break;
 			}
 			
-			return $val;
+			return false;
 		}
 
 
 		/**
 		 * Converts a value to an integer
 		 */
-		public static function ConvertToInt($val, bool $numberFormat=false): int {
-			$x = 0;
-
-			if ((isset($val)) && (trim($val) != "")) {
-				$x = intval($val) ;
+		public static function ConvertToInt(
+			$val
+		): int {
+			if ((isset($val)) && (trim($val) !== "")) {
+				return round($val) ;
 			}
-
-			if ($numberFormat) {
-				$x = number_format($x);
-			}
-
-			return $x ;
+			return 0;
 		}
 
 
 		/**
 		 * Converts a value to a decimal
 		 */
-		public static function ConvertToDec($val, int $decimalPlaces=2, bool $format=false, string $currency="") {
-			$x = 0.0;
-			if ((isset($val)) && (trim($val) != "")) {
+		public static function ConvertToDec(
+			$val,
+			int $decimalPlaces=2,
+			bool $numberFormat=false
+		): float {
+			if ((isset($val)) && (trim($val) !== "")) {
 				$x = floatval($val);
 				$x = round($x, $decimalPlaces);
 
-				//For some reason, online, alot of random numbers are being added if the 2nd decimal plac is not 0. ex: 0.55 is being converted to 0.5500000000000000444089209850062616169452667236328125
-				// if (self::StringHasChar($x, ".")) {
-				//     $xArr = explode(".", $x);
-				//     if (strlen($xArr[1]) > $decimalPlaces) {
-				//         $x = floatval($xArr[0] . "." . substr($xArr[1], 0, $decimalPlaces));
-				//     }
-				// }
-
-				if ($format && $decimalPlaces > 0) {
-					$fullNb	= number_format($x, $decimalPlaces);
-					$fullNbArr = explode(".", $fullNb);
-					$decimals = $fullNbArr[1];
-
-					while (strlen($decimals) > 0 && substr($decimals, -1) == "0") {
-						$decimals = substr($decimals, 0, strlen($decimals) - 1);
-					}
-
-					$x = $fullNbArr[0];
-					if ($decimals != "") {
-						$x .= "." . $decimals;
-					}
+				if ($numberFormat) {
+					$x = number_format($x, $decimalPlaces);
 				}
+
+				if (is_numeric($x) && is_nan($x)) {
+					return 0;
+				}
+
+				return $x;
 			}
 
-			if (is_numeric($x) && is_nan($x)) {
-				$x = 0;
-			}
-
-			return CurrencyHelper::AddCurrency($x, $currency);
+			return 0;
 		}
 
 
@@ -137,7 +121,7 @@
 		 * Check if the given array is null or empty
 		 */
 		public static function ArrayNullOrEmpty(?array $arr) : bool {
-			return is_null($arr) || count($arr) == 0;
+			return is_null($arr) || !is_array($arr) || count($arr) == 0;
 		}
 
 
@@ -145,7 +129,7 @@
 		 * Check if the given object is null or empty
 		 */
 		public static function ObjectNullOrEmpty(?object $obj) : bool {
-			return is_null($obj) || $obj->count() == 0;
+			return is_null($obj) || !is_object($obj) || count(array($obj)) == 0;
 		}
 
 

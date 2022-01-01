@@ -10,7 +10,7 @@
 		 * Add all the default translations
 		 */
 		public static function AddDefaults(): void {
-			//TODO: Behavior to read from default_translations and add them to self::$VALS
+			//TODO: Behavior to read from DefaultTranslations and add them to self::$VALS
 		}
 
 		

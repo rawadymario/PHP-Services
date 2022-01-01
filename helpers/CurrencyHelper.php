@@ -12,7 +12,7 @@
 		public static function AddCurrency(
 			$value,
 			string $currency="",
-			CurrencyPosition $position=CurrencyPosition::POST,
+			string $position=CurrencyPosition::POST,
 			string $separator=""
 		): string {
 			if ($currency != "") {
