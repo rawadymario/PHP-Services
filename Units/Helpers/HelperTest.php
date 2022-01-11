@@ -1,6 +1,9 @@
 <?php
 	//To Run: .\vendor/bin/phpunit .\Units\Helpers\HelperTest.php
 	use PHPUnit\Framework\TestCase;
+	use RawadyMario\Constants\Code;
+	use RawadyMario\Constants\HttpCode;
+	use RawadyMario\Constants\Status;
 	use RawadyMario\Helpers\Helper;
 	
 	final class HelperTest extends TestCase {
@@ -638,7 +641,7 @@
 			);
 			
 			$this->assertFalse(
-				Helper::DirExists("TestsForUnits", __DIR__ . "/")
+				Helper::DirExists("_TestsForUnits", __DIR__ . "/")
 			);
 			
 			$this->assertTrue(
@@ -646,10 +649,142 @@
 			);
 			
 			$this->assertTrue(
-				Helper::DirExists("TestsForUnits", __DIR__ . "/../../", true)
+				Helper::DirExists("_TestsForUnits", __DIR__ . "/../../", true)
 			);
 		}
 
+		public function testGetYoutubeIdSuccess() {
+			$this->assertEquals(
+				"",
+				Helper::GetYoutubeId(null)
+			);
+			
+			$this->assertEquals(
+				"",
+				Helper::GetYoutubeId("")
+			);
+			
+			$this->assertEquals(
+				"IZbN_nmxAGk",
+				Helper::GetYoutubeId("https://www.youtube.com/embed/IZbN_nmxAGk")
+			);
+		}
+
+		public function testEncryptLinkSuccess() {
+			$this->assertEquals(
+				"",
+				Helper::EncryptLink(null)
+			);
+			
+			$this->assertEquals(
+				"",
+				Helper::EncryptLink("")
+			);
+			
+			$this->assertEquals(
+				str_replace("&", "[amp;]", base64_encode("https://rawadymario.com/projects?page=2&category=2")),
+				Helper::EncryptLink("https://rawadymario.com/projects?page=2&category=2")
+			);
+		}
+
+		public function testDecryptLinkSuccess() {
+			$this->assertEquals(
+				"",
+				Helper::DecryptLink(null)
+			);
+			
+			$this->assertEquals(
+				"",
+				Helper::DecryptLink("")
+			);
+			
+			$this->assertEquals(
+				"https://rawadymario.com/projects?page=2&category=2",
+				Helper::DecryptLink(str_replace("&", "[amp;]", base64_encode("https://rawadymario.com/projects?page=2&category=2")))
+			);
+		}
+
+		public function GetStatusClassFromCodeProvider() {
+			return [
+				[Code::SUCCESS, Status::SUCCESS],
+				[HttpCode::OK, Status::SUCCESS],
+				[HttpCode::CREATED, Status::SUCCESS],
+				[HttpCode::ACCEPTED, Status::SUCCESS],
+				
+				[Code::ERROR, Status::ERROR],
+				[HttpCode::BADREQUEST, Status::ERROR],
+				[HttpCode::UNAUTHORIZED, Status::ERROR],
+				[HttpCode::FORBIDDEN, Status::ERROR],
+				[HttpCode::NOTFOUND, Status::ERROR],
+				[HttpCode::NOTALLOWED, Status::ERROR],
+				[HttpCode::INTERNALERROR, Status::ERROR],
+				[HttpCode::UNAVAILABLE, Status::ERROR],
+				
+				[Code::WARNING, Status::WARNING],
+				
+				[Code::INFO, Status::INFO],
+				[Code::COMMON_INFO, Status::INFO],
+				[HttpCode::CONTINUE, Status::INFO],
+				[HttpCode::PROCESSING, Status::INFO],
+			];
+		}
+
+		/**
+		 * @dataProvider GetStatusClassFromCodeProvider
+		 *
+		 * @param $givenCode int
+		 * @param $expectedStatus string
+		 */
+		public function testGetStatusClassFromCodeSuccess(int $givenCode, string $expectedStatus) {
+			$this->assertEquals(
+				$expectedStatus,
+				Helper::GetStatusClassFromCode($givenCode)
+			);
+		}
+
+		public function testGetHtmlContentFromFileSuccess() {
+			$this->assertEquals(
+				"",
+				Helper::GetHtmlContentFromFile(null)
+			);
+			
+			$this->assertEquals(
+				"",
+				Helper::GetHtmlContentFromFile("")
+			);
+			
+			$this->assertEquals(
+				"",
+				Helper::GetHtmlContentFromFile(__DIR__ . "/../_TestsForUnits/randomfile.html")
+			);
+			
+			$this->assertEquals(
+				"<h1>testGetHtmlContentFromFileSuccess</h1>",
+				Helper::GetHtmlContentFromFile(__DIR__ . "/../_TestsForUnits/testGetHtmlContentFromFileSuccess.html")
+			);
+		}
+
+		public function testGetJsonContentFromFileAsArraySuccess() {
+			$this->assertEquals(
+				[],
+				Helper::GetJsonContentFromFileAsArray(null)
+			);
+			
+			$this->assertEquals(
+				[],
+				Helper::GetJsonContentFromFileAsArray("")
+			);
+			
+			$this->assertEquals(
+				[],
+				Helper::GetJsonContentFromFileAsArray(__DIR__ . "/../_TestsForUnits/randomfile.json")
+			);
+			
+			$this->assertEquals(
+				[],
+				Helper::GetJsonContentFromFileAsArray(__DIR__ . "/../_TestsForUnits/testGetJsonContentFromFileAsArraySuccess.json")
+			);
+		}
 		
 	}
 	

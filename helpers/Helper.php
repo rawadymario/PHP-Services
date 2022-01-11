@@ -407,9 +407,13 @@
 			$total_count = 0;
 
 			foreach ($chars AS $char) {
-				/* pos = ord($char); we cant use that, its not binary safe */
-				$pos = self::uniord($char);
-				/* echo $char . " --> " . $pos . PHP_EOL; */
+				/* BEGIN: I just copied this function from the php.net comments, but it should work fine! */
+				$k = mb_convert_encoding($char, 'UCS-2LE', 'UTF-8');
+				$k1 = ord(substr($k, 0, 1));
+				$k2 = ord(substr($k, 1, 1));
+
+				$pos = $k2 * 256 + $k1;
+				/* END: I just copied this function from the php.net comments, but it should work fine! */
 
 				if ($pos >= 1536 && $pos <= 1791) {
 					$arabic_count++;
@@ -572,9 +576,15 @@
 		/**
 		 * Retreive Youtube embed id from the video full link
 		 */
-		public static function GetYoutubeId(string $url) {
+		public static function GetYoutubeId(
+			?string $url
+		): string {
+			if (self::StringNullOrEmpty($url)) {
+				return "";
+			}
+
 			$pattern =
-			'%^# Match any youtube URL
+				'%^# Match any youtube URL
 				(?:https?://)?  # Optional scheme. Either http or https
 				(?:www\.)?      # Optional www subdomain
 				(?:             # Group host alternatives
@@ -591,56 +601,52 @@
 				$%x';
 
 			$result = preg_match($pattern, $url, $matches);
-			if (false !== $result) {
+			if ($result !== false) {
 				return $matches[1];
 			}
 
-			return false;
+			return "";
 		}
 
 
 		/**
 		 * Encrypt a Link
 		 */
-		public static function EncryptLink($var) : string {
-			$str = "";
-			if (is_string($var)) {
-				$str = $var;
+		public static function EncryptLink(
+			?string $link
+		): string {
+			if (self::StringNullOrEmpty($link)) {
+				return "";
 			}
-			if (is_array($var)) {
-				$str = json_encode($var);
-			}
-
-			$str = str_replace("&", "[amp;]", base64_encode($str));
-	
-			return $str;
+			return str_replace("&", "[amp;]", base64_encode($link));
 		}
 
 		
 		/**
 		 * Dencrypt a Link
 		 */
-		public static function DecryptLink(string $str="") : string {
-			$str = str_replace("[amp;]", "&", $str);
-			$str = base64_decode($str);
-	
-			return $str;
+		public static function DecryptLink(
+			?string $link
+		): string {
+			if (self::StringNullOrEmpty($link)) {
+				return "";
+			}
+			return base64_decode(str_replace("[amp;]", "&", $link));
 		}
 
 
 		/**
 		 * Get Status Class from the given code
 		 */
-		public static function GetStatusClassFromCode(string $code) : string {
-			$class = Status::INFO;
-
+		public static function GetStatusClassFromCode(
+			int $code
+		): string {
 			switch ($code) {
 				case Code::SUCCESS:
 				case HttpCode::OK:
 				case HttpCode::CREATED:
 				case HttpCode::ACCEPTED:
-					$class = Status::SUCCESS;
-					break;
+					return Status::SUCCESS;
 
 				case Code::ERROR:
 				case HttpCode::BADREQUEST:
@@ -650,59 +656,52 @@
 				case HttpCode::NOTALLOWED:
 				case HttpCode::INTERNALERROR:
 				case HttpCode::UNAVAILABLE:
-					$class = Status::ERROR;
-					break;
+					return Status::ERROR;
 
 				case Code::WARNING:
-					$class = Status::WARNING;
-					break;
+					return Status::WARNING;
 
 				case Code::INFO:
 				case Code::COMMON_INFO:
 				case HttpCode::CONTINUE:
 				case HttpCode::PROCESSING:
-					$class = Status::INFO;
-					break;
+					return Status::INFO;
+					
+				default:
+					return Status::INFO;
 			}
-
-			return $class;
 		}
 
 
 		/**
 		 * Get HTML content from the given file path
 		 */
-		public static function GetHtmlContentFromFile(string $filePath) : string {
-			$html = "";
-			if (file_exists($filePath)) {
-				$html = file_get_contents($filePath);
+		public static function GetHtmlContentFromFile(
+			?string $filePath
+		): string {
+			if (self::StringNullOrEmpty($filePath)) {
+				return "";
 			}
-			return $html;
+			if (!file_exists($filePath)) {
+				return "";
+			}
+			return file_get_contents($filePath);
 		}
 
 
 		/**
 		 * Get JSON content from the given file path
 		 */
-		public static function GetJsonContentFromFileAsArray(string $filePath) : array {
-			$json = [];
-			if (file_exists($filePath)) {
-				$json = json_decode(file_get_contents($filePath), true);
+		public static function GetJsonContentFromFileAsArray(
+			?string $filePath
+		): array {
+			if (self::StringNullOrEmpty($filePath)) {
+				return [];
 			}
-			return $json;
-		}
-
-
-		/**
-		 * Function used in "HasArabicChar"
-		 */
-		private static function uniord($u) {
-			/* I just copied this function from the php.net comments, but it should work fine! */
-			$k = mb_convert_encoding($u, 'UCS-2LE', 'UTF-8');
-			$k1 = ord(substr($k, 0, 1));
-			$k2 = ord(substr($k, 1, 1));
-
-			return $k2 * 256 + $k1;
+			if (!file_exists($filePath)) {
+				return [];
+			}
+			return json_decode(file_get_contents($filePath), true);
 		}
 
 		// public static function GetFullUrl() {}
