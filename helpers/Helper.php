@@ -112,7 +112,9 @@
 		/**
 		 * Check if the given string is null or empty
 		 */
-		public static function StringNullOrEmpty($str) : bool {
+		public static function StringNullOrEmpty(
+			$str
+		): bool {
 			return is_null($str) || empty($str) || (is_string($str) && (strlen($str) == 0 || $str == ""));
 		}
 
@@ -120,7 +122,9 @@
 		/**
 		 * Check if the given array is null or empty
 		 */
-		public static function ArrayNullOrEmpty(?array $arr) : bool {
+		public static function ArrayNullOrEmpty(
+			?array $arr
+		): bool {
 			return is_null($arr) || !is_array($arr) || count($arr) == 0;
 		}
 
@@ -128,7 +132,9 @@
 		/**
 		 * Check if the given object is null or empty
 		 */
-		public static function ObjectNullOrEmpty(?object $obj) : bool {
+		public static function ObjectNullOrEmpty(
+			?object $obj
+		): bool {
 			return is_null($obj) || !is_object($obj) || count(array($obj)) == 0;
 		}
 
@@ -136,7 +142,9 @@
 		/**
 		 * Encrypt a Password
 		 */
-		public static function EncryptPassword($password) {
+		public static function EncryptPassword(
+			string $password
+		): string {
 			return hash("sha512", trim($password));
 		}
 
@@ -144,7 +152,13 @@
 		/**
 		 * Generate a Random String
 		 */
-		public static function GenerateRandomKey($length=8, $hasInt=true, $hasString=false, $hasSymbols=false, $lang="en") {
+		public static function GenerateRandomKey(
+			int $length=8,
+			bool $hasInt=true,
+			bool $hasString=false,
+			bool $hasSymbols=false,
+			string $lang="en"
+		): string {
 			$key = "";
 			$possible = "";
 
@@ -172,16 +186,18 @@
 				$possible .= "!@#$%^&*()_-+=?\/|`~.,<>";
 			}
 
-			/* Add random characters to $key until $length is reached */
-			for ($i = 0; $i < $length; $i++) {
-				$minRandNb	= 0;
-				$maxRandNb	= strlen($possible)-1;
-				$rand		= mt_rand($minRandNb, $maxRandNb);
-
-				/* Pick a random character from the possible ones */
-				$char = substr($possible, $rand, 1);
-
-				$key .= $char;
+			if ($possible !== "") {
+				/* Add random characters to $key until $length is reached */
+				for ($i = 0; $i < $length; $i++) {
+					$minRandNb	= 0;
+					$maxRandNb	= strlen($possible)-1;
+					$rand		= mt_rand($minRandNb, $maxRandNb);
+	
+					/* Pick a random character from the possible ones */
+					$char = substr($possible, $rand, 1);
+	
+					$key .= $char;
+				}
 			}
 
 			return $key;
@@ -191,23 +207,32 @@
 		/**
 		 * Removes all the slashes from a string
 		 */
-		public static function RemoveSlashes(string $data): string {
-			return stripslashes(trim(implode("", explode("\\", $data) ) ) );
+		public static function RemoveSlashes(
+			string $str
+		): string {
+			return stripslashes(trim(implode("", explode("\\", $str))));
 		}
 
 
 		/**
 		 * Removes all the spaces from a string
 		 */
-		public static function RemoveSpaces(string $data): string {
-			return str_replace(" ", "", trim($data));
+		public static function RemoveSpaces(
+			string $str
+		): string {
+			return str_replace(" ", "", trim($str));
 		}
 
 
 		/**
 		 * Limit a text to a fixed number of characters
 		 */
-		public static function TruncateStr(string $text, int $nbOfChar, string $extension="...", string $lang="en"): string {
+		public static function TruncateStr(
+			string $text,
+			int $nbOfChar,
+			string $extension="...",
+			string $lang="en"
+		): string {
 			if ($lang == "ar") {
 				$nbOfChar = $nbOfChar * 1.8;
 			}
@@ -225,7 +250,10 @@
 		/**
 		 * Search if is a string begins with a special characters combination
 		 */
-		public static function StringBeginsWith(string $string, string $search): int {
+		public static function StringBeginsWith(
+			string $string,
+			string $search
+		): bool {
 			return (strncmp($string, $search, strlen($search)) == 0);
 		}
 
@@ -233,7 +261,10 @@
 		/**
 		 * Search if is a string end with a special characters combination
 		 */
-		public static function StringEndsWith(string $string, string $search) {
+		public static function StringEndsWith(
+			string $string,
+			string $search
+		): bool {
 			return substr($string, (strlen($string) - strlen($search))) == $search ? true : false;
 		}
 
@@ -241,7 +272,10 @@
 		/**
 		 * Search if is a string contacins a value
 		 */
-		public static function StringHasChar(string $string, string $search) {
+		public static function StringHasChar(
+			string $string,
+			string $search
+		): bool {
 			return strpos($string, $search) !== false;
 		}
 
@@ -249,7 +283,10 @@
 		/**
 		 * Check if a given substring exists in a string
 		 */
-		public static function IsInString(string $search, string $string){
+		public static function IsInString(
+			string $search,
+			string $string
+		): bool {
 			return strpos($string, $search) !== false ? true : false;
 		}
 
@@ -257,7 +294,10 @@
 		/**
 		 * Search for the allowed tags in the content and display them
 		 */
-		public static function StripHtml(string $content, string $allow=""): string {
+		public static function StripHtml(
+			string $content,
+			$allow=""
+		): string {
 			return strip_tags($content, $allow);
 		}
 
@@ -265,7 +305,10 @@
 		/**
 		 * Replace all values in a text
 		 */
-		public static function TextReplace(string $text, array $params=[]): string {
+		public static function TextReplace(
+			string $text,
+			array $params=[]
+		): string {
 			foreach ($params AS $k => $v) {
 				$text = str_replace($k, $v, $text);
 			}
@@ -277,17 +320,21 @@
 		/**
 		 * Separate Camel Case String
 		 */
-		public static function SplitCamelcaseString(string $str, string $split=" "): string {
+		public static function SplitCamelcaseString(
+			string $str,
+			string $split=" "
+		): string {
 			$pieces = preg_split("/(?=[A-Z])/", $str);
-	
-			return implode($split, $pieces);
+			return trim(implode($split, $pieces));
 		}
 
 
 		/**
 		 * Get the string value safely
 		 */
-		public static function GetStringSafe(string $str) : string {
+		public static function GetStringSafe(
+			?string $str
+		): string {
 			if (self::StringNullOrEmpty($str)) {
 				return "";
 			}
@@ -296,63 +343,32 @@
 
 
 		/**
-		 * Converts the given String into an Array
-		 */
-		public static function StringToArr(string $str, int $elemLength=0, string $separator="") : array {
-			$arr = [$str];
-			
-			if ($elemLength > 0) {
-				$arr = [];
-				while (strlen($str) > $elemLength) {
-					$chunk = substr($str, 0, $elemLength);
-	
-					$arr[] = $chunk;
-					$str   = substr($str, $elemLength);
-				}
-				if (strlen($str) > 0) {
-					$arr[] = $str;
-				}
-			}
-			else if ($separator != "") {
-				$arr = explode($separator, $str);
-			}
-			
-			return $arr;
-		}
-
-
-		/**
 		 * Generates a Class Name from the Given String
 		 */
-		public static function GenerateClassNameFromString(string $str) : string {
-			return str_replace(" ", "", ucwords(str_replace("-", " ", $str)));
-		}
-
-
-		/**
-		 * Returns a safe file name
-		 */
-		public static function SafeFileName(string $str): string {
-			return preg_replace('[^\p{L}0-9\-_]', "-", strtolower($str));
-		}
-
-
-		/**
-		 * Returns a safe file name by
-		 *  - Converting spaces to '-',
-		 *  - Removing chars that are not alphanumeric,
-		 *  - Combine multiple dashes (i.e., '---') into one dash '-'.
-		 */
-		public static function SafeFileName2(string $str): string {
-			$str = preg_replace("/[-]+/", "-", preg_replace("/[^a-z0-9-]/", "", strtolower( str_replace(" ", "-", $str) ) ) );
-			return $str;
+		public static function GenerateClassNameFromString(
+			string $str
+		): string {
+			return str_replace(
+				" ",
+				"",
+				ucwords(
+					str_replace(
+						"-",
+						" ",
+						$str
+					)
+				)
+			);
 		}
 
 
 		/**
 		 * Converts the given string into a safe one | Supports English & Arabic
 		 */
-		public static function SafeUrl(string $str, string $trimChar="-"): string {
+		public static function SafeName(
+			string $str,
+			string $trimChar="-"
+		): string {
 			$friendlyURL = htmlentities($str, ENT_COMPAT, "UTF-8", false);
 			$friendlyURL = preg_replace('/&([a-z]{1,2})(?:acute|lig|grave|ring|tilde|uml|cedil|caron);/i','\1',$friendlyURL);
 			$friendlyURL = html_entity_decode($friendlyURL,ENT_COMPAT, "UTF-8");
@@ -372,7 +388,9 @@
 		/**
 		 * Checks if the given str contains any arabic characters
 		 */
-		public static function HasArabicChar(string $str): bool {
+		public static function HasArabicChar(
+			string $str
+		): bool {
 			if(mb_detect_encoding($str) !== 'UTF-8') {
 				$str = mb_convert_encoding($str, mb_detect_encoding($str), "UTF-8");
 			}
@@ -412,94 +430,110 @@
 
 		
 		/**
-		 * Converts a string into an array
+		 * Converts the given String into an Array
 		 */
-		public static function ExplodeStrArr(string $str, string $delimiter=","): array {
-			if ($str != "") {
-				$pos = strpos($str, $delimiter);
-				if (!$pos) {
-					return [$str];
-				}
-				else {
-					return explode($delimiter, $str);
-				}
-			}
-			else {
+		public static function ExplodeStrToArr(
+			?string $str,
+			string $delimiter="",
+			int $chunkLength=0
+		): array {
+			if (self::StringNullOrEmpty($str)) {
 				return [];
 			}
+
+			if (!self::StringNullOrEmpty($delimiter)) {
+				return explode($delimiter, $str);
+			}
+			
+			if ($chunkLength > 0) {
+				$arr = [];
+				while (strlen($str) > $chunkLength) {
+					$chunk = substr($str, 0, $chunkLength);
+	
+					$arr[] = $chunk;
+					$str   = substr($str, $chunkLength);
+				}
+				if (strlen($str) > 0) {
+					$arr[] = $str;
+				}
+				return $arr;
+			}
+
+			return [$str];
 		}
 
 
 		/**
 		 * Returns a [delimiter] seperated string from the values inside the given array
 		 */
-		public static function ImplodeArrStr(array $array, string $delimiter=" "): string {
-			$string = "";
-
-			foreach ($array as $str) {
-				if ($string != "" && $str != "") {
-					$string .= $delimiter;
-				}
-
-				$string .=  $str;
+		public static function ImplodeArrToStr(
+			?array $array,
+			string $delimiter=" "
+		): string {
+			if (self::ArrayNullOrEmpty($array)) {
+				return "";
 			}
 
-			return $string;
+			return implode($delimiter, self::UnsetArrayEmptyValues($array));
 		}
 
 
 		/**
 		 * Get the value of the given key in a given array
 		 */
-		public static function GetValueFromArr(string $key, array $arr): string {
-			$str = "";
-
-			if (isset($arr) && is_array($arr) && sizeof($arr) > 0 && isset($arr[$key])) {
-				$str = $arr[$key];
+		public static function GetValueFromArrByKey(
+			?array $arr,
+			string $key=""
+		): string {
+			if (self::ArrayNullOrEmpty($arr) || !isset($arr[$key])) {
+				return "";
 			}
-
-			return $str;
+			return $arr[$key];
 		}
 
 
 		/**
 		 * Unset Empty Values from the given object/array
 		 */
-		public static function UnsetEmptyValues(array $var): array {
-			foreach ($var AS $k => $v) {
-				if
-				(
-					(is_string($v) && $v == "")
-					||
-					(is_array($v) && sizeof($v) == 0)
-					||
-					is_null($v)
-				) {
-					if (is_object($var)) {
-						unset($var->$k);
-					}
-					else if (is_array($var)) {
-						unset($var[$k]);
-					}
-				}
+		public static function UnsetArrayEmptyValues(
+			?array $array
+		): array {
+			if (self::ArrayNullOrEmpty($array)) {
+				return [];
 			}
-	
-			return $var;
+
+			return array_values(
+				array_filter(
+					$array,
+					function($value) {
+						if (!Helper::StringNullOrEmpty($value)) {
+							return $value;
+						}
+					}
+				)
+			);
 		}
 
 
 		/**
 		 * Generate Key Value String from Array
 		 */
-		public static function GererateKeyValueStringFromArray(array $params=[], string $keyPrefix="", string $keyValueJoin="=", string $valueHolder="\"", string $elemsJoin="") : string {
+		public static function GererateKeyValueStringFromArray(
+			?array $params,
+			string $keyPrefix="",
+			string $keyValueJoin="=",
+			string $valueHolder="\"",
+			string $elemsJoin=" "
+		): string {
+			if (self::ArrayNullOrEmpty($params)) {
+				return "";
+			}
+
 			$str = "";
-	
 			foreach ($params AS $k => $v) {
 				$k = $keyPrefix . $k;
-				
-				$str .= ($str != "" ? " " : "") . $k . $keyValueJoin . $valueHolder . $v . $valueHolder . $elemsJoin;
+				$str .= ($str != "" ? $elemsJoin : "") . $k . $keyValueJoin . $valueHolder . $v . $valueHolder;
 			}
-	
 			return $str;
 		}
 
@@ -507,20 +541,26 @@
 		/**
 		 * Checks if the given directory is available in the domain folders
 		 */
-		public static function DirExists($dir_name=false, string $path="./"): bool {
-			if (!$dir_name) {
+		public static function DirExists(
+			?string $dirName,
+			string $path="./",
+			bool $checkSubFolders=false
+		): bool {
+			if (self::StringNullOrEmpty($dirName)) {
 				return false;
 			}
 
-			if (is_dir($path . $dir_name)) {
+			if (is_dir($path . $dirName)) {
 				return true;
 			}
 
-			$tree = glob($path . "*", GLOB_ONLYDIR);
-			if ($tree && count($tree) > 0) {
-				foreach ($tree AS $dir) {
-					if (self::DirExists($dir_name, $dir . "/")) {
-						return true;
+			if ($checkSubFolders) {
+				$tree = glob($path . "*", GLOB_ONLYDIR);
+				if ($tree && count($tree) > 0) {
+					foreach ($tree AS $dir) {
+						if (self::DirExists($dirName, $dir . "/")) {
+							return true;
+						}
 					}
 				}
 			}

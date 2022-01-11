@@ -1,5 +1,5 @@
 <?php
-	//To Run: .\vendor/bin/phpunit .\Tests\Helpers\CurrencyHelperTest.php
+	//To Run: .\vendor/bin/phpunit .\Units\Helpers\CurrencyHelperTest.php
 	use PHPUnit\Framework\TestCase;
 	use RawadyMario\Helpers\CurrencyHelper;
 	use RawadyMario\Models\CurrencyPosition;
