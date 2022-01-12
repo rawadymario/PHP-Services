@@ -781,8 +781,104 @@
 			);
 			
 			$this->assertEquals(
-				[],
+				[
+					"fullName" => [
+						"firstName" => "Mario",
+						"middleName" => "Abdallah",
+						"lastName" => "Rawady",
+					],
+					"position" => "Senior Software Engineer",
+					"languages" => [
+						"Arabic",
+						"English",
+						"French",
+						"Spanish",
+					]
+				],
 				Helper::GetJsonContentFromFileAsArray(__DIR__ . "/../_TestsForUnits/testGetJsonContentFromFileAsArraySuccess.json")
+			);
+		}
+
+		public function testGenerateFullUrlSuccess() {
+			$this->assertEquals(
+				"home",
+				Helper::GenerateFullUrl("home")
+			);
+			
+			$this->assertEquals(
+				"home/en",
+				Helper::GenerateFullUrl("home", "en")
+			);
+			
+			$this->assertEquals(
+				"home?lang=en",
+				Helper::GenerateFullUrl("home", "en", [], [], "", false)
+			);
+			
+			$this->assertEquals(
+				"products/en/product-001",
+				Helper::GenerateFullUrl("products", "en", [
+					"key" => "product-001"
+				])
+			);
+			
+			$this->assertEquals(
+				"products?lang=en&key=product-001",
+				Helper::GenerateFullUrl("products", "en", [
+					"key" => "product-001"
+				], [], "", false)
+			);
+			
+			$this->assertEquals(
+				"products/en/product-001?filter=active",
+				Helper::GenerateFullUrl("products", "en", [
+					"key" => "product-001"
+				], [
+					"filter" => "active"
+				])
+			);
+			
+			$this->assertEquals(
+				"products?lang=en&key=product-001&filter=active",
+				Helper::GenerateFullUrl("products", "en", [
+					"key" => "product-001"
+				], [
+					"filter" => "active"
+				], "", false)
+			);
+			
+			$this->assertEquals(
+				"products/en/product-001?filter=active&categories%5B%5D=category-01&categories%5B%5D=category-02&categories%5B%5D=category-03",
+				Helper::GenerateFullUrl("products", "en", [
+					"key" => "product-001"
+				], [
+					"filter" => "active",
+					"categories" => [
+						"category-01",
+						"category-02",
+						"category-03",
+					]
+				])
+			);
+
+			$this->assertEquals(
+				"https://rawadymario.com/home/en",
+				Helper::GenerateFullUrl("home", "en", [], [], "https://rawadymario.com/")
+			);
+
+			$this->assertEquals(
+				"https://rawadymario.com/home/en",
+				Helper::GenerateFullUrl("home", "en", [], [], "https://rawadymario.com")
+			);
+			
+			$this->assertEquals(
+				"https://rawadymario.com/home/en",
+				Helper::GenerateFullUrl("home", "en", [], [], "https://rawadymario.com////")
+			);
+			
+			$this->assertEquals(
+				"www.rawadymario.com/home/en",
+				Helper::GenerateFullUrl("home", "en", [], [], "www.rawadymario.com////")
 			);
 		}
 		

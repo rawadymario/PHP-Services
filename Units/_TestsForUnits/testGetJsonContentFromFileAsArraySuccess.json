@@ -1,0 +1,14 @@
+{
+	"fullName": {
+		"firstName": "Mario",
+		"middleName": "Abdallah",
+		"lastName": "Rawady"
+	},
+	"position": "Senior Software Engineer",
+	"languages": [
+		"Arabic",
+		"English",
+		"French",
+		"Spanish"
+	]
+}

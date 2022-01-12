@@ -704,6 +704,89 @@
 			return json_decode(file_get_contents($filePath), true);
 		}
 
+
+		/**
+		 * Adds the root folder to a url, and converts it to a safe, user friendly URL
+		 */
+		public static function GenerateFullUrl(
+			string $page,
+			string $lang="",
+			array $safeParams=[],
+			array $optionalParams=[],
+			string $root="",
+			bool $safeUrl=true
+		) {
+			$args = "";
+			$finalSafeParams = [];
+
+			if ($lang != "") {
+				$finalSafeParams["lang"] = $lang;
+			}
+
+			foreach ($safeParams AS $k => $v) {
+				$finalSafeParams[$k] = $v;
+			}
+
+			foreach ($finalSafeParams AS $k => $v) {
+				if (!$safeUrl) {
+					$args .= $args === "" ? "?" : "&";
+				}
+				$args .= !$safeUrl ? $k . "=" . $v : "/" . $v;
+			}
+
+			foreach ($optionalParams as $k => $v){
+				if (is_array($v)) {
+					foreach ($v AS $v1) {
+						if ($v1 !== "") {
+							$args .= (strpos($args, "?") === false ? "?" : "&") . $k . "%5B%5D=" . $v1 ;	
+						}
+					}
+				}
+				else {
+					if ($v !== "") {
+						$args .= (strpos($args, "?") === false ? "?" : "&") . $k . "=" . $v ;
+					}
+				}
+			}
+
+			if (!self::StringNullOrEmpty($root) && !self::StringEndsWith($root, "/")) {
+				$root .= "/";
+			}
+			$url = $root . $page . $args;
+
+			$urlScheme = "";
+			if (self::StringBeginsWith($url, "http://")) {
+				$urlScheme = "http://";
+			}
+			if (self::StringBeginsWith($url, "https://")) {
+				$urlScheme = "https://";
+			}
+
+			if (!self::StringNullOrEmpty($urlScheme)) {
+				$url = str_replace($urlScheme, "", $url);
+			}
+			
+			while (strpos($url, "//") !== false) {
+				$url = str_replace("//", "/", $url) ;
+			}
+			$url = $urlScheme . $url;
+
+			return $url ;
+		}
+
+
+		// function getPathWithVersion($path="", $pre=WEBSITE_ROOT, $withVersion=true) {
+		// 	return $pre . $path . ($withVersion ? "?v=" . WEBSITE_VERSION : "");
+		// }
+
+
+		// function makeUrlWithWebsiteRoot($url) {
+		// 	$pre	= Helper::StringBeginsWith(WEBSITE_ROOT, "https://") ? "https://" : "http://";
+		// 	$root	= str_replace(["http://", "https://"], "", WEBSITE_ROOT);
+
+		// 	return $pre . str_replace("//", "/", $root . $url);
+		// }
+
 		// public static function GetFullUrl() {}
 		// public static function GetPathWithVersion() {}
 
