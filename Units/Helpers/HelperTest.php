@@ -881,6 +881,24 @@
 				Helper::GenerateFullUrl("home", "en", [], [], "www.rawadymario.com////")
 			);
 		}
+
+		public function testAddVersionParameterToPathSuccess() {
+			$this->assertEquals(
+				"assets/css/styles.css",
+				Helper::AddVersionParameterToPath("assets/css/styles.css", "")
+			);
+			
+			$this->assertEquals(
+				"https://rawadymario.com/assets/css/styles.css",
+				Helper::AddVersionParameterToPath("assets/css/styles.css", "https://rawadymario.com")
+			);
+			
+			$this->assertEquals(
+				"https://rawadymario.com/assets/css/styles.css?v=1.0",
+				Helper::AddVersionParameterToPath("assets/css/styles.css", "https://rawadymario.com", "1.0")
+			);
+		}
+		
 		
 	}
 	
