@@ -775,19 +775,17 @@
 		}
 
 
-		// function getPathWithVersion($path="", $pre=WEBSITE_ROOT, $withVersion=true) {
-		// 	return $pre . $path . ($withVersion ? "?v=" . WEBSITE_VERSION : "");
-		// }
-
-
-		// function makeUrlWithWebsiteRoot($url) {
-		// 	$pre	= Helper::StringBeginsWith(WEBSITE_ROOT, "https://") ? "https://" : "http://";
-		// 	$root	= str_replace(["http://", "https://"], "", WEBSITE_ROOT);
-
-		// 	return $pre . str_replace("//", "/", $root . $url);
-		// }
-
-		// public static function GetFullUrl() {}
-		// public static function GetPathWithVersion() {}
+		/**
+		 * Adds a version parameter to the given path
+		 */
+		public static function AddVersionParameterToPath(
+			string $path,
+			string $websiteRoot,
+			string $version=""
+		) {
+			return self::GenerateFullUrl($path, "", [], [
+				"v" => $version
+			], $websiteRoot);
+		}
 
 	}
