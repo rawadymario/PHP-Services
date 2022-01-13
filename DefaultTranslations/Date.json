@@ -54,6 +54,201 @@
 			"en": "and",
 			"fr": "et",
 			"ar": "و"
+		},
+		"monday": {
+			"en": "monday",
+			"fr": "lundi",
+			"ar": "الاثنين"
+		},
+		"mon": {
+			"en": "mon",
+			"fr": "lundi",
+			"ar": "الاثنين"
+		},
+		"tuesday": {
+			"en": "tuesday",
+			"fr": "mardi",
+			"ar": "الثلاثاء"
+		},
+		"tue": {
+			"en": "tue",
+			"fr": "mardi",
+			"ar": "الثلاثاء"
+		},
+		"wednesday": {
+			"en": "wednesday",
+			"fr": "mercredi",
+			"ar": "الأربعاء"
+		},
+		"wed": {
+			"en": "wed",
+			"fr": "mercredi",
+			"ar": "الأربعاء"
+		},
+		"thursday": {
+			"en": "thursday",
+			"fr": "jeudi",
+			"ar": "الخميس"
+		},
+		"thu": {
+			"en": "thu",
+			"fr": "jeudi",
+			"ar": "الخميس"
+		},
+		"friday": {
+			"en": "friday",
+			"fr": "vendredi",
+			"ar": "الجمعة"
+		},
+		"fri": {
+			"en": "fri",
+			"fr": "vendredi",
+			"ar": "الجمعة"
+		},
+		"saturday": {
+			"en": "saturday",
+			"fr": "samedi",
+			"ar": "السبت"
+		},
+		"sat": {
+			"en": "sat",
+			"fr": "samedi",
+			"ar": "السبت"
+		},
+		"sunday": {
+			"en": "sunday",
+			"fr": "dimanche",
+			"ar": "الأحد"
+		},
+		"sun": {
+			"en": "sun",
+			"fr": "dimanche",
+			"ar": "الأحد"
+		},
+		"january": {
+			"en": "january",
+			"fr": "janvier",
+			"ar": "كانون ثاني"
+		},
+		"jan": {
+			"en": "january",
+			"fr": "janvier",
+			"ar": "كانون ثاني"
+		},
+		"february": {
+			"en": "february",
+			"fr": "février",
+			"ar": "شباط"
+		},
+		"feb": {
+			"en": "february",
+			"fr": "février",
+			"ar": "شباط"
+		},
+		"march": {
+			"en": "march",
+			"fr": "mars",
+			"ar": "آذار"
+		},
+		"mar": {
+			"en": "march",
+			"fr": "mars",
+			"ar": "آذار"
+		},
+		"april": {
+			"en": "april",
+			"fr": "avril",
+			"ar": "نيسان"
+		},
+		"apr": {
+			"en": "april",
+			"fr": "avril",
+			"ar": "نيسان"
+		},
+		"may": {
+			"en": "may",
+			"fr": "mai",
+			"ar": "أيار"
+		},
+		"june": {
+			"en": "june",
+			"fr": "juin",
+			"ar": "حزيران"
+		},
+		"jun": {
+			"en": "june",
+			"fr": "juin",
+			"ar": "حزيران"
+		},
+		"july": {
+			"en": "july",
+			"fr": "juiller",
+			"ar": "تموز"
+		},
+		"jul": {
+			"en": "july",
+			"fr": "juiller",
+			"ar": "تموز"
+		},
+		"august": {
+			"en": "august",
+			"fr": "août",
+			"ar": "آب"
+		},
+		"aug": {
+			"en": "august",
+			"fr": "août",
+			"ar": "آب"
+		},
+		"september": {
+			"en": "september",
+			"fr": "septembre",
+			"ar": "أيلول"
+		},
+		"sep": {
+			"en": "september",
+			"fr": "septembre",
+			"ar": "أيلول"
+		},
+		"october": {
+			"en": "october",
+			"fr": "octobre",
+			"ar": "تشرين أول"
+		},
+		"oct": {
+			"en": "october",
+			"fr": "octobre",
+			"ar": "تشرين أول"
+		},
+		"november": {
+			"en": "november",
+			"fr": "novembre",
+			"ar": "تشرين ثاني"
+		},
+		"nov": {
+			"en": "november",
+			"fr": "novembre",
+			"ar": "تشرين ثاني"
+		},
+		"december": {
+			"en": "december",
+			"fr": "décembre",
+			"ar": "كانون أول"
+		},
+		"dec": {
+			"en": "december",
+			"fr": "décembre",
+			"ar": "كانون أول"
+		},
+		"am": {
+			"en": "am",
+			"fr": "matin",
+			"ar": "صباحاً"
+		},
+		"pm": {
+			"en": "pm",
+			"fr": "soir",
+			"ar": "مساءً"
 		}
 	}
 }

@@ -9,8 +9,8 @@
 		/**
 		 * Cleans a date before inserting it to database
 		 */
-		function CleanDate(
-			string $val
+		public static function CleanDate(
+			?string $val
 		): string {
 			if (Helper::StringNullOrEmpty($val)) {
 				return "null";
