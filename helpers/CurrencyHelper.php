@@ -34,10 +34,12 @@
 		 */
 		public static function GetLbpAmount(
 			$amount,
-			int $decimalPlaces=2,
-			bool $format=false
-		) {
-			return Helper::ConvertToDec((ceil($amount / 250) * 250), $decimalPlaces, $format);
+			int $decimalPlaces=2
+		): float {
+			if (!is_numeric($amount)) {
+				return 0;
+			}
+			return Helper::ConvertToDec((ceil($amount / 250) * 250), $decimalPlaces);
 		}
 
 		

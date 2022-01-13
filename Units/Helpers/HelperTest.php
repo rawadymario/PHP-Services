@@ -124,6 +124,43 @@
 			);
 		}
 
+		public function testConvertToDecAsStringSuccess() {
+			$this->assertEquals(
+				"0",
+				Helper::ConvertToDecAsString("Mario")
+			);
+			
+			$this->assertEquals(
+				"0.0",
+				Helper::ConvertToDecAsString("Mario", 1)
+			);
+
+			$this->assertEquals(
+				"10",
+				Helper::ConvertToDecAsString("10")
+			);
+
+			$this->assertEquals(
+				"10.00",
+				Helper::ConvertToDecAsString("10", 2)
+			);
+
+			$this->assertEquals(
+				"10.02",
+				Helper::ConvertToDecAsString("10.02", 2)
+			);
+
+			$this->assertEquals(
+				"10.00",
+				Helper::ConvertToDecAsString("10.002", 2)
+			);
+
+			$this->assertEquals(
+				"10.002",
+				Helper::ConvertToDecAsString("10.002", 3)
+			);
+		}
+
 		public function testStringNullOrEmptySuccess() {
 			$this->assertTrue(
 				Helper::StringNullOrEmpty(null)
@@ -898,7 +935,6 @@
 				Helper::AddVersionParameterToPath("assets/css/styles.css", "https://rawadymario.com", "1.0")
 			);
 		}
-		
 		
 	}
 	

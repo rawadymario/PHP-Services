@@ -87,16 +87,11 @@
 		 */
 		public static function ConvertToDec(
 			$val,
-			int $decimalPlaces=2,
-			bool $numberFormat=false
+			int $decimalPlaces=2
 		): float {
 			if ((isset($val)) && (trim($val) !== "")) {
 				$x = floatval($val);
 				$x = round($x, $decimalPlaces);
-
-				if ($numberFormat) {
-					$x = number_format($x, $decimalPlaces);
-				}
 
 				if (is_numeric($x) && is_nan($x)) {
 					return 0;
@@ -106,6 +101,17 @@
 			}
 
 			return 0;
+		}
+
+
+		/**
+		 * Converts a value to a decimal and returns as a String
+		 */
+		public static function ConvertToDecAsString(
+			$val,
+			int $decimalPlaces=0
+		): string {
+			return number_format(self::ConvertToDec($val, $decimalPlaces), $decimalPlaces);
 		}
 
 
