@@ -42,9 +42,7 @@
 			}
 			$dateValue = date($format, $date);
 
-			return $dateValue;
-
-			// return LangHelper::DateFromEnglish($dateEn, $lang);
+			return TranslateHelper::TranslateString($dateValue, $lang, [], false);
 		}
 		
 

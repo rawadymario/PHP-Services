@@ -1,8 +1,8 @@
 <?php
 	//To Run: .\vendor/bin/phpunit .\Units\Helpers\DateHelperTest.php
 	use PHPUnit\Framework\TestCase;
-use RawadyMario\Constants\DateFormats;
-use RawadyMario\Helpers\DateHelper;
+	use RawadyMario\Constants\DateFormats;
+	use RawadyMario\Helpers\DateHelper;
 
 	final class DateHelperTest extends TestCase {
 		
@@ -57,6 +57,11 @@ use RawadyMario\Helpers\DateHelper;
 			$this->assertEquals(
 				"07 Jan, 2022",
 				DateHelper::RenderDate("2022-01-07", DateFormats::DATE_FORMAT_NICE)
+			);
+			
+			$this->assertEquals(
+				"٠٧ كانون ثاني، ٢٠٢٢",
+				DateHelper::RenderDate("2022-01-07", DateFormats::DATE_FORMAT_NICE, "ar")
 			);
 			
 		}
