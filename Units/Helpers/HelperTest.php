@@ -935,6 +935,62 @@
 				Helper::AddVersionParameterToPath("assets/css/styles.css", "https://rawadymario.com", "1.0")
 			);
 		}
+
+		public function testGetAllFilesSuccess() {
+			$dir = str_replace("\Helpers", "\_TestsForUnits\Recursive", __DIR__);
+			
+			$this->assertEqualsCanonicalizing(
+				[
+					$dir . "/file1.html",
+					$dir . "/file2.html",
+				],
+				Helper::GetAllFiles($dir, false)
+			);
+			
+			$this->assertEqualsCanonicalizing(
+				[
+					$dir . "/file1.html",
+					$dir . "/file2.html",
+					$dir . "/Folder1/file1.html",
+					$dir . "/Folder1/file2.html",
+					$dir . "/Folder2/file1.html",
+					$dir . "/Folder2/file2.html",
+				],
+				Helper::GetAllFiles($dir, true)
+			);
+		}
+
+		public function testConvertMultidimentionArrayToSingleDimentionSuccess() {
+			$this->assertEquals([
+				"name.first" => "Mario",
+				"name.middle" => "Abdallah",
+				"name.last" => "Rawady",
+				"address.building" => "Bldg",
+				"address.street" => "Street",
+				"address.region" => "Region",
+				"address.country" => "Lebanon",
+				"contact.info.mobile" => "+961111111",
+				"contact.info.email" => "email@test.com",
+			], Helper::ConvertMultidimentionArrayToSingleDimention([
+				"name" => [
+					"first" => "Mario",
+					"middle" => "Abdallah",
+					"last" => "Rawady",
+				],
+				"address" => [
+					"building" => "Bldg",
+					"street" => "Street",
+					"region" => "Region",
+					"country" => "Lebanon"
+				],
+				"contact" => [
+					"info" => [
+						"mobile" => "+961111111",
+						"email" => "email@test.com"
+					]
+				]
+			]));
+		}
 		
 	}
 	

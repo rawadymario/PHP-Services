@@ -794,4 +794,56 @@
 			], $websiteRoot);
 		}
 
+
+		/**
+		 * Get all files in a path 
+		 */
+		public static function GetAllFiles(
+			string $path,
+			bool $recursive=false
+		): array {
+			$filesArr = [];
+
+			if (is_dir($path)) {
+				$files = scandir($path);
+		
+				foreach ($files AS $file) {
+					if (!is_dir($path . "/" . $file)) {
+						$filesArr[] = $path . "/" . $file;
+					}
+					else {
+						if ($recursive && $file !== "." && $file !== "..") {
+							$filesArr = array_merge($filesArr, self::GetAllFiles($path . "/" . $file, $recursive));
+						}
+					}
+				}
+			}
+
+			return $filesArr;
+		}
+
+
+		/**
+		 * Converts a multidimentional array to a single dimentional array
+		 */
+		public static function ConvertMultidimentionArrayToSingleDimention(
+			array $arrayToConvert,
+			string $preKey=""
+		): array {
+			$returnArray = [];
+
+			foreach ($arrayToConvert AS $k => $v) {
+				if (is_array($v)) {
+					$returnArray = array_merge($returnArray, 
+						self::ConvertMultidimentionArrayToSingleDimention($v, $preKey . $k . ".")
+					);
+				}
+				else {
+					$returnArray[$preKey . $k] = $v;
+				}
+			}
+
+			return $returnArray;
+		}
+
 	}
