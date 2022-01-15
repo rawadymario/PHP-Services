@@ -46,20 +46,16 @@
 		}
 		
 
-		// /**
-		//  * Returns selected date format from the given strdate
-		//  */
-		// public static function RenderDateFromTime(
-		// 	int $dateStr,
-		// 	string $format=DateFormats::DATE_FORMAT_SAVE,
-		// 	?string $lang=""
-		// ): string {
-		// 	if (Helper::StringNullOrEmpty($lang)) {
-		// 		$lang = LangHelper::$ACTIVE;
-		// 	}
-			
-		// 	return self::RenderDate($dateStr, $format, $lang, true);
-		// }
+		/**
+		 * Returns selected date format from the given strdate
+		 */
+		public static function RenderDateFromTime(
+			int $dateStr,
+			string $format=DateFormats::DATE_FORMAT_SAVE,
+			?string $lang=""
+		): string {
+			return self::RenderDate($dateStr, $format, $lang, true);
+		}
 
 
 		// /**
