@@ -1,6 +1,7 @@
 <?php
 	//To Run: .\vendor/bin/phpunit .\Units\Helpers\TranslateHelperTest.php
 	use PHPUnit\Framework\TestCase;
+	use RawadyMario\Constants\Lang;
 	use RawadyMario\Helpers\TranslateHelper;
 
 	final class TranslateHelperTest extends TestCase {
@@ -37,27 +38,27 @@
 
 			$this->assertEquals(
 				"سنة",
-				TranslateHelper::Translate("date.year", "ar")
+				TranslateHelper::Translate("date.year", Lang::AR)
 			);
 
 			$this->assertEquals(
 				"سنة",
-				TranslateHelper::Translate("year", "ar", false, [], false)
+				TranslateHelper::Translate("year", Lang::AR, false, [], false)
 			);
 
 			$this->assertEquals(
 				"date.yearss",
-				TranslateHelper::Translate("date.yearss", "en", false)
+				TranslateHelper::Translate("date.yearss", Lang::EN, false)
 			);
 
 			$this->assertEquals(
 				"",
-				TranslateHelper::Translate("date.yearss", "en", true)
+				TranslateHelper::Translate("date.yearss", Lang::EN, true)
 			);
 
 			$this->assertEquals(
 				"Mario",
-				TranslateHelper::Translate("date.year", "en", false, [
+				TranslateHelper::Translate("date.year", Lang::EN, false, [
 					"year" => "Mario"
 				])
 			);
@@ -81,12 +82,12 @@
 
 			$this->assertEquals(
 				"هذا هو سنة ٢٠٢٢",
-				TranslateHelper::TranslateString("هذا هو date.Year number.2number.0number.2number.2", "ar")
+				TranslateHelper::TranslateString("هذا هو date.Year number.2number.0number.2number.2", Lang::AR)
 			);
 
 			$this->assertEquals(
 				"هذا هو سنة ٢٠٢٢",
-				TranslateHelper::TranslateString("هذا هو Year 2022", "ar", [], false)
+				TranslateHelper::TranslateString("هذا هو Year 2022", Lang::AR, [], false)
 			);
 		}
 

@@ -3,6 +3,7 @@
 
 	use RawadyMario\Constants\Code;
 	use RawadyMario\Constants\HttpCode;
+	use RawadyMario\Constants\Lang;
 	use RawadyMario\Constants\Status;
 
 	class Helper {
@@ -163,26 +164,26 @@
 			bool $hasInt=true,
 			bool $hasString=false,
 			bool $hasSymbols=false,
-			string $lang="en"
+			string $lang=Lang::EN
 		): string {
 			$key = "";
 			$possible = "";
 
 			if ($hasInt) {
-				if ($lang == "en" || $lang == "all") {
+				if ($lang == Lang::EN || $lang == Lang::ALL) {
 					$possible .= "0123456789";
 				}
-				if ($lang == "ar" || $lang == "all") {
+				if ($lang == Lang::AR || $lang == Lang::ALL) {
 					$possible .= "٠١٢٣٤٥٦٧٨٩";
 				}
 			}
 
 			if ($hasString) {
-				if ($lang == "en" || $lang == "all") {
+				if ($lang == Lang::EN || $lang == Lang::ALL) {
 					$possible .= "abcdefghijklmnopqrstuvwxyz";
 					$possible .= "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 				}
-				if ($lang == "ar" || $lang == "all") {
+				if ($lang == Lang::AR || $lang == Lang::ALL) {
 					// $possible .= "ابتثجحخدذرزسشصضطظعغفقكلمنهوي";
 					$possible .= "ضصثقفغعهخحجدشسيبلاتنمكطئءؤرلاىةوزظ";
 				}
@@ -237,9 +238,9 @@
 			string $text,
 			int $nbOfChar,
 			string $extension="...",
-			string $lang="en"
+			string $lang=Lang::EN
 		): string {
-			if ($lang == "ar") {
+			if ($lang == Lang::AR) {
 				$nbOfChar = $nbOfChar * 1.8;
 			}
 

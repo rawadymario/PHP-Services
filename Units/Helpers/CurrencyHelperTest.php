@@ -6,7 +6,7 @@
 
 	final class CurrencyHelperTest extends TestCase {
 
-		public function testAddCurrencySuccess(): void {
+		public function testAddCurrency(): void {
 			$this->assertEquals(
 				"$ 10",
 				CurrencyHelper::AddCurrency(10, "$", CurrencyPosition::PRE, " ")
@@ -28,7 +28,7 @@
 			);
 		}
 
-		public function testGetLbpAmountSuccess(): void {
+		public function testGetLbpAmount(): void {
 			$this->assertEquals(
 				0,
 				CurrencyHelper::GetLbpAmount("Mario")

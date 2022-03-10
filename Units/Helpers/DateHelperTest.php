@@ -2,11 +2,12 @@
 	//To Run: .\vendor/bin/phpunit .\Units\Helpers\DateHelperTest.php
 	use PHPUnit\Framework\TestCase;
 	use RawadyMario\Constants\DateFormats;
+	use RawadyMario\Constants\Lang;
 	use RawadyMario\Helpers\DateHelper;
 
 	final class DateHelperTest extends TestCase {
 
-		public function testCleanDateSuccess(): void {
+		public function testCleanDate(): void {
 			$this->assertEquals(
 				"null",
 				DateHelper::CleanDate(null)
@@ -23,7 +24,7 @@
 			);
 		}
 
-		public function testRenderDateSuccess(): void {
+		public function testRenderDate(): void {
 			$this->assertEquals(
 				"",
 				DateHelper::RenderDate(null)
@@ -61,7 +62,7 @@
 
 			$this->assertEquals(
 				"٠٧ كانون ثاني، ٢٠٢٢",
-				DateHelper::RenderDate("2022-01-07", DateFormats::DATE_FORMAT_NICE, "ar")
+				DateHelper::RenderDate("2022-01-07", DateFormats::DATE_FORMAT_NICE, Lang::AR)
 			);
 
 			$this->assertEquals(
@@ -71,11 +72,11 @@
 
 			$this->assertEquals(
 				"07 Jan, 2022 11:35",
-				DateHelper::RenderDate(strtotime("2022-01-07 11:35:23"), DateFormats::DATETIME_FORMAT_NICE, "", true)
+				DateHelper::RenderDate("2022-01-07 11:35:23", DateFormats::DATETIME_FORMAT_NICE)
 			);
 		}
 
-		public function testRenderDateFromTimeSuccess(): void {
+		public function testRenderDateFromTime(): void {
 			$this->assertEquals(
 				"2022-01-07",
 				DateHelper::RenderDateFromTime(strtotime("2022-01-07"), DateFormats::DATE_FORMAT_SAVE, "")
@@ -92,7 +93,7 @@
 			);
 		}
 
-		public function testGetMonthNameSuccess(): void {
+		public function testGetMonthName(): void {
 			$this->assertEquals(
 				"January",
 				DateHelper::GetMonthName(1)
@@ -100,12 +101,12 @@
 
 			$this->assertEquals(
 				"شباط",
-				DateHelper::GetMonthName(2, "ar")
+				DateHelper::GetMonthName(2, Lang::AR)
 			);
 
 			$this->assertEquals(
 				"Août",
-				DateHelper::GetMonthName(8, "fr")
+				DateHelper::GetMonthName(8, Lang::FR)
 			);
 
 			$this->assertEquals(
@@ -124,7 +125,7 @@
 			);
 		}
 
-		public function testGetWeekDayNameSuccess(): void {
+		public function testGetWeekDayName(): void {
 			$this->assertEquals(
 				"Sunday",
 				DateHelper::GetWeekDayName(0)
@@ -142,12 +143,12 @@
 
 			$this->assertEquals(
 				"الأربعاء",
-				DateHelper::GetWeekDayName(3, "ar")
+				DateHelper::GetWeekDayName(3, Lang::AR)
 			);
 
 			$this->assertEquals(
 				"Jeudi",
-				DateHelper::GetWeekDayName(4, "fr")
+				DateHelper::GetWeekDayName(4, Lang::FR)
 			);
 		}
 

@@ -1,40 +1,41 @@
 <?php
 	//To Run: .\vendor/bin/phpunit .\Units\Helpers\LangHelperTest.php
 	use PHPUnit\Framework\TestCase;
+	use RawadyMario\Constants\Lang;
 	use RawadyMario\Helpers\LangHelper;
 
 	final class LangHelperTest extends TestCase {
 
 		public function testSetVariableDefaultSuccess(): void {
 			$this->assertEquals(
-				"en",
+				Lang::EN,
 				LangHelper::$DEFAULT
 			);
 
-			LangHelper::SetVariableDefault("ar");
+			LangHelper::SetVariableDefault(Lang::AR);
 
 			$this->assertEquals(
-				"ar",
+				Lang::AR,
 				LangHelper::$DEFAULT
 			);
 
-			LangHelper::SetVariableDefault("en");
+			LangHelper::SetVariableDefault(Lang::EN);
 		}
 
 		public function testSetVariableActiveSuccess(): void {
 			$this->assertEquals(
-				"en",
+				Lang::EN,
 				LangHelper::$ACTIVE
 			);
 
-			LangHelper::SetVariableActive("ar");
+			LangHelper::SetVariableActive(Lang::AR);
 
 			$this->assertEquals(
-				"ar",
+				Lang::AR,
 				LangHelper::$ACTIVE
 			);
 
-			LangHelper::SetVariableActive("en");
+			LangHelper::SetVariableActive(Lang::EN);
 		}
 
 		public function testUppercaseSuccess(): void {
@@ -57,17 +58,17 @@
 
 			$this->assertEquals(
 				"first_name",
-				LangHelper::GetFieldKey("first_name", "en")
+				LangHelper::GetFieldKey("first_name", Lang::EN)
 			);
 
 			$this->assertEquals(
 				"first_name_ar",
-				LangHelper::GetFieldKey("first_name", "ar")
+				LangHelper::GetFieldKey("first_name", Lang::AR)
 			);
 
 			$this->assertEquals(
 				"first_name_fr",
-				LangHelper::GetFieldKey("first_name", "fr")
+				LangHelper::GetFieldKey("first_name", Lang::FR)
 			);
 		}
 
