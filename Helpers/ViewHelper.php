@@ -21,14 +21,14 @@
 		public static function GetTemplateContent(string $pre, string $filePath, array $replace=[]): string {
 			try {
 				$filePath = $pre . $filePath . ".html";
-				
+
 				$body = file_get_contents($filePath);
 				// $body = str_replace(array("\r\n","\r","\n"), "", $body);
-				
+
 				foreach ($replace AS $k => $v) {
 					$body = str_replace($k, $v, $body);
 				}
-				
+
 				return $body;
 			}
 			catch (Exception $e) {
@@ -88,5 +88,5 @@
 			}
 		}
 
-		
+
 	}

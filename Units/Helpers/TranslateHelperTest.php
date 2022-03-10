@@ -4,7 +4,7 @@
 	use RawadyMario\Helpers\TranslateHelper;
 
 	final class TranslateHelperTest extends TestCase {
-		
+
 		public function testAddDefaultsSuccess(): void {
 			$this->assertEmpty(
 				TranslateHelper::GetTranlationsArray(),
@@ -18,7 +18,7 @@
 				"Array should not be Empty but it is!"
 			);
 		}
-		
+
 		public function testTranslateSuccess(): void {
 			$this->assertEquals(
 				"",
@@ -34,12 +34,12 @@
 				"year",
 				TranslateHelper::Translate("date.year")
 			);
-			
+
 			$this->assertEquals(
 				"سنة",
 				TranslateHelper::Translate("date.year", "ar")
 			);
-			
+
 			$this->assertEquals(
 				"سنة",
 				TranslateHelper::Translate("year", "ar", false, [], false)
@@ -62,7 +62,7 @@
 				])
 			);
 		}
-		
+
 		public function testTranslateStringSuccess(): void {
 			$this->assertEquals(
 				"",
@@ -78,17 +78,16 @@
 				"This is the Year 2022",
 				TranslateHelper::TranslateString("This is the date.Year 2022")
 			);
-			
+
 			$this->assertEquals(
 				"هذا هو سنة ٢٠٢٢",
 				TranslateHelper::TranslateString("هذا هو date.Year number.2number.0number.2number.2", "ar")
 			);
-			
+
 			$this->assertEquals(
 				"هذا هو سنة ٢٠٢٢",
 				TranslateHelper::TranslateString("هذا هو Year 2022", "ar", [], false)
 			);
 		}
-		
+
 	}
-	

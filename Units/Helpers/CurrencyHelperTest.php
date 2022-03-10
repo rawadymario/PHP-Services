@@ -5,23 +5,23 @@
 	use RawadyMario\Models\CurrencyPosition;
 
 	final class CurrencyHelperTest extends TestCase {
-		
+
 		public function testAddCurrencySuccess(): void {
 			$this->assertEquals(
 				"$ 10",
 				CurrencyHelper::AddCurrency(10, "$", CurrencyPosition::PRE, " ")
 			);
-			
+
 			$this->assertEquals(
 				"$10",
 				CurrencyHelper::AddCurrency(10, "$", CurrencyPosition::PRE)
 			);
-			
+
 			$this->assertEquals(
 				"10 $",
 				CurrencyHelper::AddCurrency(10, "$", CurrencyPosition::POST, " ")
 			);
-			
+
 			$this->assertEquals(
 				"10$",
 				CurrencyHelper::AddCurrency(10, "$", CurrencyPosition::POST)
@@ -64,6 +64,5 @@
 				CurrencyHelper::GetLbpAmount(10751)
 			);
 		}
-		
+
 	}
-	

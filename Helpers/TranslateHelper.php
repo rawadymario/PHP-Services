@@ -24,7 +24,7 @@
 				$pathArr = explode("/", $filePath);
 				$lastPath = $pathArr[sizeof($pathArr) - 1];
 				$type = strtolower(str_replace(".json", "", $lastPath));
-				
+
 				self::$VALS = array_merge(self::$VALS, Helper::ConvertMultidimentionArrayToSingleDimention($fileArr));
 				self::$VALS_WITHOUT_TYPE = array_merge(self::$VALS_WITHOUT_TYPE, Helper::ConvertMultidimentionArrayToSingleDimention($fileArr[$type]));
 			}
@@ -44,7 +44,7 @@
 			if (Helper::StringNullOrEmpty($key)) {
 				return "";
 			}
-			
+
 			$vals = !$withType ? self::$VALS_WITHOUT_TYPE : self::$VALS;
 
 			if (Helper::ArrayNullOrEmpty($vals)) {
@@ -53,7 +53,7 @@
 			if (Helper::StringNullOrEmpty($lang)) {
 				$lang = LangHelper::$ACTIVE;
 			}
-			
+
 			$str = $key;
 			if (isset($vals[$key . "." . $lang])) {
 				$str = $vals[$key . "." . $lang];
@@ -61,13 +61,13 @@
 			else if ($returnEmpty) {
 				$str = "";
 			}
-	
+
 			if (!Helper::StringNullOrEmpty($str) && count($replace) > 0) {
 				foreach ($replace AS $k => $v) {
 					$str = str_replace($k, $v, $str);
 				}
 			}
-	
+
 			return $str;
 		}
 
@@ -84,7 +84,7 @@
 			if (Helper::StringNullOrEmpty($string)) {
 				return "";
 			}
-			
+
 			$vals = !$withType ? self::$VALS_WITHOUT_TYPE : self::$VALS;
 
 			if (Helper::ArrayNullOrEmpty($vals)) {
@@ -101,14 +101,14 @@
 					$string = str_replace($k, $v, $string);
 				}
 			}
-	
+
 			if (!Helper::StringNullOrEmpty($string) && count($replace) > 0) {
 				foreach ($replace AS $k => $v) {
 					$str = str_replace($k, $v, $string);
 				}
 			}
-	
+
 			return $string;
 		}
-		
+
 	}

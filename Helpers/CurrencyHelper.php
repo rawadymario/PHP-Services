@@ -42,5 +42,5 @@
 			return Helper::ConvertToDec((ceil($amount / 250) * 250), $decimalPlaces);
 		}
 
-		
+
 	}

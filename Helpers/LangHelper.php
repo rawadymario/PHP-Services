@@ -33,17 +33,17 @@
 			string $val
 		): string {
 			$val = strtoupper($val);
-			
+
 			$val = str_replace([
 				"à", "á", "â", "ã", "ä", "å", "æ", "ç", "è", "é", "ê", "ë", "ì", "í", "î", "ï",
 			], [
 				"À", "Á", "Â", "Ã", "Ä", "Å", "Æ", "Ç", "È", "É", "Ê", "Ë", "Ì", "Í", "Î", "Ï",
 			], $val);
-	
+
 			return $val;
 		}
 
-		
+
 		/**
 		 * Get field key
 		 */
@@ -54,7 +54,7 @@
 			if (Helper::StringNullOrEmpty($lang)) {
 				$lang = self::$ACTIVE;
 			}
-			
+
 			return $lang == "en" ? $field : $field . "_" . $lang;
 		}
 

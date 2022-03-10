@@ -4,7 +4,7 @@
 	use RawadyMario\Constants\DateFormats;
 
 	class DateHelper {
-		
+
 
 		/**
 		 * Cleans a date before inserting it to database
@@ -15,7 +15,7 @@
 			if (Helper::StringNullOrEmpty($val)) {
 				return "null";
 			}
-			
+
 			return "'$val'";
 		}
 
@@ -44,7 +44,7 @@
 
 			return TranslateHelper::TranslateString($dateValue, $lang, [], false);
 		}
-		
+
 
 		/**
 		 * Returns selected date format from the given strdate
@@ -58,30 +58,37 @@
 		}
 
 
-		// /**
-		//  * Get month name from its number
-		//  */
-		// public static function GetMonthName(int $m, ?string $lang="", string $format="F"): string {
-		// 	if (Helper::StringNullOrEmpty($lang)) {
-		// 		$lang = LangHelper::$ACTIVE;
-		// 	}
-			
-		// 	$date = "2000-$m-01";
-		// 	return self::RenderDate($date, $format, $lang);
-		// }
+		/**
+		 * Get month name from its number
+		 */
+		public static function GetMonthName(
+			int $m,
+			?string $lang="",
+			string $format="F"
+		): string {
+			if (Helper::StringNullOrEmpty($lang)) {
+				$lang = LangHelper::$ACTIVE;
+			}
+
+			$date = "2000-$m-01";
+			return self::RenderDate($date, $format, $lang);
+		}
 
 
-		// /**
-		//  * Get week day name from its number
-		//  */
-		// public static function GetWeekDayName(string $d, ?string $lang=""): string {
-		// 	if (Helper::StringNullOrEmpty($lang)) {
-		// 		$lang = LangHelper::$ACTIVE;
-		// 	}
-			
-		// 	$date = jddayofweek($d-1, 1);
-		// 	return LangHelper::DateFromEnglish($date, $lang);
-		// }
+		/**
+		 * Get week day name from its number
+		 */
+		public static function GetWeekDayName(
+			string $d,
+			?string $lang=""
+		): string {
+			if (Helper::StringNullOrEmpty($lang)) {
+				$lang = LangHelper::$ACTIVE;
+			}
+
+			$date = jddayofweek($d-1, 1);
+			return TranslateHelper::Translate($date, $lang, false, [], false);
+		}
 
 
 		// /**
@@ -91,7 +98,7 @@
 		// 	if (Helper::StringNullOrEmpty($lang)) {
 		// 		$lang = LangHelper::$ACTIVE;
 		// 	}
-			
+
 		// 	$newDate = "";
 		// 	$dateArr = [];
 
@@ -131,7 +138,7 @@
 		// 	if (Helper::StringNullOrEmpty($lang)) {
 		// 		$lang = LangHelper::$ACTIVE;
 		// 	}
-			
+
 		// 	$newDate    = "";
 		// 	if (self::RenderDate($date, "Y") != date("Y")) {
 		// 		$dateFormat = self::GetFormatFromType($formatType, "date");
@@ -165,7 +172,7 @@
 
 		// 	return $newDate;
 		// }
-	
+
 
 		// /**
 		//  * Get from and to values from daterange (eg: {date1} - {date2})
@@ -174,9 +181,9 @@
 		// 	if ($dateRange == "") {
 		// 		return [];
 		// 	}
-			
+
 		// 	$dateRangeArr	= explode("-", $dateRange);
-	
+
 		// 	if ($dateRangeArr[0] === $dateRangeArr[1]) {
 		// 		return [
 		// 			"from"	=> self::RenderDate(trim($dateRangeArr[0]), $format),
@@ -189,22 +196,22 @@
 		// 		];
 		// 	}
 		// }
-	
+
 
 		// /**
 		//  * Get days count between 2 dates from daterange (eg: {date1} - {date2})
 		//  */
 		// public static function GetDaysCountFromDateRange(string $dateRange=""): int {
 		// 	$daysCount	= 0;
-	
+
 		// 	$oneDayStr	= 24 * 60 * 60;
-	
+
 		// 	$dateRangeArr	= explode(" - ", $dateRange);
 		// 	$fromStr	= strtotime($dateRangeArr[0]);
 		// 	$toStr		= strtotime($dateRangeArr[1]);
 		// 	$daysStr	= $toStr - $fromStr;
 		// 	$daysCount	= Helper::ConvertToInt($daysStr / $oneDayStr) + 1;
-	
+
 		// 	return $daysCount;
 		// }
 
@@ -214,14 +221,14 @@
 		//  */
 		// public static function GetTimeInSeconds(string $time=""): int {
 		// 	$timeArr = explode(":", $time);
-	
+
 		// 	$h	= isset($timeArr[0])	? Helper::ConvertToInt($timeArr[0] * 60 * 60)	: 0;
 		// 	$m	= isset($timeArr[1])	? Helper::ConvertToInt($timeArr[1] * 60)		: 0;
 		// 	$s	= isset($timeArr[2])	? Helper::ConvertToInt($timeArr[2])				: 0;
-	
+
 		// 	return Helper::ConvertToInt($h + $m + $s);
 		// }
-	
+
 
 		// /**
 		//  * Get time nice value from the given seconds
@@ -230,18 +237,18 @@
 		// 	$h = 0;
 		// 	$m = 0;
 		// 	$s = 0;
-	
+
 		// 	$h = Helper::ConvertToInt($strTime / (60 * 60));
 		// 	$strTime -= ($h * 60 * 60);
-			
+
 		// 	$m = Helper::ConvertToInt($strTime / 60);
 		// 	$strTime -= ($m * 60);
-	
+
 		// 	$time = sprintf("%02d:%02d", $h, $m);
 		// 	if ($showSeconds) {
 		// 		$time .= sprintf(":%02d", $s);
 		// 	}
-	
+
 		// 	return $time;
 		// }
 
@@ -253,15 +260,15 @@
 		// 	if (Helper::StringNullOrEmpty($lang)) {
 		// 		$lang = LangHelper::$ACTIVE;
 		// 	}
-			
+
 		// 	$age = "-";
-	
+
 		// 	if ($dob != "") {
 		// 		$dateDiff = date_diff(date_create($date), date_create($dob));
-	
+
 		// 		$years	= Helper::ConvertToInt($dateDiff->format("%Y"));
 		// 		$months	= Helper::ConvertToInt($dateDiff->format("%M"));
-				
+
 		// 		$age = LangHelper::NumberFromEnglish($years, $lang) . " " . ($years == 1 ? TranslateHelper::Translate("date.year") : TranslateHelper::Translate("date.years"));
 		// 		if ($months > 0) {
 		// 			$age .= " " . TranslateHelper::Translate("date.and") . " " . LangHelper::NumberFromEnglish($months, $lang) . " " . ($months == 1 ? TranslateHelper::Translate("date.month") : TranslateHelper::Translate("date.months"));
@@ -274,11 +281,11 @@
 		// 			}
 		// 		}
 		// 	}
-	
+
 		// 	return $age;
 		// }
 
-		
+
 		// /**
 		//  * Get date and time format from the given configuration
 		//  */
@@ -295,7 +302,7 @@
 		// 				$time = DateFormats::DATETIME_FORMAT_MAIN_NO_YEAR;
 		// 			}
 		// 			break;
-				
+
 		// 		case "nice":
 		// 			$date = DateFormats::DATE_FORMAT_NICE;
 		// 			$time = DateFormats::DATETIME_FORMAT_NICE;
@@ -304,7 +311,7 @@
 		// 				$time = DateFormats::DATETIME_FORMAT_NICE_NO_YEAR;
 		// 			}
 		// 			break;
-				
+
 		// 		case "full":
 		// 			$date = DateFormats::DATE_FORMAT_FULL;
 		// 			$time = DateFormats::DATETIME_FORMAT_FULL;
@@ -366,7 +373,7 @@
 		//  */
 		// public static function TimeInSec(string $time="") : int {
 		// 	$secs = 0;
-	
+
 		// 	$timeArr = explode(":", $time);
 		// 	if (isset($timeArr[0])) {
 		// 		$secs += Helper::ConvertToInt($timeArr[0]) * 60 * 60;
@@ -377,8 +384,8 @@
 		// 	if (isset($timeArr[2])) {
 		// 		$secs += Helper::ConvertToInt($timeArr[2]);
 		// 	}
-	
+
 		// 	return $secs;
 		// }
-				
+
 	}

@@ -15,7 +15,7 @@
 			self::$MEDIA_FOLDER = $var;
 		}
 
-		
+
 		/**
 		 * Set the $UPLOAD_DIR valiable
 		 */
@@ -81,7 +81,7 @@
 						$options[] = $pre . $fileName . "-" . $subFldr . "." . $extension;
 					}
 				}
-				
+
 				if ($getNextGen) {
 					$options[] = $pre . $fileName . "." . $extNextGen;
 				}
@@ -93,7 +93,7 @@
 						break;
 					}
 				}
-		
+
 				// if ($addDomain) {
 				// 	$url = makeUrlWithWebsiteRoot($url);
 				// }
@@ -132,12 +132,12 @@
 				if (is_dir($dir)) {
 					rmdir($dir);
 				}
-				
+
 				if (!is_dir($dir)) {
 					unlink($dir);
 				}
 			}
 		}
-	
-		
+
+
 	}

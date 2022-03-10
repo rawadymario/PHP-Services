@@ -6,7 +6,7 @@
 	use RawadyMario\Constants\Status;
 
 	class Helper {
-		
+
 
 		/**
 		 * Returns a Clean String
@@ -16,9 +16,9 @@
 		): string {
 			$str = trim($str);
 			$str = stripslashes($str);
-	
+
 			//TODO: mysqli escape ?
-			
+
 			return $str;
 		}
 
@@ -57,14 +57,14 @@
 						return false;
 					}
 					return true;
-				
+
 				case "integer":
 				case "double":
 					$val = Helper::ConvertToDec($val);
 					return $val > 0;
 					break;
 			}
-			
+
 			return false;
 		}
 
@@ -198,10 +198,10 @@
 					$minRandNb	= 0;
 					$maxRandNb	= strlen($possible)-1;
 					$rand		= mt_rand($minRandNb, $maxRandNb);
-	
+
 					/* Pick a random character from the possible ones */
 					$char = substr($possible, $rand, 1);
-	
+
 					$key .= $char;
 				}
 			}
@@ -318,7 +318,7 @@
 			foreach ($params AS $k => $v) {
 				$text = str_replace($k, $v, $text);
 			}
-	
+
 			return $text;
 		}
 
@@ -438,7 +438,7 @@
 			}
 		}
 
-		
+
 		/**
 		 * Converts the given String into an Array
 		 */
@@ -454,12 +454,12 @@
 			if (!self::StringNullOrEmpty($delimiter)) {
 				return explode($delimiter, $str);
 			}
-			
+
 			if ($chunkLength > 0) {
 				$arr = [];
 				while (strlen($str) > $chunkLength) {
 					$chunk = substr($str, 0, $chunkLength);
-	
+
 					$arr[] = $chunk;
 					$str   = substr($str, $chunkLength);
 				}
@@ -627,7 +627,7 @@
 			return str_replace("&", "[amp;]", base64_encode($link));
 		}
 
-		
+
 		/**
 		 * Dencrypt a Link
 		 */
@@ -672,7 +672,7 @@
 				case HttpCode::CONTINUE:
 				case HttpCode::PROCESSING:
 					return Status::INFO;
-					
+
 				default:
 					return Status::INFO;
 			}
@@ -744,7 +744,7 @@
 				if (is_array($v)) {
 					foreach ($v AS $v1) {
 						if ($v1 !== "") {
-							$args .= (strpos($args, "?") === false ? "?" : "&") . $k . "%5B%5D=" . $v1 ;	
+							$args .= (strpos($args, "?") === false ? "?" : "&") . $k . "%5B%5D=" . $v1 ;
 						}
 					}
 				}
@@ -771,7 +771,7 @@
 			if (!self::StringNullOrEmpty($urlScheme)) {
 				$url = str_replace($urlScheme, "", $url);
 			}
-			
+
 			while (strpos($url, "//") !== false) {
 				$url = str_replace("//", "/", $url) ;
 			}
@@ -796,7 +796,7 @@
 
 
 		/**
-		 * Get all files in a path 
+		 * Get all files in a path
 		 */
 		public static function GetAllFiles(
 			string $path,
@@ -806,7 +806,7 @@
 
 			if (is_dir($path)) {
 				$files = scandir($path);
-		
+
 				foreach ($files AS $file) {
 					if (!is_dir($path . "/" . $file)) {
 						$filesArr[] = $path . "/" . $file;
@@ -834,7 +834,7 @@
 
 			foreach ($arrayToConvert AS $k => $v) {
 				if (is_array($v)) {
-					$returnArray = array_merge($returnArray, 
+					$returnArray = array_merge($returnArray,
 						self::ConvertMultidimentionArrayToSingleDimention($v, $preKey . $k . ".")
 					);
 				}

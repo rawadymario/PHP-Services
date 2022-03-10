@@ -3,6 +3,6 @@
 
 
 	class CurrencyPosition {
-        public const PRE = "PRE";
-        public const POST = "POST";
+		public const PRE = "PRE";
+		public const POST = "POST";
 	}
