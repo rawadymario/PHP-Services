@@ -9,12 +9,6 @@
 
 	include_once 'vendor/autoload.php';
 
-	TranslateHelper::AddDefaults();
-	var_dump(TranslateHelper::TranslateString("This is the date.Year 2022"));
-	// var_dump(TranslateHelper::GetTranlationsArray());
-
-	exit;
-
 	$arr = [
 		Code::class => "",Code::SUCCESS,
 		DateFormats::class => DateFormats::DATETIME_FORMAT_SAVE,
