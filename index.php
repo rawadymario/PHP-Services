@@ -4,7 +4,6 @@
 	use RawadyMario\Constants\HttpCode;
 	use RawadyMario\Constants\Lang;
 	use RawadyMario\Constants\Status;
-	use RawadyMario\Helpers\TranslateHelper;
 	use RawadyMario\Models\CurrencyPosition;
 
 	include_once 'vendor/autoload.php';
@@ -13,7 +12,7 @@
 		Code::class => "",Code::SUCCESS,
 		DateFormats::class => DateFormats::DATETIME_FORMAT_SAVE,
 		HttpCode::class => HttpCode::OK,
-		Lang::class => "N/A", //"all",
+		Lang::class => Lang::ALL,
 		Status::class => Status::SUCCESS,
 		CurrencyPosition::class => CurrencyPosition::POST,
 	];
@@ -24,5 +23,3 @@
 		echo $elem;
 		echo "<hr />";
 	}
-
-	// echo DateHelper::RenderDate(time(), DateFormats::DATE_FORMAT_SAVE, "en", true);

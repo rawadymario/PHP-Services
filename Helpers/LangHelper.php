@@ -4,8 +4,8 @@
 	use RawadyMario\Constants\Lang;
 
 	class LangHelper {
-		public static $DEFAULT = "en";
-		public static $ACTIVE = "en";
+		public static $DEFAULT = Lang::EN;
+		public static $ACTIVE = Lang::EN;
 
 
 		/**
@@ -57,7 +57,7 @@
 				$lang = self::$ACTIVE;
 			}
 
-			return $lang == "en" ? $field : $field . "_" . $lang;
+			return $lang == Lang::EN ? $field : $field . "_" . $lang;
 		}
 
 	}
