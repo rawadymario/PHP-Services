@@ -11,6 +11,12 @@
 		}
 
 
+		public static function clear(): void {
+			self::$VALS_WITHOUT_TYPE = [];
+			self::$VALS = [];
+		}
+
+
 		/**
 		 * Add all the default translations (Read from DefaultTranslations and add them to self::$VALS)
 		 */
@@ -104,7 +110,7 @@
 
 			if (!Helper::StringNullOrEmpty($string) && count($replace) > 0) {
 				foreach ($replace AS $k => $v) {
-					$str = str_replace($k, $v, $string);
+					$string = str_replace($k, $v, $string);
 				}
 			}
 

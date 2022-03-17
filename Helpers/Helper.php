@@ -164,26 +164,26 @@
 			bool $hasInt=true,
 			bool $hasString=false,
 			bool $hasSymbols=false,
-			string $lang=Lang::EN
+			string $lang="en"
 		): string {
 			$key = "";
 			$possible = "";
 
 			if ($hasInt) {
-				if ($lang == Lang::EN || $lang == Lang::ALL) {
+				if ($lang == "en" || $lang == "all") {
 					$possible .= "0123456789";
 				}
-				if ($lang == Lang::AR || $lang == Lang::ALL) {
+				if ($lang == "ar" || $lang == "all") {
 					$possible .= "٠١٢٣٤٥٦٧٨٩";
 				}
 			}
 
 			if ($hasString) {
-				if ($lang == Lang::EN || $lang == Lang::ALL) {
+				if ($lang == "en" || $lang == "all") {
 					$possible .= "abcdefghijklmnopqrstuvwxyz";
 					$possible .= "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 				}
-				if ($lang == Lang::AR || $lang == Lang::ALL) {
+				if ($lang == "ar" || $lang == "all") {
 					// $possible .= "ابتثجحخدذرزسشصضطظعغفقكلمنهوي";
 					$possible .= "ضصثقفغعهخحجدشسيبلاتنمكطئءؤرلاىةوزظ";
 				}
@@ -238,9 +238,9 @@
 			string $text,
 			int $nbOfChar,
 			string $extension="...",
-			string $lang=Lang::EN
+			string $lang="en"
 		): string {
-			if ($lang == Lang::AR) {
+			if ($lang == "ar") {
 				$nbOfChar = $nbOfChar * 1.8;
 			}
 

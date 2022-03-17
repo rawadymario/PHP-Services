@@ -8,34 +8,34 @@
 
 		public function testSetVariableDefaultSuccess(): void {
 			$this->assertEquals(
-				Lang::EN,
+				"en",
 				LangHelper::$DEFAULT
 			);
 
-			LangHelper::SetVariableDefault(Lang::AR);
+			LangHelper::SetVariableDefault("ar");
 
 			$this->assertEquals(
-				Lang::AR,
+				"ar",
 				LangHelper::$DEFAULT
 			);
 
-			LangHelper::SetVariableDefault(Lang::EN);
+			LangHelper::SetVariableDefault("en");
 		}
 
 		public function testSetVariableActiveSuccess(): void {
 			$this->assertEquals(
-				Lang::EN,
+				"en",
 				LangHelper::$ACTIVE
 			);
 
-			LangHelper::SetVariableActive(Lang::AR);
+			LangHelper::SetVariableActive("ar");
 
 			$this->assertEquals(
-				Lang::AR,
+				"ar",
 				LangHelper::$ACTIVE
 			);
 
-			LangHelper::SetVariableActive(Lang::EN);
+			LangHelper::SetVariableActive("en");
 		}
 
 		public function testUppercaseSuccess(): void {
@@ -58,17 +58,17 @@
 
 			$this->assertEquals(
 				"first_name",
-				LangHelper::GetFieldKey("first_name", Lang::EN)
+				LangHelper::GetFieldKey("first_name", "en")
 			);
 
 			$this->assertEquals(
 				"first_name_ar",
-				LangHelper::GetFieldKey("first_name", Lang::AR)
+				LangHelper::GetFieldKey("first_name", "ar")
 			);
 
 			$this->assertEquals(
 				"first_name_fr",
-				LangHelper::GetFieldKey("first_name", Lang::FR)
+				LangHelper::GetFieldKey("first_name", "fr")
 			);
 		}
 

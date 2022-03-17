@@ -228,17 +228,17 @@
 		}
 
 		public function testGenerateRandomKeySuccess() {
-			$key1En = Helper::GenerateRandomKey(8, false, false, false, Lang::EN);
-			$key1Ar = Helper::GenerateRandomKey(8, false, false, false, Lang::AR);
+			$key1En = Helper::GenerateRandomKey(8, false, false, false, "en");
+			$key1Ar = Helper::GenerateRandomKey(8, false, false, false, "ar");
 
-			$key2En = Helper::GenerateRandomKey(10, true, false, false, Lang::EN);
-			$key2Ar = Helper::GenerateRandomKey(10, true, false, false, Lang::AR);
+			$key2En = Helper::GenerateRandomKey(10, true, false, false, "en");
+			$key2Ar = Helper::GenerateRandomKey(10, true, false, false, "ar");
 
-			$key3En = Helper::GenerateRandomKey(12, true, true, false, Lang::EN);
-			$key3Ar = Helper::GenerateRandomKey(12, true, true, false, Lang::AR);
+			$key3En = Helper::GenerateRandomKey(12, true, true, false, "en");
+			$key3Ar = Helper::GenerateRandomKey(12, true, true, false, "ar");
 
-			$key4En = Helper::GenerateRandomKey(16, true, true, true, Lang::EN);
-			$key4Ar = Helper::GenerateRandomKey(16, true, true, true, Lang::AR);
+			$key4En = Helper::GenerateRandomKey(16, true, true, true, "en");
+			$key4Ar = Helper::GenerateRandomKey(16, true, true, true, "ar");
 
 			$this->assertEquals(0, strlen($key1En));
 			$this->assertEquals(0, strlen($key1Ar));
@@ -845,31 +845,31 @@
 
 			$this->assertEquals(
 				"home/en",
-				Helper::GenerateFullUrl("home", Lang::EN)
+				Helper::GenerateFullUrl("home", "en")
 			);
 
 			$this->assertEquals(
 				"home?lang=en",
-				Helper::GenerateFullUrl("home", Lang::EN, [], [], "", false)
+				Helper::GenerateFullUrl("home", "en", [], [], "", false)
 			);
 
 			$this->assertEquals(
 				"products/en/product-001",
-				Helper::GenerateFullUrl("products", Lang::EN, [
+				Helper::GenerateFullUrl("products", "en", [
 					"key" => "product-001"
 				])
 			);
 
 			$this->assertEquals(
 				"products?lang=en&key=product-001",
-				Helper::GenerateFullUrl("products", Lang::EN, [
+				Helper::GenerateFullUrl("products", "en", [
 					"key" => "product-001"
 				], [], "", false)
 			);
 
 			$this->assertEquals(
 				"products/en/product-001?filter=active",
-				Helper::GenerateFullUrl("products", Lang::EN, [
+				Helper::GenerateFullUrl("products", "en", [
 					"key" => "product-001"
 				], [
 					"filter" => "active"
@@ -878,7 +878,7 @@
 
 			$this->assertEquals(
 				"products?lang=en&key=product-001&filter=active",
-				Helper::GenerateFullUrl("products", Lang::EN, [
+				Helper::GenerateFullUrl("products", "en", [
 					"key" => "product-001"
 				], [
 					"filter" => "active"
@@ -887,7 +887,7 @@
 
 			$this->assertEquals(
 				"products/en/product-001?filter=active&categories%5B%5D=category-01&categories%5B%5D=category-02&categories%5B%5D=category-03",
-				Helper::GenerateFullUrl("products", Lang::EN, [
+				Helper::GenerateFullUrl("products", "en", [
 					"key" => "product-001"
 				], [
 					"filter" => "active",
@@ -901,22 +901,22 @@
 
 			$this->assertEquals(
 				"https://rawadymario.com/home/en",
-				Helper::GenerateFullUrl("home", Lang::EN, [], [], "https://rawadymario.com/")
+				Helper::GenerateFullUrl("home", "en", [], [], "https://rawadymario.com/")
 			);
 
 			$this->assertEquals(
 				"https://rawadymario.com/home/en",
-				Helper::GenerateFullUrl("home", Lang::EN, [], [], "https://rawadymario.com")
+				Helper::GenerateFullUrl("home", "en", [], [], "https://rawadymario.com")
 			);
 
 			$this->assertEquals(
 				"https://rawadymario.com/home/en",
-				Helper::GenerateFullUrl("home", Lang::EN, [], [], "https://rawadymario.com////")
+				Helper::GenerateFullUrl("home", "en", [], [], "https://rawadymario.com////")
 			);
 
 			$this->assertEquals(
 				"www.rawadymario.com/home/en",
-				Helper::GenerateFullUrl("home", Lang::EN, [], [], "www.rawadymario.com////")
+				Helper::GenerateFullUrl("home", "en", [], [], "www.rawadymario.com////")
 			);
 		}
 

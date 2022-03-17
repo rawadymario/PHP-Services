@@ -62,7 +62,7 @@
 
 			$this->assertEquals(
 				"٠٧ كانون ثاني، ٢٠٢٢",
-				DateHelper::RenderDate("2022-01-07", DateFormats::DATE_FORMAT_NICE, Lang::AR)
+				DateHelper::RenderDate("2022-01-07", DateFormats::DATE_FORMAT_NICE, "ar")
 			);
 
 			$this->assertEquals(
@@ -101,12 +101,12 @@
 
 			$this->assertEquals(
 				"شباط",
-				DateHelper::GetMonthName(2, Lang::AR)
+				DateHelper::GetMonthName(2, "ar")
 			);
 
 			$this->assertEquals(
 				"Août",
-				DateHelper::GetMonthName(8, Lang::FR)
+				DateHelper::GetMonthName(8, "fr")
 			);
 
 			$this->assertEquals(
@@ -143,12 +143,12 @@
 
 			$this->assertEquals(
 				"الأربعاء",
-				DateHelper::GetWeekDayName(3, Lang::AR)
+				DateHelper::GetWeekDayName(3, "ar")
 			);
 
 			$this->assertEquals(
 				"Jeudi",
-				DateHelper::GetWeekDayName(4, Lang::FR)
+				DateHelper::GetWeekDayName(4, "fr")
 			);
 		}
 
