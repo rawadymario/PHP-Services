@@ -1,17 +1,55 @@
-## Common Services Used in all Projects
+# Common Services Used in all Projects
+
 To install Via Composer: `composer require rawadymario/services`
 
 Packagist Link: [https://packagist.org/packages/rawadymario/services](https://packagist.org/packages/rawadymario/services)
 
 ---
+
+## List of Files
+
+### Constants
+
+- Code
+- Date Formats
+- HTTP Codes
+- Lang
+- Status
+
+### Default Translations
+
+- Date
+- Global
+- Number
+
+## Exceptions
+
+Customized Exception Classes. `More to be added!`
+
+- Invalid URL
+- Unknown Exception
+
 ## Helpers
+
+- Currency Helper
+- Date Helper
+- Helper
+- Lang Helper
+- Media Helper
+- Query Helper
+- Translate Helper
+- Validator Helper
+- View Helper
+
 > Default Functions
-> 
+
 Below is the list of all the default functions to run before using a helper:
+
 1. TranslateHelper
    1. AddDefaults()
+
 > Constants
-> 
+
 Below is the list of all the constants to update before using a helper:
 
 1. LangHelper
@@ -26,3 +64,9 @@ Below is the list of all the constants to update before using a helper:
    1. $VALS
 4. ViewHelper
    1. $ROOT_TEMPLATES_FOLDER
+
+
+
+
+
+Translations in all the supported languages `(en, ar, fr)`
