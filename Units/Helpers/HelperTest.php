@@ -65,6 +65,15 @@
 				Helper::ConvertToBool(0)
 			);
 
+			//Type: Boolean
+			$this->assertTrue(
+				Helper::ConvertToBool(true)
+			);
+
+			$this->assertFalse(
+				Helper::ConvertToBool(false)
+			);
+
 			//Type: Others
 			$this->assertFalse(
 				Helper::ConvertToBool(null)

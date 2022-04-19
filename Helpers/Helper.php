@@ -48,6 +48,8 @@
 			$val
 		) : bool {
 			switch (gettype($val)) {
+				case "boolean":
+					return $val;
 				case "string":
 					$val = trim($val);
 					if (
