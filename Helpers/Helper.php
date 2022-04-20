@@ -261,9 +261,19 @@
 		 */
 		public static function StringBeginsWith(
 			string $string,
-			string $search
+			$search
 		): bool {
-			return (strncmp($string, $search, strlen($search)) == 0);
+			if (is_array($search)) {
+				foreach ($search AS $s) {
+					if ((strncmp($string, $s, strlen($s)) == 0)) {
+						return true;
+					}
+				}
+				return false;
+			}
+			else {
+				return (strncmp($string, $search, strlen($search)) == 0);
+			}
 		}
 
 
@@ -272,9 +282,19 @@
 		 */
 		public static function StringEndsWith(
 			string $string,
-			string $search
+			$search
 		): bool {
-			return substr($string, (strlen($string) - strlen($search))) == $search ? true : false;
+			if (is_array($search)) {
+				foreach ($search AS $s) {
+					if (substr($string, (strlen($string) - strlen($s))) == $s) {
+						return true;
+					}
+				}
+				return false;
+			}
+			else {
+				return substr($string, (strlen($string) - strlen($search))) == $search ? true : false;
+			}
 		}
 
 
@@ -847,6 +867,31 @@
 			}
 
 			return $returnArray;
+		}
+
+
+		/**
+		 * Replace scheme of the given string with the given scheme
+		 */
+		public static function ReplaceScheme(
+			string $string,
+			string $scheme
+		): string {
+			if (self::StringNullOrEmpty($string)) {
+				return "";
+			}
+			if (self::StringNullOrEmpty($scheme)) {
+				return $string;
+			}
+
+			if (self::StringBeginsWith($string, ["http://", "https://"])) {
+				$string = str_replace(["http://", "https://"], "", $string);
+			}
+
+			if (!self::StringEndsWith($scheme, "://")) {
+				$scheme .= "://";
+			}
+			return $scheme . $string;
 		}
 
 	}

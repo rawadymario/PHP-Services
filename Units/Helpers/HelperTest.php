@@ -303,6 +303,26 @@
 			$this->assertFalse(
 				Helper::StringBeginsWith("Mario Rawady", "Rawady")
 			);
+
+			$this->assertTrue(
+				Helper::StringBeginsWith("Mario Rawady", ["Mario"])
+			);
+
+			$this->assertTrue(
+				Helper::StringBeginsWith("Mario Rawady", ["Mario", "Rawady"])
+			);
+
+			$this->assertTrue(
+				Helper::StringBeginsWith("Mario Rawady", ["Maria", "Mario"])
+			);
+
+			$this->assertFalse(
+				Helper::StringBeginsWith("Mario Rawady", ["Maria", "Rawady"])
+			);
+
+			$this->assertFalse(
+				Helper::StringBeginsWith("Mario Rawady", ["Maria"])
+			);
 		}
 
 		public function testStringEndsWithSuccess() {
@@ -312,6 +332,26 @@
 
 			$this->assertFalse(
 				Helper::StringEndsWith("Mario Rawady", "Mario")
+			);
+
+			$this->assertTrue(
+				Helper::StringEndsWith("Mario Rawady", ["Rawady"])
+			);
+
+			$this->assertTrue(
+				Helper::StringEndsWith("Mario Rawady", ["Mario", "Rawady"])
+			);
+
+			$this->assertTrue(
+				Helper::StringEndsWith("Mario Rawady", ["Rawody", "Rawady"])
+			);
+
+			$this->assertFalse(
+				Helper::StringEndsWith("Mario Rawady", ["Mario", "Rawody"])
+			);
+
+			$this->assertFalse(
+				Helper::StringEndsWith("Mario Rawady", ["Rawody"])
 			);
 		}
 
@@ -1000,6 +1040,38 @@
 					]
 				]
 			]));
+		}
+
+		public function testReplaceSchemeSuccess() {
+			$this->assertEquals(
+				"",
+				Helper::ReplaceScheme("", "")
+			);
+
+			$this->assertEquals(
+				"rawadymario.com",
+				Helper::ReplaceScheme("rawadymario.com", "")
+			);
+
+			$this->assertEquals(
+				"https://rawadymario.com",
+				Helper::ReplaceScheme("http://rawadymario.com", "https://")
+			);
+
+			$this->assertEquals(
+				"http://rawadymario.com",
+				Helper::ReplaceScheme("https://rawadymario.com", "http://")
+			);
+
+			$this->assertEquals(
+				"https://rawadymario.com",
+				Helper::ReplaceScheme("rawadymario.com", "https")
+			);
+
+			$this->assertEquals(
+				"https://rawadymario.com",
+				Helper::ReplaceScheme("rawadymario.com", "https://")
+			);
 		}
 
 	}
