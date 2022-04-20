@@ -1042,6 +1042,38 @@
 			]));
 		}
 
+		public function testAddSchemeIfMissingSuccess() {
+			$this->assertEquals(
+				"",
+				Helper::AddSchemeIfMissing("", "")
+			);
+
+			$this->assertEquals(
+				"rawadymario.com",
+				Helper::AddSchemeIfMissing("rawadymario.com", "")
+			);
+
+			$this->assertEquals(
+				"http://rawadymario.com",
+				Helper::AddSchemeIfMissing("http://rawadymario.com", "https://")
+			);
+
+			$this->assertEquals(
+				"https://rawadymario.com",
+				Helper::AddSchemeIfMissing("https://rawadymario.com", "http://")
+			);
+
+			$this->assertEquals(
+				"https://rawadymario.com",
+				Helper::AddSchemeIfMissing("rawadymario.com", "https")
+			);
+
+			$this->assertEquals(
+				"https://rawadymario.com",
+				Helper::AddSchemeIfMissing("rawadymario.com", "https://")
+			);
+		}
+
 		public function testReplaceSchemeSuccess() {
 			$this->assertEquals(
 				"",

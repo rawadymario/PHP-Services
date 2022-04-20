@@ -871,6 +871,30 @@
 
 
 		/**
+		 * Add scheme to the given string if not exists
+		 */
+		public static function AddSchemeIfMissing(
+			string $string,
+			string $scheme
+		): string {
+			if (self::StringNullOrEmpty($string)) {
+				return "";
+			}
+			if (self::StringNullOrEmpty($scheme)) {
+				return $string;
+			}
+			if (self::StringBeginsWith($string, ["http://", "https://"])) {
+				return $string;
+			}
+
+			if (!self::StringEndsWith($scheme, "://")) {
+				$scheme .= "://";
+			}
+			return $scheme . $string;
+		}
+
+
+		/**
 		 * Replace scheme of the given string with the given scheme
 		 */
 		public static function ReplaceScheme(
