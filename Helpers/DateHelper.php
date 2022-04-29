@@ -1,7 +1,10 @@
 <?php
 	namespace RawadyMario\Helpers;
 
-	use RawadyMario\Models\DateFormats;
+use Exception;
+use RawadyMario\Models\DateFormats;
+	use RawadyMario\Models\DateFormatTypes;
+	use RawadyMario\Models\DateTypes;
 
 	class DateHelper {
 
@@ -25,7 +28,7 @@
 		 */
 		public static function RenderDate(
 			?string $date,
-			string $format=DateFormats::DATE_FORMAT_SAVE,
+			string $format=DateFormats::DATE_SAVE,
 			?string $lang="",
 			bool $isStr=false
 		): string {
@@ -51,7 +54,7 @@
 		 */
 		public static function RenderDateFromTime(
 			int $dateStr,
-			string $format=DateFormats::DATE_FORMAT_SAVE,
+			string $format=DateFormats::DATE_SAVE,
 			?string $lang=""
 		): string {
 			return self::RenderDate($dateStr, $format, $lang, true);
@@ -115,15 +118,15 @@
 		// 		$newDate = $preRet . self::RenderDate($date, $format, $lang);
 		// 	}
 		// 	else if (self::RenderDate($date, "m") != date("m") || self::RenderDate($date, "d") != date("d")) {
-		// 		$timeStamp1 = strtotime(self::RenderDate($date, DateFormats::DATE_FORMAT_SAVE));
-		// 		$timeStamp2 = strtotime(date(DateFormats::DATE_FORMAT_SAVE));
+		// 		$timeStamp1 = strtotime(self::RenderDate($date, DateFormats::DATE_SAVE));
+		// 		$timeStamp2 = strtotime(date(DateFormats::DATE_SAVE));
 
 		// 		$timeStampDiff  = $timeStamp2 - $timeStamp1;
 		// 		if ($timeStampDiff > 0 && $timeStampDiff <= (60 * 60 * 24)) {
-		// 			$newDate = TranslateHelper::Translate("date.yesterday") . ($withTime ? (" " .  TranslateHelper::Translate("date.at") . " " . self::RenderDate($date, DateFormats::TIME_FORMAT_MAIN, $lang)) : "");
+		// 			$newDate = TranslateHelper::Translate("date.yesterday") . ($withTime ? (" " .  TranslateHelper::Translate("date.at") . " " . self::RenderDate($date, DateFormats::TIME_MAIN, $lang)) : "");
 		// 		}
 		// 		else if ($timeStampDiff < 0 && $timeStampDiff >= -(60 * 60 * 24)) {
-		// 			$newDate = TranslateHelper::Translate("date.tomorrow") . ($withTime ? (" " .  TranslateHelper::Translate("date.at") . " " . self::RenderDate($date, DateFormats::TIME_FORMAT_MAIN, $lang)) : "");
+		// 			$newDate = TranslateHelper::Translate("date.tomorrow") . ($withTime ? (" " .  TranslateHelper::Translate("date.at") . " " . self::RenderDate($date, DateFormats::TIME_MAIN, $lang)) : "");
 		// 		}
 		// 		else {
 		// 			$dateFormat = self::GetFormatFromType($formatType, "date", false);
@@ -134,7 +137,7 @@
 		// 		}
 		// 	}
 		// 	else {
-		// 		$newDate = TranslateHelper::Translate("date.today") . ($withTime ? (" " .  TranslateHelper::Translate("date.at") . " " . self::RenderDate($date, DateFormats::TIME_FORMAT_MAIN, $lang)) : "");
+		// 		$newDate = TranslateHelper::Translate("date.today") . ($withTime ? (" " .  TranslateHelper::Translate("date.at") . " " . self::RenderDate($date, DateFormats::TIME_MAIN, $lang)) : "");
 		// 	}
 
 			return $newDate;
@@ -144,7 +147,7 @@
 		// /**
 		//  * Get from and to values from daterange (eg: {date1} - {date2})
 		//  */
-		// public static function GetDatesFromDateRange(string $dateRange="", string $format=DateFormats::DATE_FORMAT_SAVE): array {
+		// public static function GetDatesFromDateRange(string $dateRange="", string $format=DateFormats::DATE_SAVE): array {
 		// 	if ($dateRange == "") {
 		// 		return [];
 		// 	}
@@ -254,81 +257,32 @@
 
 
 		// /**
-		//  * Get date and time format from the given configuration
-		//  */
-		// public static function GetFormatFromType(string $type="save", string $returnType="", bool $withYear=true) {
-		// 	$date = DateFormats::DATE_FORMAT_SAVE;
-		// 	$time = DateFormats::DATETIME_FORMAT_SAVE;
-
-		// 	switch ($type) {
-		// 		case "main":
-		// 			$date = DateFormats::DATE_FORMAT_MAIN;
-		// 			$time = DateFormats::DATETIME_FORMAT_MAIN;
-		// 			if (!$withYear) {
-		// 				$date = DateFormats::DATE_FORMAT_MAIN_NO_YEAR;
-		// 				$time = DateFormats::DATETIME_FORMAT_MAIN_NO_YEAR;
-		// 			}
-		// 			break;
-
-		// 		case "nice":
-		// 			$date = DateFormats::DATE_FORMAT_NICE;
-		// 			$time = DateFormats::DATETIME_FORMAT_NICE;
-		// 			if (!$withYear) {
-		// 				$date = DateFormats::DATE_FORMAT_NICE_NO_YEAR;
-		// 				$time = DateFormats::DATETIME_FORMAT_NICE_NO_YEAR;
-		// 			}
-		// 			break;
-
-		// 		case "full":
-		// 			$date = DateFormats::DATE_FORMAT_FULL;
-		// 			$time = DateFormats::DATETIME_FORMAT_FULL;
-		// 			if (!$withYear) {
-		// 				$date = DateFormats::DATE_FORMAT_FULL_NO_YEAR;
-		// 				$time = DateFormats::DATETIME_FORMAT_FULL_NO_YEAR;
-		// 			}
-		// 			break;
-		// 	}
-
-		// 	$arr = [
-		// 		"date" => $date,
-		// 		"time" => $time,
-		// 	];
-
-		// 	if (isset($arr[$returnType])) {
-		// 		return $arr[$returnType];
-		// 	}
-
-		// 	return $arr;
-		// }
-
-
-		// /**
 		//  * Render Full Datef rom the given date
 		//  */
 		// public static function RenderFullDate(string $date, ?string $lang="en", bool $withTime=false, string $preRet=""): string {
 		// 	$newDate    = "";
 		// 	if (self::RenderDate($date, "Y") != date("Y")) {
-		// 		$format     = $withTime ? DateFormats::DATETIME_FORMAT_NICE : DateFormats::DATE_FORMAT_NICE;
+		// 		$format     = $withTime ? DateFormats::DATETIME_NICE : DateFormats::DATE_NICE;
 		// 		$newDate    = $preRet . self::RenderDate($date, $format, $lang);
 		// 	}
 		// 	else if (self::RenderDate($date, "m") != date("m") || self::RenderDate($date, "d") != date("d")) {
-		// 		$timeStamp1 = strtotime(self::RenderDate($date, DateFormats::DATE_FORMAT_SAVE));
-		// 		$timeStamp2 = strtotime(date(DateFormats::DATE_FORMAT_SAVE));
+		// 		$timeStamp1 = strtotime(self::RenderDate($date, DateFormats::DATE_SAVE));
+		// 		$timeStamp2 = strtotime(date(DateFormats::DATE_SAVE));
 
 		// 		$timeStampDiff  = $timeStamp2 - $timeStamp1;
 		// 		if ($timeStampDiff > 0 && $timeStampDiff <= (60 * 60 * 24)) {
-		// 			$newDate = TranslateHelper::Translate("date.yesterday") . ($withTime ? (" " .  TranslateHelper::Translate("date.at") . " " . self::RenderDate($date, DateFormats::TIME_FORMAT_MAIN, $lang)) : "");
+		// 			$newDate = TranslateHelper::Translate("date.yesterday") . ($withTime ? (" " .  TranslateHelper::Translate("date.at") . " " . self::RenderDate($date, DateFormats::TIME_MAIN, $lang)) : "");
 		// 		}
 		// 		else if ($timeStampDiff < 0 && $timeStampDiff >= -(60 * 60 * 24)) {
-		// 			$newDate = TranslateHelper::Translate("date.tomorrow") . ($withTime ? (" " .  TranslateHelper::Translate("date.at") . " " . self::RenderDate($date, DateFormats::TIME_FORMAT_MAIN, $lang)) : "");
+		// 			$newDate = TranslateHelper::Translate("date.tomorrow") . ($withTime ? (" " .  TranslateHelper::Translate("date.at") . " " . self::RenderDate($date, DateFormats::TIME_MAIN, $lang)) : "");
 		// 		}
 		// 		else {
-		// 			$format		= $withTime ? DateFormats::DATETIME_FORMAT_NICE_NO_YEAR : DateFormats::DATE_FORMAT_NICE_NO_YEAR;
+		// 			$format		= $withTime ? DateFormats::DATETIME_NICE_NO_YEAR : DateFormats::DATE_NICE_NO_YEAR;
 		// 			$newDate	= $preRet . self::RenderDate($date, $format, $lang);
 		// 		}
 		// 	}
 		// 	else {
-		// 		$newDate = TranslateHelper::Translate("date.today") . ($withTime ? (" " .  TranslateHelper::Translate("date.at") . " " . self::RenderDate($date, DateFormats::TIME_FORMAT_MAIN, $lang)) : "");
+		// 		$newDate = TranslateHelper::Translate("date.today") . ($withTime ? (" " .  TranslateHelper::Translate("date.at") . " " . self::RenderDate($date, DateFormats::TIME_MAIN, $lang)) : "");
 		// 	}
 
 		// 	return $newDate;
@@ -354,5 +308,65 @@
 
 		// 	return $secs;
 		// }
+
+
+		/**
+		 * Get date and time format from the given date type
+		 * $type must be of type (DateFormatTypes)
+		 * $returnType must be of type (DateTypes)
+		 */
+		public static function GetFormatFromType(
+			?string $type=DateFormatTypes::SAVE,
+			?string $returnType=null,
+			bool $withYear=true
+		) {
+			$dateFormat = DateFormats::DATE_SAVE;
+			$timeFormat = DateFormats::TIME_SAVE;
+			$datetimeFormat = DateFormats::DATETIME_SAVE;
+			if (!$withYear) {
+				$timeFormat = DateFormats::TIME_MAIN;
+			}
+
+			switch ($type) {
+				case DateFormatTypes::MAIN:
+					$dateFormat = DateFormats::DATE_MAIN;
+					$datetimeFormat = DateFormats::DATETIME_MAIN;
+					if (!$withYear) {
+						$dateFormat = DateFormats::DATE_MAIN_NO_YEAR;
+						$datetimeFormat = DateFormats::DATETIME_MAIN_NO_YEAR;
+					}
+					break;
+
+				case DateFormatTypes::NICE:
+					$dateFormat = DateFormats::DATE_NICE;
+					$datetimeFormat = DateFormats::DATETIME_NICE;
+					if (!$withYear) {
+						$dateFormat = DateFormats::DATE_NICE_NO_YEAR;
+						$datetimeFormat = DateFormats::DATETIME_NICE_NO_YEAR;
+					}
+					break;
+
+				case DateFormatTypes::FULL:
+					$dateFormat = DateFormats::DATE_FULL;
+					$datetimeFormat = DateFormats::DATETIME_FULL;
+					if (!$withYear) {
+						$dateFormat = DateFormats::DATE_FULL_NO_YEAR;
+						$datetimeFormat = DateFormats::DATETIME_FULL_NO_YEAR;
+					}
+					break;
+			}
+
+			$arr = [
+				DateTypes::DATE => $dateFormat,
+				DateTypes::TIME => $timeFormat,
+				DateTypes::DATETIME => $datetimeFormat,
+			];
+
+			if ($returnType && isset($arr[$returnType])) {
+				return $arr[$returnType];
+			}
+			return $arr;
+		}
+
 
 	}
