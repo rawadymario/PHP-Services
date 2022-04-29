@@ -1,7 +1,7 @@
 <?php
 	namespace RawadyMario\Helpers;
 
-	use RawadyMario\Constants\DateFormats;
+	use RawadyMario\Models\DateFormats;
 
 	class DateHelper {
 
@@ -91,55 +91,22 @@
 		}
 
 
-		// /**
-		//  * Returns selected date format from the given date and format
-		//  */
-		// public static function RenderDateFromFormat(string $date, string $fromFormat, string $toFormat, ?string $lang=""): string {
-		// 	if (Helper::StringNullOrEmpty($lang)) {
-		// 		$lang = LangHelper::$ACTIVE;
-		// 	}
+		/**
+		 * Return Extended Date format depending on date difference
+		 * Including: Yesterday, Today, Tomorrow...
+		 */
+		public static function RenderDateExtended(
+			string $date,
+			?string $lang="",
+			bool $withTime=false,
+			string $preRet="",
+			string $formatType="nice"
+		): string {
+			if (Helper::StringNullOrEmpty($lang)) {
+				$lang = LangHelper::$ACTIVE;
+			}
 
-		// 	$newDate = "";
-		// 	$dateArr = [];
-
-		// 	switch ($fromFormat) {
-
-		// 		case "d/m/Y":
-		// 			$thisArr = explode("/", $date);
-		// 			$dateArr["d"] = $thisArr[0];
-		// 			$dateArr["m"] = $thisArr[1];
-		// 			$dateArr["y"] = $thisArr[2];
-		// 			break;
-
-		// 	}
-
-		// 	if (sizeof($dateArr) > 0) {
-		// 		switch ($toFormat) {
-
-		// 			case DateFormats::DATE_FORMAT_SAVE:
-		// 				$newDate = $dateArr["y"] . "-" . $dateArr["m"] . "-" . $dateArr["d"];
-		// 				break;
-		// 		}
-		// 	}
-
-		// 	if ($newDate == "") {
-		// 		$newDate = $date;
-		// 	}
-
-		// 	return $newDate;
-		// }
-
-
-		// /**
-		//  * Return Extended Date format for depending on date difference
-		//  * Including: Yesterday, Today, Tomorrow...
-		//  */
-		// public static function RenderDateExtended(string $date, ?string $lang="", bool $withTime=false, string $preRet="", string $formatType="nice"): string {
-		// 	if (Helper::StringNullOrEmpty($lang)) {
-		// 		$lang = LangHelper::$ACTIVE;
-		// 	}
-
-		// 	$newDate    = "";
+			$newDate    = "";
 		// 	if (self::RenderDate($date, "Y") != date("Y")) {
 		// 		$dateFormat = self::GetFormatFromType($formatType, "date");
 		// 		$timeFormat = self::GetFormatFromType($formatType, "time");
@@ -170,8 +137,8 @@
 		// 		$newDate = TranslateHelper::Translate("date.today") . ($withTime ? (" " .  TranslateHelper::Translate("date.at") . " " . self::RenderDate($date, DateFormats::TIME_FORMAT_MAIN, $lang)) : "");
 		// 	}
 
-		// 	return $newDate;
-		// }
+			return $newDate;
+		}
 
 
 		// /**

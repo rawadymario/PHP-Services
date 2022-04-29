@@ -1,5 +1,5 @@
 <?php
-	namespace RawadyMario\Constants;
+	namespace RawadyMario\Models;
 
 
 	class Status {

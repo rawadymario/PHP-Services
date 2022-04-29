@@ -1,7 +1,7 @@
 <?php
 	namespace RawadyMario\Helpers;
 
-	use RawadyMario\Constants\Lang;
+	use RawadyMario\Models\Lang;
 
 	class LangHelper {
 		public static $DEFAULT = Lang::EN;

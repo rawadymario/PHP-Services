@@ -4,5 +4,5 @@
 	use Exception;
 
 	final class InvalidUrl extends Exception {
-		protected $message = "The given URL is invalid!";
+		protected $message = "InvalidUrl";
 	}

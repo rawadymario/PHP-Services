@@ -1,0 +1,14 @@
+{
+	"exceptions": {
+		"InvalidUrl": {
+			"en": "The given URL is invalid!",
+			"fr": "L'URL donnée n'est pas valide !",
+			"ar": "عنوان URL المحدد غير صالح!"
+		},
+		"UnknownException": {
+			"en": "An exception occurred for an unknown reason!",
+			"fr": "Une exception s'est produite pour une raison inconnue !",
+			"ar": "حدث استثناء لسبب غير معروف!"
+		}
+	}
+}

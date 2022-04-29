@@ -1,10 +1,10 @@
 <?php
 	namespace RawadyMario\Helpers;
 
-	use RawadyMario\Constants\Code;
-	use RawadyMario\Constants\HttpCode;
-	use RawadyMario\Constants\Lang;
-	use RawadyMario\Constants\Status;
+	use RawadyMario\Models\Code;
+	use RawadyMario\Models\HttpCode;
+	use RawadyMario\Models\Lang;
+	use RawadyMario\Models\Status;
 
 	class Helper {
 

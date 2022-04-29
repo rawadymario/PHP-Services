@@ -1,8 +1,8 @@
 <?php
 	//To Run: .\vendor/bin/phpunit .\Units\Helpers\DateHelperTest.php
 	use PHPUnit\Framework\TestCase;
-	use RawadyMario\Constants\DateFormats;
-	use RawadyMario\Constants\Lang;
+	use RawadyMario\Models\DateFormats;
+	use RawadyMario\Models\Lang;
 	use RawadyMario\Helpers\DateHelper;
 
 	final class DateHelperTest extends TestCase {

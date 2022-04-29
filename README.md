@@ -19,6 +19,7 @@ Packagist Link: [https://packagist.org/packages/rawadymario/services](https://pa
 ### Default Translations
 
 - Date
+- Exceptions
 - Global
 - Number
 
@@ -47,6 +48,7 @@ Below is the list of all the default functions to run before using a helper:
 
 1. TranslateHelper
    1. AddDefaults()
+   2. AddCustomDir(`string $customDir`)
 
 > Constants
 

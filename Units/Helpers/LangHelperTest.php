@@ -1,7 +1,7 @@
 <?php
 	//To Run: .\vendor/bin/phpunit .\Units\Helpers\LangHelperTest.php
 	use PHPUnit\Framework\TestCase;
-	use RawadyMario\Constants\Lang;
+	use RawadyMario\Models\Lang;
 	use RawadyMario\Helpers\LangHelper;
 
 	final class LangHelperTest extends TestCase {

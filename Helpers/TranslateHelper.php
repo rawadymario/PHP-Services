@@ -25,14 +25,23 @@
 			$filesArr = Helper::GetAllFiles($dir);
 
 			foreach ($filesArr AS $filePath) {
-				$fileArr = Helper::GetJsonContentFromFileAsArray($filePath);
+				self::AddFileContentToVals($filePath);
+			}
+		}
 
-				$pathArr = explode("/", $filePath);
-				$lastPath = $pathArr[sizeof($pathArr) - 1];
-				$type = strtolower(str_replace(".json", "", $lastPath));
 
-				self::$VALS = array_merge(self::$VALS, Helper::ConvertMultidimentionArrayToSingleDimention($fileArr));
-				self::$VALS_WITHOUT_TYPE = array_merge(self::$VALS_WITHOUT_TYPE, Helper::ConvertMultidimentionArrayToSingleDimention($fileArr[$type]));
+		/**
+		 * Add all the default translations (Read from DefaultTranslations and add them to self::$VALS)
+		 */
+		public static function AddCustomDir(
+			string $customDir
+		): void {
+			if (!Helper::StringNullOrEmpty($customDir) && is_dir($customDir)) {
+				$filesArr = Helper::GetAllFiles($customDir);
+
+				foreach ($filesArr AS $filePath) {
+					self::AddFileContentToVals($filePath);
+				}
 			}
 		}
 
@@ -69,9 +78,11 @@
 			}
 
 			if (!Helper::StringNullOrEmpty($str) && count($replace) > 0) {
-				foreach ($replace AS $k => $v) {
-					$str = str_replace($k, $v, $str);
-				}
+				$str = str_replace(
+					array_keys($replace),
+					array_values($replace),
+					$str
+				);
 			}
 
 			return $str;
@@ -115,6 +126,20 @@
 			}
 
 			return $string;
+		}
+
+
+		private static function AddFileContentToVals(
+			string $filePath
+		): void {
+			$fileArr = Helper::GetJsonContentFromFileAsArray($filePath);
+
+			$pathArr = explode("/", $filePath);
+			$lastPath = $pathArr[sizeof($pathArr) - 1];
+			$type = strtolower(str_replace(".json", "", $lastPath));
+
+			self::$VALS = array_merge(self::$VALS, Helper::ConvertMultidimentionArrayToSingleDimention($fileArr));
+			self::$VALS_WITHOUT_TYPE = array_merge(self::$VALS_WITHOUT_TYPE, Helper::ConvertMultidimentionArrayToSingleDimention($fileArr[$type]));
 		}
 
 	}

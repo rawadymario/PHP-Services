@@ -1,10 +1,10 @@
 <?php
 	//To Run: .\vendor/bin/phpunit .\Units\Helpers\HelperTest.php
 	use PHPUnit\Framework\TestCase;
-	use RawadyMario\Constants\Code;
-	use RawadyMario\Constants\HttpCode;
-	use RawadyMario\Constants\Lang;
-	use RawadyMario\Constants\Status;
+	use RawadyMario\Models\Code;
+	use RawadyMario\Models\HttpCode;
+	use RawadyMario\Models\Lang;
+	use RawadyMario\Models\Status;
 	use RawadyMario\Helpers\Helper;
 
 	final class HelperTest extends TestCase {
