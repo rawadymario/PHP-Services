@@ -1,10 +1,10 @@
 <?php
 	namespace RawadyMario\Helpers;
 
-use Exception;
-use RawadyMario\Models\DateFormats;
+	use RawadyMario\Models\DateFormats;
 	use RawadyMario\Models\DateFormatTypes;
 	use RawadyMario\Models\DateTypes;
+	use RawadyMario\Models\Lang;
 
 	class DateHelper {
 
@@ -99,90 +99,93 @@ use RawadyMario\Models\DateFormats;
 		 * Including: Yesterday, Today, Tomorrow...
 		 */
 		public static function RenderDateExtended(
-			string $date,
+			?string $date,
 			?string $lang="",
 			bool $withTime=false,
-			string $preRet="",
-			string $formatType="nice"
+			string $formatType=DateFormatTypes::NICE,
+			?string $comparisonDate=null
 		): string {
+			if (Helper::StringNullOrEmpty($date)) {
+				return "";
+			}
+
+			if (self::CleanDate($comparisonDate) === "null") {
+				$comparisonDate = date(DateFormats::DATETIME_SAVE);
+			}
+			$comparisonDateStr = strtotime($comparisonDate);
+
 			if (Helper::StringNullOrEmpty($lang)) {
 				$lang = LangHelper::$ACTIVE;
 			}
 
-			$newDate    = "";
-		// 	if (self::RenderDate($date, "Y") != date("Y")) {
-		// 		$dateFormat = self::GetFormatFromType($formatType, "date");
-		// 		$timeFormat = self::GetFormatFromType($formatType, "time");
+			if (self::RenderDate($date, "Y", Lang::EN) != date("Y", $comparisonDateStr)) {
+				$dateFormat = self::GetFormatFromType($formatType, DateTypes::DATE);
+				$dateTimeFormat = self::GetFormatFromType($formatType, DateTypes::DATETIME);
 
-		// 		$format = $withTime ? $timeFormat : $dateFormat;
-		// 		$newDate = $preRet . self::RenderDate($date, $format, $lang);
-		// 	}
-		// 	else if (self::RenderDate($date, "m") != date("m") || self::RenderDate($date, "d") != date("d")) {
-		// 		$timeStamp1 = strtotime(self::RenderDate($date, DateFormats::DATE_SAVE));
-		// 		$timeStamp2 = strtotime(date(DateFormats::DATE_SAVE));
+				$format = $withTime ? $dateTimeFormat : $dateFormat;
+				return self::RenderDate($date, $format, $lang);
+			}
+			else if (self::RenderDate($date, "m") != date("m", $comparisonDateStr) || self::RenderDate($date, "d") != date("d", $comparisonDateStr)) {
+				$timeStamp1 = strtotime($date);
+				$timeStamp2 = $comparisonDateStr;
 
-		// 		$timeStampDiff  = $timeStamp2 - $timeStamp1;
-		// 		if ($timeStampDiff > 0 && $timeStampDiff <= (60 * 60 * 24)) {
-		// 			$newDate = TranslateHelper::Translate("date.yesterday") . ($withTime ? (" " .  TranslateHelper::Translate("date.at") . " " . self::RenderDate($date, DateFormats::TIME_MAIN, $lang)) : "");
-		// 		}
-		// 		else if ($timeStampDiff < 0 && $timeStampDiff >= -(60 * 60 * 24)) {
-		// 			$newDate = TranslateHelper::Translate("date.tomorrow") . ($withTime ? (" " .  TranslateHelper::Translate("date.at") . " " . self::RenderDate($date, DateFormats::TIME_MAIN, $lang)) : "");
-		// 		}
-		// 		else {
-		// 			$dateFormat = self::GetFormatFromType($formatType, "date", false);
-		// 			$timeFormat = self::GetFormatFromType($formatType, "time", false);
+				$timeStampDiff = $timeStamp2 - $timeStamp1;
+				if ($timeStampDiff > 0 && $timeStampDiff <= (60 * 60 * 24)) {
+					$newDate = TranslateHelper::Translate("date.yesterday", $lang);
+					if ($withTime) {
+						$newDate .= " " .  TranslateHelper::Translate("date.at", $lang) . " " . self::RenderDate($date, DateFormats::TIME_MAIN, $lang);
+					}
+					return $newDate;
+				}
+				else if ($timeStampDiff < 0 && $timeStampDiff >= -(60 * 60 * 24)) {
+					$newDate = TranslateHelper::Translate("date.tomorrow", $lang);
+					if ($withTime) {
+						$newDate .= " " .  TranslateHelper::Translate("date.at", $lang) . " " . self::RenderDate($date, DateFormats::TIME_MAIN, $lang);
+					}
+					return $newDate;
 
-		// 			$format = $withTime ? $timeFormat : $dateFormat;
-		// 			$newDate = $preRet . self::RenderDate($date, $format, $lang);
-		// 		}
-		// 	}
-		// 	else {
-		// 		$newDate = TranslateHelper::Translate("date.today") . ($withTime ? (" " .  TranslateHelper::Translate("date.at") . " " . self::RenderDate($date, DateFormats::TIME_MAIN, $lang)) : "");
-		// 	}
+				}
+				else {
+					$dateFormat = self::GetFormatFromType($formatType, DateTypes::DATE, false);
+					$dateTimeFormat = self::GetFormatFromType($formatType, DateTypes::DATETIME, false);
 
-			return $newDate;
+					$format = $withTime ? $dateTimeFormat : $dateFormat;
+					return self::RenderDate($date, $format, $lang);
+				}
+			}
+			else {
+				$newDate = TranslateHelper::Translate("date.today", $lang);
+				if ($withTime) {
+					$newDate .= " " .  TranslateHelper::Translate("date.at", $lang) . " " . self::RenderDate($date, DateFormats::TIME_MAIN, $lang);
+				}
+				return $newDate;
+			}
+
+			return $date;
 		}
 
 
 		// /**
-		//  * Get from and to values from daterange (eg: {date1} - {date2})
+		//  * Get days count between 2 dates
 		//  */
-		// public static function GetDatesFromDateRange(string $dateRange="", string $format=DateFormats::DATE_SAVE): array {
-		// 	if ($dateRange == "") {
-		// 		return [];
+		// public static function GetDaysCount(
+		// 	?string $date1=null,
+		// 	?string $date2=null
+		// ): int {
+		// 	if (Helper::StringNullOrEmpty($date1)) {
+		// 		return 0;
+		// 	}
+		// 	if (Helper::StringNullOrEmpty($date2)) {
+		// 		return 0;
 		// 	}
 
-		// 	$dateRangeArr	= explode("-", $dateRange);
+		// 	$oneDayStr = 60 * 60 * 24;
 
-		// 	if ($dateRangeArr[0] === $dateRangeArr[1]) {
-		// 		return [
-		// 			"from"	=> self::RenderDate(trim($dateRangeArr[0]), $format),
-		// 		];
-		// 	}
-		// 	else {
-		// 		return [
-		// 			"from"	=> self::RenderDate(trim($dateRangeArr[0]), $format),
-		// 			"to"	=> self::RenderDate(trim($dateRangeArr[1]), $format),
-		// 		];
-		// 	}
-		// }
+		// 	$date1Str = strtotime($date1[0]);
+		// 	$date2Str = strtotime($date2[1]);
+		// 	$daysStr = abs($date1Str - $date2Str);
 
-
-		// /**
-		//  * Get days count between 2 dates from daterange (eg: {date1} - {date2})
-		//  */
-		// public static function GetDaysCountFromDateRange(string $dateRange=""): int {
-		// 	$daysCount	= 0;
-
-		// 	$oneDayStr	= 24 * 60 * 60;
-
-		// 	$dateRangeArr	= explode(" - ", $dateRange);
-		// 	$fromStr	= strtotime($dateRangeArr[0]);
-		// 	$toStr		= strtotime($dateRangeArr[1]);
-		// 	$daysStr	= $toStr - $fromStr;
-		// 	$daysCount	= Helper::ConvertToInt($daysStr / $oneDayStr) + 1;
-
-		// 	return $daysCount;
+		// 	return Helper::ConvertToInt($daysStr / $oneDayStr) + 1;
 		// }
 
 

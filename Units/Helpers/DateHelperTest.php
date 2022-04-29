@@ -4,6 +4,7 @@
 	use RawadyMario\Models\DateFormats;
 	use RawadyMario\Models\Lang;
 	use RawadyMario\Helpers\DateHelper;
+	use RawadyMario\Helpers\TranslateHelper;
 	use RawadyMario\Models\DateFormatTypes;
 	use RawadyMario\Models\DateTypes;
 
@@ -154,8 +155,79 @@
 			);
 		}
 
-		public function RenderDateExtended(): void {
-			//TODO: Add Tests
+		public function testRenderDateExtended(): void {
+			TranslateHelper::AddDefaults();
+
+			$this->assertEquals(
+				"",
+				DateHelper::RenderDateExtended(null)
+			);
+
+			$this->assertEquals(
+				"",
+				DateHelper::RenderDateExtended("")
+			);
+
+			$this->assertEquals(
+				"07 Jan, 1992",
+				DateHelper::RenderDateExtended("1992-01-07 05:30:10")
+			);
+
+			$this->assertEquals(
+				"٠٧ كانون ثاني، ١٩٩٢",
+				DateHelper::RenderDateExtended("1992-01-07 05:30:10", Lang::AR)
+			);
+
+			$this->assertEquals(
+				"07 Jan, 1992 05:30",
+				DateHelper::RenderDateExtended("1992-01-07 05:30:10", Lang::EN, true)
+			);
+
+			$this->assertEquals(
+				"07 January, 1992",
+				DateHelper::RenderDateExtended("1992-01-07 05:30:10", Lang::EN, false, DateFormatTypes::FULL)
+			);
+
+			$this->assertEquals(
+				"yesterday",
+				DateHelper::RenderDateExtended("1992-01-07 05:30:10", Lang::EN, false, DateFormatTypes::NICE, "1992-01-08 05:30:10")
+			);
+
+			$this->assertEquals(
+				"07 Jan",
+				DateHelper::RenderDateExtended("1992-01-07 05:30:10", Lang::EN, false, DateFormatTypes::NICE, "1992-01-08 05:30:11")
+			);
+
+			$this->assertEquals(
+				"07 Jan, 05:30",
+				DateHelper::RenderDateExtended("1992-01-07 05:30:10", Lang::EN, true, DateFormatTypes::NICE, "1992-01-08 05:30:11")
+			);
+
+			$this->assertEquals(
+				"tomorrow",
+				DateHelper::RenderDateExtended("1992-01-07 05:30:10", Lang::EN, false, DateFormatTypes::NICE, "1992-01-06 05:30:10")
+			);
+
+			$this->assertEquals(
+				"07 Jan",
+				DateHelper::RenderDateExtended("1992-01-07 05:30:10", Lang::EN, false, DateFormatTypes::NICE, "1992-01-06 05:30:09")
+			);
+
+			$this->assertEquals(
+				"today",
+				DateHelper::RenderDateExtended("1992-01-07 05:30:10", Lang::EN, false, DateFormatTypes::NICE, "1992-01-07 12:00:00")
+			);
+
+			$this->assertEquals(
+				"today at 05:30",
+				DateHelper::RenderDateExtended("1992-01-07 05:30:10", Lang::EN, true, DateFormatTypes::NICE, "1992-01-07 12:00:00")
+			);
+
+			$this->assertEquals(
+				"اليوم في ٠٥:٣٠",
+				DateHelper::RenderDateExtended("1992-01-07 05:30:10", Lang::AR, true, DateFormatTypes::NICE, "1992-01-07 12:00:00")
+			);
+
 		}
 
 
