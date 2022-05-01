@@ -103,11 +103,6 @@
 			);
 
 			$this->assertEquals(
-				"سنة",
-				TranslateHelper::Translate("year", LANG::AR, false, [], false)
-			);
-
-			$this->assertEquals(
 				"test.test1",
 				TranslateHelper::Translate("test.test1")
 			);
@@ -117,6 +112,13 @@
 			$this->assertEquals(
 				"Test 1",
 				TranslateHelper::Translate("test.test1")
+			);
+		}
+
+		public function testTranslateSimpleSuccess(): void {
+			$this->assertEquals(
+				"سنة",
+				TranslateHelper::TranslateSimple("year", Lang::AR, false, [])
 			);
 		}
 
@@ -150,6 +152,13 @@
 			$this->assertEquals(
 				"هذا هو سنة ٢٠٢٢",
 				TranslateHelper::TranslateString("هذا هو Year 2022", Lang::AR, [], false)
+			);
+		}
+
+		public function testTranslateStringSimpleSuccess(): void {
+			$this->assertEquals(
+				"١٩٩٢",
+				TranslateHelper::TranslateStringSimple("1992", Lang::AR)
 			);
 		}
 

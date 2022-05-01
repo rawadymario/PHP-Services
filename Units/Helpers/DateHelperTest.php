@@ -1,6 +1,8 @@
 <?php
 	//To Run: .\vendor/bin/phpunit .\Units\Helpers\DateHelperTest.php
 	use PHPUnit\Framework\TestCase;
+	use RawadyMario\Exceptions\InvalidParamException;
+	use RawadyMario\Exceptions\NotEmptyParamException;
 	use RawadyMario\Models\DateFormats;
 	use RawadyMario\Models\Lang;
 	use RawadyMario\Helpers\DateHelper;
@@ -10,7 +12,7 @@
 
 	final class DateHelperTest extends TestCase {
 
-		public function testCleanDate(): void {
+		public function testCleanDateSuccess(): void {
 			$this->assertEquals(
 				"null",
 				DateHelper::CleanDate(null)
@@ -27,17 +29,23 @@
 			);
 		}
 
-		public function testRenderDate(): void {
-			$this->assertEquals(
-				"",
-				DateHelper::RenderDate(null)
-			);
+		public function testRenderDateThrowError_01(): void {
+			$this->expectException(NotEmptyParamException::class);
+			$this->expectExceptionMessage(TranslateHelper::TranslateString("exception.NotEmptyParam", null, [
+				"::params::" => "date"
+			]));
+			DateHelper::RenderDate(null);
+		}
 
-			$this->assertEquals(
-				"",
-				DateHelper::RenderDate("")
-			);
+		public function testRenderDateThrowError_02(): void {
+			$this->expectException(NotEmptyParamException::class);
+			$this->expectExceptionMessage(TranslateHelper::TranslateString("exception.NotEmptyParam", null, [
+				"::params::" => "date"
+			]));
+			DateHelper::RenderDate("");
+		}
 
+		public function testRenderDateSuccess(): void {
 			$this->assertEquals(
 				"2022-01-07",
 				DateHelper::RenderDate("2022-01-07")
@@ -79,7 +87,7 @@
 			);
 		}
 
-		public function testRenderDateFromTime(): void {
+		public function testRenderDateFromTimeSuccess(): void {
 			$this->assertEquals(
 				"2022-01-07",
 				DateHelper::RenderDateFromTime(strtotime("2022-01-07"), DateFormats::DATE_SAVE, "")
@@ -96,7 +104,23 @@
 			);
 		}
 
-		public function testGetMonthName(): void {
+		public function testGetMonthNameThrowError_01(): void {
+			$this->expectException(InvalidParamException::class);
+			$this->expectExceptionMessage(TranslateHelper::TranslateString("exception.InvalidParam", null, [
+				"::params::" => "month"
+			]));
+			DateHelper::GetMonthName(0);
+		}
+
+		public function testGetMonthNameThrowError_02(): void {
+			$this->expectException(InvalidParamException::class);
+			$this->expectExceptionMessage(TranslateHelper::TranslateString("exception.InvalidParam", null, [
+				"::params::" => "month"
+			]));
+			DateHelper::GetMonthName(13);
+		}
+
+		public function testGetMonthNameSuccess(): void {
 			$this->assertEquals(
 				"January",
 				DateHelper::GetMonthName(1)
@@ -128,7 +152,7 @@
 			);
 		}
 
-		public function testGetWeekDayName(): void {
+		public function testGetWeekDayNameSuccess(): void {
 			$this->assertEquals(
 				"Sunday",
 				DateHelper::GetWeekDayName(0)
@@ -136,7 +160,7 @@
 
 			$this->assertEquals(
 				"Sunday",
-				DateHelper::GetWeekDayName(0)
+				DateHelper::GetWeekDayName(7)
 			);
 
 			$this->assertEquals(
@@ -155,18 +179,24 @@
 			);
 		}
 
-		public function testRenderDateExtended(): void {
+		public function testRenderDateExtendedThrowError_01(): void {
+			$this->expectException(NotEmptyParamException::class);
+			$this->expectExceptionMessage(TranslateHelper::TranslateString("exception.NotEmptyParam", null, [
+				"::params::" => "date"
+			]));
+			DateHelper::RenderDateExtended(null);
+		}
+
+		public function testRenderDateExtendedThrowError_02(): void {
+			$this->expectException(NotEmptyParamException::class);
+			$this->expectExceptionMessage(TranslateHelper::TranslateString("exception.NotEmptyParam", null, [
+				"::params::" => "date"
+			]));
+			DateHelper::RenderDateExtended("");
+		}
+
+		public function testRenderDateExtendedSuccess(): void {
 			TranslateHelper::AddDefaults();
-
-			$this->assertEquals(
-				"",
-				DateHelper::RenderDateExtended(null)
-			);
-
-			$this->assertEquals(
-				"",
-				DateHelper::RenderDateExtended("")
-			);
 
 			$this->assertEquals(
 				"07 Jan, 1992",
@@ -230,17 +260,23 @@
 
 		}
 
-		public function testGetDaysCount(): void {
-			$this->assertEquals(
-				0,
-				DateHelper::GetDaysCount(null, "1992-01-07")
-			);
+		public function testGetDaysCountThrowError_01(): void {
+			$this->expectException(NotEmptyParamException::class);
+			$this->expectExceptionMessage(TranslateHelper::TranslateString("exception.NotEmptyParam", null, [
+				"::params::" => "date1"
+			]));
+			DateHelper::GetDaysCount(null, "1992-01-07");
+		}
 
-			$this->assertEquals(
-				0,
-				DateHelper::GetDaysCount("1992-01-07", null)
-			);
+		public function testGetDaysCountThrowError_02(): void {
+			$this->expectException(NotEmptyParamException::class);
+			$this->expectExceptionMessage(TranslateHelper::TranslateString("exception.NotEmptyParam", null, [
+				"::params::" => "date2"
+			]));
+			DateHelper::GetDaysCount("1992-01-07", null);
+		}
 
+		public function testGetDaysCountSuccess(): void {
 			$this->assertEquals(
 				1,
 				DateHelper::GetDaysCount("1992-01-07", "1992-01-08")
@@ -257,6 +293,50 @@
 			);
 		}
 
+		public function testGetAgeThrowError_01(): void {
+			$this->expectException(NotEmptyParamException::class);
+			$this->expectExceptionMessage(TranslateHelper::TranslateString("exception.NotEmptyParam", null, [
+				"::params::" => "dob"
+			]));
+			DateHelper::GetAge(null);
+		}
+
+		public function testGetAgeSuccess(): void {
+			$this->assertEquals(
+				"30 years",
+				DateHelper::GetAge("1992-01-07", null, "2022-01-07")
+			);
+
+			$this->assertEquals(
+				"30 years and 2 months",
+				DateHelper::GetAge("1992-01-07", null, "2022-03-07")
+			);
+
+			$this->assertEquals(
+				"30 years and 2 months and 9 days",
+				DateHelper::GetAge("1992-01-07", null, "2022-03-16")
+			);
+
+			$this->assertEquals(
+				"٣٠ سنوات و ٢ شهور و ٩ أيام",
+				DateHelper::GetAge("1992-01-07", Lang::AR, "2022-03-16")
+			);
+
+			$this->assertEquals(
+				"30 years and 2 months",
+				DateHelper::GetAge("1992-01-07", null, "2022-03-16", true, false)
+			);
+
+			$this->assertEquals(
+				"30 years and 9 days",
+				DateHelper::GetAge("1992-01-07", null, "2022-03-16", false, true)
+			);
+
+			$this->assertEquals(
+				"30 years",
+				DateHelper::GetAge("1992-01-07", null, "2022-03-16", false, false)
+			);
+		}
 
 		public function testGetFormatFromType(): void {
 			$this->assertEquals(

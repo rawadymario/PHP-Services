@@ -1,6 +1,8 @@
 <?php
 	namespace RawadyMario\Helpers;
 
+	use RawadyMario\Exceptions\InvalidParamException;
+	use RawadyMario\Exceptions\NotEmptyParamException;
 	use RawadyMario\Models\DateFormats;
 	use RawadyMario\Models\DateFormatTypes;
 	use RawadyMario\Models\DateTypes;
@@ -33,7 +35,7 @@
 			bool $isStr=false
 		): string {
 			if (Helper::StringNullOrEmpty($date)) {
-				return "";
+				throw new NotEmptyParamException("date");
 			}
 
 			if (Helper::StringNullOrEmpty($lang)) {
@@ -65,15 +67,19 @@
 		 * Get month name from its number
 		 */
 		public static function GetMonthName(
-			int $m,
+			int $month,
 			?string $lang="",
 			string $format="F"
 		): string {
+			if ($month < 1 || $month > 12) {
+				throw new InvalidParamException("month");
+			}
+
 			if (Helper::StringNullOrEmpty($lang)) {
 				$lang = LangHelper::$ACTIVE;
 			}
 
-			$date = "2000-$m-01";
+			$date = "2000-$month-01";
 			return self::RenderDate($date, $format, $lang);
 		}
 
@@ -82,14 +88,14 @@
 		 * Get week day name from its number
 		 */
 		public static function GetWeekDayName(
-			string $d,
+			string $weekDay,
 			?string $lang=""
 		): string {
 			if (Helper::StringNullOrEmpty($lang)) {
 				$lang = LangHelper::$ACTIVE;
 			}
 
-			$date = jddayofweek($d-1, 1);
+			$date = jddayofweek($weekDay-1, 1);
 			return TranslateHelper::Translate($date, $lang, false, [], false);
 		}
 
@@ -106,7 +112,7 @@
 			?string $comparisonDate=null
 		): string {
 			if (Helper::StringNullOrEmpty($date)) {
-				return "";
+				throw new NotEmptyParamException("date");
 			}
 
 			if (self::CleanDate($comparisonDate) === "null") {
@@ -173,10 +179,10 @@
 			?string $date2=null
 		): float {
 			if (Helper::StringNullOrEmpty($date1)) {
-				return 0;
+				throw new NotEmptyParamException("date1");
 			}
 			if (Helper::StringNullOrEmpty($date2)) {
-				return 0;
+				throw new NotEmptyParamException("date2");
 			}
 
 			$oneDayStr = 60 * 60 * 24;
@@ -194,96 +200,40 @@
 		 */
 		public static function GetAge(
 			?string $dob=null,
-			?string $lang="",
-			?string $date=null,
+			?string $lang=null,
+			?string $dateTime=null,
 			bool $getMonths=true,
 			bool $getDays=true
 		): string {
-			// if (Helper::StringNullOrEmpty($dob)) {
-			// 	return "";
-			// }
+			if (Helper::StringNullOrEmpty($dob)) {
+				throw new NotEmptyParamException("dob");
+			}
 
-			// if (Helper::StringNullOrEmpty($lang)) {
-			// 	$lang = LangHelper::$ACTIVE;
-			// }
+			if (Helper::StringNullOrEmpty($lang)) {
+				$lang = LangHelper::$ACTIVE;
+			}
 
-			// $age = "-";
+			if (Helper::StringNullOrEmpty($dateTime)) {
+				$dateTime = 'now';
+			}
 
-			// if ($dob != "") {
-			// 	$dateDiff = date_diff(date_create($date), date_create($dob));
+			$dateDiff = date_diff(date_create($dateTime), date_create($dob));
 
-			// 	$years	= Helper::ConvertToInt($dateDiff->format("%Y"));
-			// 	$months	= Helper::ConvertToInt($dateDiff->format("%M"));
+			$years	= Helper::ConvertToInt($dateDiff->format("%Y"));
+			$months	= Helper::ConvertToInt($dateDiff->format("%M"));
+			$days = Helper::ConvertToInt($dateDiff->format("%d"));
 
-			// 	$age = LangHelper::NumberFromEnglish($years, $lang) . " " . ($years == 1 ? TranslateHelper::Translate("date.year") : TranslateHelper::Translate("date.years"));
-			// 	if ($months > 0) {
-			// 		$age .= " " . TranslateHelper::Translate("date.and") . " " . LangHelper::NumberFromEnglish($months, $lang) . " " . ($months == 1 ? TranslateHelper::Translate("date.month") : TranslateHelper::Translate("date.months"));
-			// 	}
+			$age = TranslateHelper::TranslateStringSimple($years, $lang) . " " . ($years == 1 ? TranslateHelper::Translate("date.year", $lang) : TranslateHelper::Translate("date.years", $lang));
+			if ($getMonths && $months > 0) {
+				$age .= " " . TranslateHelper::Translate("date.and", $lang) . " " . TranslateHelper::TranslateStringSimple($months, $lang) . " " . ($months == 1 ? TranslateHelper::Translate("date.month", $lang) : TranslateHelper::Translate("date.months", $lang));
+			}
 
-			// 	if ($getDays) {
-			// 		$days = Helper::ConvertToInt($dateDiff->format("%d"));
-			// 		if ($days > 0) {
-			// 			$age .= " " . TranslateHelper::Translate("date.and") . " " . LangHelper::NumberFromEnglish($days, $lang) . " " . ($days == 1 ? TranslateHelper::Translate("date.day") : TranslateHelper::Translate("date.days"));
-			// 		}
-			// 	}
-			// }
+			if ($getDays && $days > 0) {
+				$age .= " " . TranslateHelper::Translate("date.and", $lang) . " " . TranslateHelper::TranslateStringSimple($days, $lang) . " " . ($days == 1 ? TranslateHelper::Translate("date.day", $lang) : TranslateHelper::Translate("date.days", $lang));
+			}
 
-			return "";
+			return $age;
 		}
-
-
-		// /**
-		//  * Render Full Datef rom the given date
-		//  */
-		// public static function RenderFullDate(string $date, ?string $lang="en", bool $withTime=false, string $preRet=""): string {
-		// 	$newDate    = "";
-		// 	if (self::RenderDate($date, "Y") != date("Y")) {
-		// 		$format     = $withTime ? DateFormats::DATETIME_NICE : DateFormats::DATE_NICE;
-		// 		$newDate    = $preRet . self::RenderDate($date, $format, $lang);
-		// 	}
-		// 	else if (self::RenderDate($date, "m") != date("m") || self::RenderDate($date, "d") != date("d")) {
-		// 		$timeStamp1 = strtotime(self::RenderDate($date, DateFormats::DATE_SAVE));
-		// 		$timeStamp2 = strtotime(date(DateFormats::DATE_SAVE));
-
-		// 		$timeStampDiff  = $timeStamp2 - $timeStamp1;
-		// 		if ($timeStampDiff > 0 && $timeStampDiff <= (60 * 60 * 24)) {
-		// 			$newDate = TranslateHelper::Translate("date.yesterday") . ($withTime ? (" " .  TranslateHelper::Translate("date.at") . " " . self::RenderDate($date, DateFormats::TIME_MAIN, $lang)) : "");
-		// 		}
-		// 		else if ($timeStampDiff < 0 && $timeStampDiff >= -(60 * 60 * 24)) {
-		// 			$newDate = TranslateHelper::Translate("date.tomorrow") . ($withTime ? (" " .  TranslateHelper::Translate("date.at") . " " . self::RenderDate($date, DateFormats::TIME_MAIN, $lang)) : "");
-		// 		}
-		// 		else {
-		// 			$format		= $withTime ? DateFormats::DATETIME_NICE_NO_YEAR : DateFormats::DATE_NICE_NO_YEAR;
-		// 			$newDate	= $preRet . self::RenderDate($date, $format, $lang);
-		// 		}
-		// 	}
-		// 	else {
-		// 		$newDate = TranslateHelper::Translate("date.today") . ($withTime ? (" " .  TranslateHelper::Translate("date.at") . " " . self::RenderDate($date, DateFormats::TIME_MAIN, $lang)) : "");
-		// 	}
-
-		// 	return $newDate;
-		// }
-
-
-		// /**
-		//  * Get the given time in seconds
-		//  */
-		// public static function TimeInSec(string $time="") : int {
-		// 	$secs = 0;
-
-		// 	$timeArr = explode(":", $time);
-		// 	if (isset($timeArr[0])) {
-		// 		$secs += Helper::ConvertToInt($timeArr[0]) * 60 * 60;
-		// 	}
-		// 	if (isset($timeArr[1])) {
-		// 		$secs += Helper::ConvertToInt($timeArr[1]) * 60;
-		// 	}
-		// 	if (isset($timeArr[2])) {
-		// 		$secs += Helper::ConvertToInt($timeArr[2]);
-		// 	}
-
-		// 	return $secs;
-		// }
 
 
 		/**

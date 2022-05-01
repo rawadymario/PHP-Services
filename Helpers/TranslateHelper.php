@@ -92,6 +92,19 @@
 
 
 		/**
+		 * Same as Translate, but having the parameter "withType = false"
+		 */
+		public static function TranslateSimple(
+			?string $key,
+			?string $lang=null,
+			bool $returnEmpty=false,
+			array $replace=[]
+		): string {
+			return self::Translate($key, $lang, $returnEmpty, $replace, false);
+		}
+
+
+		/**
 		 * Return the Translation of the Given String in the given Language
 		 */
 		public static function TranslateString(
@@ -128,6 +141,18 @@
 			}
 
 			return $string;
+		}
+
+
+		/**
+		 * Same as TranslateString, but having the parameter "withType = false"
+		 */
+		public static function TranslateStringSimple(
+			?string $string,
+			?string $lang=null,
+			array $replace=[]
+		): string {
+			return self::TranslateString($string, $lang, $replace, false);
 		}
 
 

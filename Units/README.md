@@ -9,13 +9,13 @@
 ## Finished Tests
 
 - CurrencyHelper
+- DateHelper
 - Helper
 - LangHelper
 - TranslateHelper
 
 ## Unfinished Tests
 
-- DateHelper
 - MediaHelper
 - QueryHelper
 - ValidatorHelper

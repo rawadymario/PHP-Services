@@ -8,29 +8,35 @@
 
 	final class CurrencyHelperTest extends TestCase {
 
-		public function testAddCurrencySuccess(): void {
+		public function testAddCurrencyUsdPreWithSpaceSuccess(): void {
 			$this->assertEquals(
 				"$ 10",
 				CurrencyHelper::AddCurrency(10, "$", CurrencyPosition::PRE, " ")
 			);
+		}
 
+		public function testAddCurrencyUsdPreWithoutSpaceSuccess(): void {
 			$this->assertEquals(
 				"$10",
 				CurrencyHelper::AddCurrency(10, "$", CurrencyPosition::PRE)
 			);
+		}
 
+		public function testAddCurrencyUsdPostWithSpaceSuccess(): void {
 			$this->assertEquals(
 				"10 $",
 				CurrencyHelper::AddCurrency(10, "$", CurrencyPosition::POST, " ")
 			);
+		}
 
+		public function testAddCurrencyUsdPostWithoutSpaceSuccess(): void {
 			$this->assertEquals(
 				"10$",
 				CurrencyHelper::AddCurrency(10, "$", CurrencyPosition::POST)
 			);
 		}
 
-		public function testGetLbpAmountThrowError(): void {
+		public function testGetLbpAmountNonNumericValueFail(): void {
 			$this->expectException(NotNumericParamException::class);
 			$this->expectExceptionMessage(TranslateHelper::TranslateString("exception.NotNumericParam", null, [
 				"::params::" => "amount"
