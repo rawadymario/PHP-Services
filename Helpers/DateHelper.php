@@ -165,98 +165,71 @@
 		}
 
 
-		// /**
-		//  * Get days count between 2 dates
-		//  */
-		// public static function GetDaysCount(
-		// 	?string $date1=null,
-		// 	?string $date2=null
-		// ): int {
-		// 	if (Helper::StringNullOrEmpty($date1)) {
-		// 		return 0;
-		// 	}
-		// 	if (Helper::StringNullOrEmpty($date2)) {
-		// 		return 0;
-		// 	}
+		/**
+		 * Get days count between 2 dates
+		 */
+		public static function GetDaysCount(
+			?string $date1=null,
+			?string $date2=null
+		): float {
+			if (Helper::StringNullOrEmpty($date1)) {
+				return 0;
+			}
+			if (Helper::StringNullOrEmpty($date2)) {
+				return 0;
+			}
 
-		// 	$oneDayStr = 60 * 60 * 24;
+			$oneDayStr = 60 * 60 * 24;
 
-		// 	$date1Str = strtotime($date1[0]);
-		// 	$date2Str = strtotime($date2[1]);
-		// 	$daysStr = abs($date1Str - $date2Str);
+			$date1Str = strtotime($date1);
+			$date2Str = strtotime($date2);
+			$daysStr = abs($date2Str - $date1Str);
 
-		// 	return Helper::ConvertToInt($daysStr / $oneDayStr) + 1;
-		// }
-
-
-		// /**
-		//  * Get time value in seconds from the given time
-		//  */
-		// public static function GetTimeInSeconds(string $time=""): int {
-		// 	$timeArr = explode(":", $time);
-
-		// 	$h	= isset($timeArr[0])	? Helper::ConvertToInt($timeArr[0] * 60 * 60)	: 0;
-		// 	$m	= isset($timeArr[1])	? Helper::ConvertToInt($timeArr[1] * 60)		: 0;
-		// 	$s	= isset($timeArr[2])	? Helper::ConvertToInt($timeArr[2])				: 0;
-
-		// 	return Helper::ConvertToInt($h + $m + $s);
-		// }
+			return Helper::ConvertToDec($daysStr / $oneDayStr);
+		}
 
 
-		// /**
-		//  * Get time nice value from the given seconds
-		//  */
-		// public static function GetTimeNiceFromSeconds(int $strTime=0, bool $showSeconds=false): string {
-		// 	$h = 0;
-		// 	$m = 0;
-		// 	$s = 0;
+		/**
+		 * Get age from the give date
+		 */
+		public static function GetAge(
+			?string $dob=null,
+			?string $lang="",
+			?string $date=null,
+			bool $getMonths=true,
+			bool $getDays=true
+		): string {
+			// if (Helper::StringNullOrEmpty($dob)) {
+			// 	return "";
+			// }
 
-		// 	$h = Helper::ConvertToInt($strTime / (60 * 60));
-		// 	$strTime -= ($h * 60 * 60);
+			// if (Helper::StringNullOrEmpty($lang)) {
+			// 	$lang = LangHelper::$ACTIVE;
+			// }
 
-		// 	$m = Helper::ConvertToInt($strTime / 60);
-		// 	$strTime -= ($m * 60);
+			// $age = "-";
 
-		// 	$time = sprintf("%02d:%02d", $h, $m);
-		// 	if ($showSeconds) {
-		// 		$time .= sprintf(":%02d", $s);
-		// 	}
+			// if ($dob != "") {
+			// 	$dateDiff = date_diff(date_create($date), date_create($dob));
 
-		// 	return $time;
-		// }
+			// 	$years	= Helper::ConvertToInt($dateDiff->format("%Y"));
+			// 	$months	= Helper::ConvertToInt($dateDiff->format("%M"));
 
+			// 	$age = LangHelper::NumberFromEnglish($years, $lang) . " " . ($years == 1 ? TranslateHelper::Translate("date.year") : TranslateHelper::Translate("date.years"));
+			// 	if ($months > 0) {
+			// 		$age .= " " . TranslateHelper::Translate("date.and") . " " . LangHelper::NumberFromEnglish($months, $lang) . " " . ($months == 1 ? TranslateHelper::Translate("date.month") : TranslateHelper::Translate("date.months"));
+			// 	}
 
-		// /**
-		//  * Get age from the give date
-		//  */
-		// public static function GetAge(string $dob="", bool $getDays=false, ?string $date=null, ?string $lang=""): string {
-		// 	if (Helper::StringNullOrEmpty($lang)) {
-		// 		$lang = LangHelper::$ACTIVE;
-		// 	}
+			// 	if ($getDays) {
+			// 		$days = Helper::ConvertToInt($dateDiff->format("%d"));
+			// 		if ($days > 0) {
+			// 			$age .= " " . TranslateHelper::Translate("date.and") . " " . LangHelper::NumberFromEnglish($days, $lang) . " " . ($days == 1 ? TranslateHelper::Translate("date.day") : TranslateHelper::Translate("date.days"));
+			// 		}
+			// 	}
+			// }
 
-		// 	$age = "-";
-
-		// 	if ($dob != "") {
-		// 		$dateDiff = date_diff(date_create($date), date_create($dob));
-
-		// 		$years	= Helper::ConvertToInt($dateDiff->format("%Y"));
-		// 		$months	= Helper::ConvertToInt($dateDiff->format("%M"));
-
-		// 		$age = LangHelper::NumberFromEnglish($years, $lang) . " " . ($years == 1 ? TranslateHelper::Translate("date.year") : TranslateHelper::Translate("date.years"));
-		// 		if ($months > 0) {
-		// 			$age .= " " . TranslateHelper::Translate("date.and") . " " . LangHelper::NumberFromEnglish($months, $lang) . " " . ($months == 1 ? TranslateHelper::Translate("date.month") : TranslateHelper::Translate("date.months"));
-		// 		}
-
-		// 		if ($getDays) {
-		// 			$days = Helper::ConvertToInt($dateDiff->format("%d"));
-		// 			if ($days > 0) {
-		// 				$age .= " " . TranslateHelper::Translate("date.and") . " " . LangHelper::NumberFromEnglish($days, $lang) . " " . ($days == 1 ? TranslateHelper::Translate("date.day") : TranslateHelper::Translate("date.days"));
-		// 			}
-		// 		}
-		// 	}
-
-		// 	return $age;
-		// }
+			return "";
+		}
 
 
 		// /**

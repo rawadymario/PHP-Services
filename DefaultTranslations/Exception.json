@@ -1,0 +1,34 @@
+{
+	"exception": {
+		"FileNotFound": {
+			"en": "File (::params::) not found!",
+			"fr": "Fichier (::params::) introuvable !",
+			"ar": "ملف (::params::) غير موجود!"
+		},
+		"InvalidParam": {
+			"en": "The parameter(s) (::params::) is/are invalid!",
+			"fr": "Le(s) paramètre(s) (::params::) est/sont invalide(s) !",
+			"ar": "المعلمة (المعلمات) (::params::) هي غير صالحة!"
+		},
+		"InvalidUrl": {
+			"en": "The given URL is invalid!",
+			"fr": "L'URL donnée n'est pas valide !",
+			"ar": "عنوان URL المحدد غير صالح!"
+		},
+		"NotEmptyParam": {
+			"en": "The parameter(s) (::params::) should not be Empty!",
+			"fr": "Le ou les paramètres (::params::) ne doivent pas être vides !",
+			"ar": "يجب ألا تكون المعلمات (::params::) فارغة!"
+		},
+		"NotNumericParam": {
+			"en": "The parameter(s) (::params::) should be Numeric!",
+			"fr": "Le ou les paramètres (::params::) doivent être numériques !",
+			"ar": "يجب أن تكون المعلمة (المعلمات) (::params::) رقمية!"
+		},
+		"Unknown": {
+			"en": "An exception occurred for an unknown reason!",
+			"fr": "Une exception s'est produite pour une raison inconnue !",
+			"ar": "حدث استثناء لسبب غير معروف!"
+		}
+	}
+}

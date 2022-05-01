@@ -1,11 +1,14 @@
 <?php
 	//To Run: .\vendor/bin/phpunit .\Units\Helpers\HelperTest.php
 	use PHPUnit\Framework\TestCase;
-	use RawadyMario\Models\Code;
+use RawadyMario\Exceptions\FileNotFoundException;
+use RawadyMario\Exceptions\NotEmptyParamException;
+use RawadyMario\Models\Code;
 	use RawadyMario\Models\HttpCode;
 	use RawadyMario\Models\Lang;
 	use RawadyMario\Models\Status;
 	use RawadyMario\Helpers\Helper;
+use RawadyMario\Helpers\TranslateHelper;
 
 	final class HelperTest extends TestCase {
 
@@ -105,6 +108,11 @@
 				11,
 				Helper::ConvertToInt(10.7)
 			);
+
+			$this->assertEquals(
+				-10,
+				Helper::ConvertToInt(-10.7)
+			);
 		}
 
 		public function testConvertToDecSuccess() {
@@ -131,6 +139,11 @@
 			$this->assertEquals(
 				10.002,
 				Helper::ConvertToDec("10.002", 3)
+			);
+
+			$this->assertEquals(
+				-10.00,
+				Helper::ConvertToDec("-10.002")
 			);
 		}
 
@@ -829,44 +842,62 @@
 			);
 		}
 
+		public function testGetHtmlContentFromFileThrowError_01(): void {
+			$this->expectException(NotEmptyParamException::class);
+			$this->expectExceptionMessage(TranslateHelper::TranslateString("exception.NotEmptyParam", null, [
+				"::params::" => "filePath"
+			]));
+			Helper::GetHtmlContentFromFile(null);
+		}
+
+		public function testGetHtmlContentFromFileThrowError_02(): void {
+			$this->expectException(NotEmptyParamException::class);
+			$this->expectExceptionMessage(TranslateHelper::TranslateString("exception.NotEmptyParam", null, [
+				"::params::" => "filePath"
+			]));
+			Helper::GetHtmlContentFromFile("");
+		}
+
+		public function testGetHtmlContentFromFileThrowError_03(): void {
+			$this->expectException(FileNotFoundException::class);
+			$this->expectExceptionMessage(TranslateHelper::TranslateString("exception.FileNotFound", null, [
+				"::params::" => "filePath"
+			]));
+			Helper::GetHtmlContentFromFile(__DIR__ . "/../_TestsForUnits/randomfile.html");
+		}
+
 		public function testGetHtmlContentFromFileSuccess() {
-			$this->assertEquals(
-				"",
-				Helper::GetHtmlContentFromFile(null)
-			);
-
-			$this->assertEquals(
-				"",
-				Helper::GetHtmlContentFromFile("")
-			);
-
-			$this->assertEquals(
-				"",
-				Helper::GetHtmlContentFromFile(__DIR__ . "/../_TestsForUnits/randomfile.html")
-			);
-
 			$this->assertEquals(
 				"<h1>testGetHtmlContentFromFileSuccess</h1>",
 				Helper::GetHtmlContentFromFile(__DIR__ . "/../_TestsForUnits/testGetHtmlContentFromFileSuccess.html")
 			);
 		}
 
+		public function testGetJsonContentFromFileAsArrayThrowError_01(): void {
+			$this->expectException(NotEmptyParamException::class);
+			$this->expectExceptionMessage(TranslateHelper::TranslateString("exception.NotEmptyParam", null, [
+				"::params::" => "filePath"
+			]));
+			Helper::GetJsonContentFromFileAsArray(null);
+		}
+
+		public function testGetJsonContentFromFileAsArrayThrowError_02(): void {
+			$this->expectException(NotEmptyParamException::class);
+			$this->expectExceptionMessage(TranslateHelper::TranslateString("exception.NotEmptyParam", null, [
+				"::params::" => "filePath"
+			]));
+			Helper::GetJsonContentFromFileAsArray("");
+		}
+
+		public function testGetJsonContentFromFileAsArrayThrowError_03(): void {
+			$this->expectException(FileNotFoundException::class);
+			$this->expectExceptionMessage(TranslateHelper::TranslateString("exception.FileNotFound", null, [
+				"::params::" => "filePath"
+			]));
+			Helper::GetJsonContentFromFileAsArray(__DIR__ . "/../_TestsForUnits/randomfile.json");
+		}
+
 		public function testGetJsonContentFromFileAsArraySuccess() {
-			$this->assertEquals(
-				[],
-				Helper::GetJsonContentFromFileAsArray(null)
-			);
-
-			$this->assertEquals(
-				[],
-				Helper::GetJsonContentFromFileAsArray("")
-			);
-
-			$this->assertEquals(
-				[],
-				Helper::GetJsonContentFromFileAsArray(__DIR__ . "/../_TestsForUnits/randomfile.json")
-			);
-
 			$this->assertEquals(
 				[
 					"fullName" => [

@@ -1,6 +1,7 @@
 <?php
 	//To Run: .\vendor/bin/phpunit .\Units\Helpers\TranslateHelperTest.php
 	use PHPUnit\Framework\TestCase;
+	use RawadyMario\Exceptions\NotEmptyParamException;
 	use RawadyMario\Models\Lang;
 	use RawadyMario\Helpers\TranslateHelper;
 
@@ -39,19 +40,23 @@
 			);
 		}
 
+		public function testTranslateThrowError_01(): void {
+			$this->expectException(NotEmptyParamException::class);
+			$this->expectExceptionMessage(TranslateHelper::TranslateString("exception.NotEmptyParam", null, [
+				"::params::" => "key"
+			]));
+			TranslateHelper::Translate(null);
+		}
+
+		public function testTranslateThrowError_02(): void {
+			$this->expectException(NotEmptyParamException::class);
+			$this->expectExceptionMessage(TranslateHelper::TranslateString("exception.NotEmptyParam", null, [
+				"::params::" => "key"
+			]));
+			TranslateHelper::Translate("");
+		}
+
 		public function testTranslateSuccess(): void {
-			TranslateHelper::AddDefaults();
-
-			$this->assertEquals(
-				"",
-				TranslateHelper::Translate(null)
-			);
-
-			$this->assertEquals(
-				"",
-				TranslateHelper::Translate("")
-			);
-
 			$this->assertEquals(
 				"year",
 				TranslateHelper::Translate("date.year")
@@ -115,19 +120,23 @@
 			);
 		}
 
+		public function testTranslateStringThrowError_01(): void {
+			$this->expectException(NotEmptyParamException::class);
+			$this->expectExceptionMessage(TranslateHelper::TranslateString("exception.NotEmptyParam", null, [
+				"::params::" => "string"
+			]));
+			TranslateHelper::TranslateString(null);
+		}
+
+		public function testTranslateStringThrowError_02(): void {
+			$this->expectException(NotEmptyParamException::class);
+			$this->expectExceptionMessage(TranslateHelper::TranslateString("exception.NotEmptyParam", null, [
+				"::params::" => "string"
+			]));
+			TranslateHelper::TranslateString("");
+		}
+
 		public function testTranslateStringSuccess(): void {
-			TranslateHelper::AddDefaults();
-
-			$this->assertEquals(
-				"",
-				TranslateHelper::TranslateString(null)
-			);
-
-			$this->assertEquals(
-				"",
-				TranslateHelper::TranslateString("")
-			);
-
 			$this->assertEquals(
 				"This is the Year 2022",
 				TranslateHelper::TranslateString("This is the date.Year 2022")

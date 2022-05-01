@@ -230,6 +230,32 @@
 
 		}
 
+		public function testGetDaysCount(): void {
+			$this->assertEquals(
+				0,
+				DateHelper::GetDaysCount(null, "1992-01-07")
+			);
+
+			$this->assertEquals(
+				0,
+				DateHelper::GetDaysCount("1992-01-07", null)
+			);
+
+			$this->assertEquals(
+				1,
+				DateHelper::GetDaysCount("1992-01-07", "1992-01-08")
+			);
+
+			$this->assertEquals(
+				1.5,
+				DateHelper::GetDaysCount("1992-01-07 05:30:00", "1992-01-08 17:30:00")
+			);
+
+			$this->assertEquals(
+				1.5,
+				DateHelper::GetDaysCount("1992-01-08 17:30:00", "1992-01-07 05:30:00")
+			);
+		}
 
 
 		public function testGetFormatFromType(): void {

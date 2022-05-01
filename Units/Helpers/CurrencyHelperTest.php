@@ -1,12 +1,14 @@
 <?php
 	//To Run: .\vendor/bin/phpunit .\Units\Helpers\CurrencyHelperTest.php
 	use PHPUnit\Framework\TestCase;
+	use RawadyMario\Exceptions\NotNumericParamException;
 	use RawadyMario\Helpers\CurrencyHelper;
+	use RawadyMario\Helpers\TranslateHelper;
 	use RawadyMario\Models\CurrencyPosition;
 
 	final class CurrencyHelperTest extends TestCase {
 
-		public function testAddCurrency(): void {
+		public function testAddCurrencySuccess(): void {
 			$this->assertEquals(
 				"$ 10",
 				CurrencyHelper::AddCurrency(10, "$", CurrencyPosition::PRE, " ")
@@ -28,12 +30,15 @@
 			);
 		}
 
-		public function testGetLbpAmount(): void {
-			$this->assertEquals(
-				0,
-				CurrencyHelper::GetLbpAmount("Mario")
-			);
+		public function testGetLbpAmountThrowError(): void {
+			$this->expectException(NotNumericParamException::class);
+			$this->expectExceptionMessage(TranslateHelper::TranslateString("exception.NotNumericParam", null, [
+				"::params::" => "amount"
+			]));
+			CurrencyHelper::GetLbpAmount("Mario");
+		}
 
+		public function testGetLbpAmountSuccess(): void {
 			$this->assertEquals(
 				10000,
 				CurrencyHelper::GetLbpAmount(10000)

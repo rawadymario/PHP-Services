@@ -1,6 +1,7 @@
 <?php
 	namespace RawadyMario\Helpers;
 
+	use RawadyMario\Exceptions\NotNumericParamException;
 	use RawadyMario\Models\CurrencyPosition;
 
 	class CurrencyHelper {
@@ -37,7 +38,7 @@
 			int $decimalPlaces=2
 		): float {
 			if (!is_numeric($amount)) {
-				return 0;
+				throw new NotNumericParamException("amount");
 			}
 			return Helper::ConvertToDec((ceil($amount / 250) * 250), $decimalPlaces);
 		}

@@ -1,7 +1,9 @@
 <?php
 	namespace RawadyMario\Helpers;
 
-	use RawadyMario\Models\Code;
+use RawadyMario\Exceptions\FileNotFoundException;
+use RawadyMario\Exceptions\NotEmptyParamException;
+use RawadyMario\Models\Code;
 	use RawadyMario\Models\HttpCode;
 	use RawadyMario\Models\Lang;
 	use RawadyMario\Models\Status;
@@ -79,6 +81,9 @@
 			$val
 		): int {
 			if ((isset($val)) && (trim($val) !== "")) {
+				if ($val < 0) {
+					return intval($val);
+				}
 				return round($val) ;
 			}
 			return 0;
@@ -93,16 +98,12 @@
 			int $decimalPlaces=2
 		): float {
 			if ((isset($val)) && (trim($val) !== "")) {
-				$x = floatval($val);
-				$x = round($x, $decimalPlaces);
-
-				if (is_numeric($x) && is_nan($x)) {
+				$val = round(floatval($val), $decimalPlaces);
+				if (is_numeric($val) && is_nan($val)) {
 					return 0;
 				}
-
-				return $x;
+				return $val;
 			}
-
 			return 0;
 		}
 
@@ -341,7 +342,6 @@
 			foreach ($params AS $k => $v) {
 				$text = str_replace($k, $v, $text);
 			}
-
 			return $text;
 		}
 
@@ -706,13 +706,13 @@
 		 * Get HTML content from the given file path
 		 */
 		public static function GetHtmlContentFromFile(
-			?string $filePath
+			?string $filePath=null
 		): string {
 			if (self::StringNullOrEmpty($filePath)) {
-				return "";
+				throw new NotEmptyParamException('filePath');
 			}
 			if (!file_exists($filePath)) {
-				return "";
+				throw new FileNotFoundException('filePath');
 			}
 			return file_get_contents($filePath);
 		}
@@ -725,10 +725,10 @@
 			?string $filePath
 		): array {
 			if (self::StringNullOrEmpty($filePath)) {
-				return [];
+				throw new NotEmptyParamException('filePath');
 			}
 			if (!file_exists($filePath)) {
-				return [];
+				throw new FileNotFoundException('filePath');
 			}
 			return json_decode(file_get_contents($filePath), true);
 		}
@@ -841,7 +841,6 @@
 					}
 				}
 			}
-
 			return $filesArr;
 		}
 
@@ -865,7 +864,6 @@
 					$returnArray[$preKey . $k] = $v;
 				}
 			}
-
 			return $returnArray;
 		}
 

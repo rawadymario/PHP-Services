@@ -1,6 +1,8 @@
 <?php
 	namespace RawadyMario\Helpers;
 
+	use RawadyMario\Exceptions\NotEmptyParamException;
+
 	class TranslateHelper {
 		private static $VALS_WITHOUT_TYPE = [];
 		private static $VALS = [];
@@ -51,22 +53,22 @@
 		 */
 		public static function Translate(
 			?string $key,
-			?string $lang="",
+			?string $lang=null,
 			bool $returnEmpty=false,
 			array $replace=[],
 			bool $withType=true
 		): string {
 			if (Helper::StringNullOrEmpty($key)) {
-				return "";
-			}
-
-			$vals = !$withType ? self::$VALS_WITHOUT_TYPE : self::$VALS;
-
-			if (Helper::ArrayNullOrEmpty($vals)) {
-				self::AddDefaults();
+				throw new NotEmptyParamException("key");
 			}
 			if (Helper::StringNullOrEmpty($lang)) {
 				$lang = LangHelper::$ACTIVE;
+			}
+
+			$vals = !$withType ? self::$VALS_WITHOUT_TYPE : self::$VALS;
+			if (Helper::ArrayNullOrEmpty($vals)) {
+				self::AddDefaults();
+				$vals = !$withType ? self::$VALS_WITHOUT_TYPE : self::$VALS;
 			}
 
 			$str = $key;
@@ -94,21 +96,21 @@
 		 */
 		public static function TranslateString(
 			?string $string,
-			?string $lang="",
+			?string $lang=null,
 			array $replace=[],
 			bool $withType=true
 		): string {
 			if (Helper::StringNullOrEmpty($string)) {
-				return "";
-			}
-
-			$vals = !$withType ? self::$VALS_WITHOUT_TYPE : self::$VALS;
-
-			if (Helper::ArrayNullOrEmpty($vals)) {
-				self::AddDefaults();
+				throw new NotEmptyParamException("string");
 			}
 			if (Helper::StringNullOrEmpty($lang)) {
 				$lang = LangHelper::$ACTIVE;
+			}
+
+			$vals = !$withType ? self::$VALS_WITHOUT_TYPE : self::$VALS;
+			if (Helper::ArrayNullOrEmpty($vals)) {
+				self::AddDefaults();
+				$vals = !$withType ? self::$VALS_WITHOUT_TYPE : self::$VALS;
 			}
 
 			foreach ($vals AS $k => $v) {
