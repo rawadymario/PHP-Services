@@ -14,11 +14,11 @@
 
 
 		/**
-		 * Check if a valid mobile format is given
+		 * Check if a valid phone number format is given
 		 */
-		public static function ValidMobile(string $str): bool {
+		public static function ValidPhoneNb(string $str): bool {
 			$pattern = '/^[\+]?[0-9]+$/';
-			return preg_match($pattern, $str);
+			return preg_match($pattern, self::CleanPhoneNb($str));
 		}
 
 
@@ -40,7 +40,6 @@
 				$str = trim($str);
 				$str = str_replace(array("-", "/", "\\", ",", ".", "|", " "), "", $str);
 			}
-
 			return $str;
 		}
 
