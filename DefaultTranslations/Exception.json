@@ -1,34 +1,69 @@
 {
 	"exception": {
 		"FileNotFound": {
-			"en": "File (::params::) not found!",
-			"fr": "Fichier (::params::) introuvable !",
-			"ar": "ملف (::params::) غير موجود!"
+			"en": "File (::params::) not found",
+			"fr": "Fichier (::params::) introuvable ",
+			"ar": "ملف (::params::) غير موجود"
 		},
 		"InvalidParam": {
-			"en": "The parameter(s) (::params::) is/are invalid!",
-			"fr": "Le(s) paramètre(s) (::params::) est/sont invalide(s) !",
-			"ar": "المعلمة (المعلمات) (::params::) هي غير صالحة!"
+			"en": "The parameter(s) (::params::) is/are invalid",
+			"fr": "Le(s) paramètre(s) (::params::) est/sont invalide(s) ",
+			"ar": "المعلمة (المعلمات) (::params::) هي غير صالحة"
 		},
 		"InvalidUrl": {
-			"en": "The given URL is invalid!",
-			"fr": "L'URL donnée n'est pas valide !",
-			"ar": "عنوان URL المحدد غير صالح!"
+			"en": "The given URL is invalid",
+			"fr": "L'URL donnée n'est pas valide ",
+			"ar": "عنوان URL المحدد غير صالح"
 		},
 		"NotEmptyParam": {
-			"en": "The parameter(s) (::params::) should not be Empty!",
-			"fr": "Le ou les paramètres (::params::) ne doivent pas être vides !",
-			"ar": "يجب ألا تكون المعلمات (::params::) فارغة!"
+			"en": "The parameter(s) (::params::) should not be Empty",
+			"fr": "Le ou les paramètres (::params::) ne doivent pas être vides ",
+			"ar": "يجب ألا تكون المعلمات (::params::) فارغة"
 		},
 		"NotNumericParam": {
-			"en": "The parameter(s) (::params::) should be Numeric!",
-			"fr": "Le ou les paramètres (::params::) doivent être numériques !",
-			"ar": "يجب أن تكون المعلمة (المعلمات) (::params::) رقمية!"
+			"en": "The parameter(s) (::params::) should be Numeric",
+			"fr": "Le ou les paramètres (::params::) doivent être numériques ",
+			"ar": "يجب أن تكون المعلمة (المعلمات) (::params::) رقمية"
 		},
 		"Unknown": {
-			"en": "An exception occurred for an unknown reason!",
-			"fr": "Une exception s'est produite pour une raison inconnue !",
-			"ar": "حدث استثناء لسبب غير معروف!"
+			"en": "An exception occurred for an unknown reason",
+			"fr": "Une exception s'est produite pour une raison inconnue ",
+			"ar": "حدث استثناء لسبب غير معروف"
+		},
+		"InvalidUsernameLength": {
+			"en": "The username must be between 6 and 20 characters",
+			"fr": "Le nom d'utilisateur doit être compris entre 6 et 20 caractères",
+			"ar": "يجب أن يكون اسم المستخدم بين ٦ و ٢٠ حرفًا"
+		},
+		"InvalidUsernameCharacters": {
+			"en": "The username can contain only English Small/Capital Letters, English Numbers, Dashes(-), and/or Underscores(_)",
+			"fr": "Le nom d'utilisateur ne peut contenir que des lettres minuscules/majuscules anglaises, des chiffres anglais, des tirets (-) et/ou des traits de soulignement (_)",
+			"ar": "يمكن أن يحتوي اسم المستخدم على أحرف إنجليزية صغيرة / كبيرة وأرقام إنجليزية وشرطات (-) و / أو شُرَط سفلية (_)"
+		},
+		"InvalidPasswordLength": {
+			"en": "The password must have at least 8 characters",
+			"fr": "Le mot de passe doit comporter au moins 8 caractèress",
+			"ar": "يجب أن تتكون كلمة المرور من ٨ أحرف على الأقل"
+		},
+		"InvalidPasswordCharacters": {
+			"en": "The password must contain at least 1 English small letter, 1 English capital letter, 1 number, and 1 special character",
+			"fr": "Le mot de passe doit contenir au moins 1 lettre minuscule anglaise, 1 lettre majuscule anglaise, 1 chiffre et 1 caractère spécial",
+			"ar": "يجب أن تحتوي كلمة المرور على حرف إنجليزي صغير واحد على الأقل وحرف إنجليزي كبير ورقم واحد وحرف خاص واحد"
+		},
+		"InvalidateEmail": {
+			"en": "Invalid email format",
+			"fr": "Format d'email invalide",
+			"ar": "تنسيق بريد إلكتروني غير صالح"
+		},
+		"InvalidPhoneNumber": {
+			"en": "Invalid phone number",
+			"fr": "Numéro de téléphone invalide",
+			"ar": "Invalid phone number"
+		},
+		"InvalidNumber": {
+			"en": "Invalid number",
+			"fr": "Numéro invalide",
+			"ar": "رقم غير صالح"
 		}
 	}
 }

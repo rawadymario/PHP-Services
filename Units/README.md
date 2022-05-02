@@ -13,10 +13,10 @@
 - Helper
 - LangHelper
 - TranslateHelper
+- ValidatorHelper
 
 ## Unfinished Tests
 
 - MediaHelper
 - QueryHelper
-- ValidatorHelper
 - ViewHelper

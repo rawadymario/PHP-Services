@@ -32,7 +32,10 @@
 		/**
 		 * @dataProvider AddCurrencySuccessProvider
 		 */
-		public function testAddCurrencySuccess(string $expected, array $arguments): void {
+		public function testAddCurrencySuccess(
+			string $expected,
+			array $arguments
+		): void {
 			$this->assertEquals(
 				$expected,
 				CurrencyHelper::AddCurrency(
@@ -66,7 +69,10 @@
 		/**
 		 * @dataProvider GetLbpAmountSuccessProvider
 		 */
-		public function testGetLbpAmountSuccess(int $expected, float $argument): void {
+		public function testGetLbpAmountSuccess(
+			int $expected,
+			float $argument
+		): void {
 			$this->assertEquals(
 				$expected,
 				CurrencyHelper::GetLbpAmount($argument)

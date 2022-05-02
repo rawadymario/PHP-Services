@@ -1,95 +1,169 @@
 <?php
 	//To Run: .\vendor/bin/phpunit .\Units\Helpers\ValidatorHelperTest.php
 	use PHPUnit\Framework\TestCase;
+	use RawadyMario\Exceptions\InvalidEmailException;
+	use RawadyMario\Exceptions\InvalidNumberException;
+	use RawadyMario\Exceptions\InvalidPasswordCharactersException;
+	use RawadyMario\Exceptions\InvalidPasswordLengthException;
+	use RawadyMario\Exceptions\InvalidPhoneNumberException;
+	use RawadyMario\Exceptions\InvalidUsernameCharactersException;
+	use RawadyMario\Exceptions\InvalidUsernameLengthException;
+	use RawadyMario\Helpers\Helper;
+	use RawadyMario\Helpers\TranslateHelper;
 	use RawadyMario\Helpers\ValidatorHelper;
 
 	final class ValidatorHelperTest extends TestCase {
 
-		public function testValidEmailFail(): void {
-			$this->assertFalse(
-				ValidatorHelper::ValidEmail("Test Email")
-			);
+		public function ValidateEmailThrowErrorProvider() {
+			return [
+				[
+					InvalidEmailException::class,
+					"exception.InvalidEmail",
+					"Test Email"
+				],
+				[
+					InvalidEmailException::class,
+					"exception.InvalidEmail",
+					"test_email@hotmail"
+				],
+				[
+					InvalidEmailException::class,
+					"exception.InvalidEmail",
+					"test_email@hotmail.c"
+				],
+				[
+					InvalidEmailException::class,
+					"exception.InvalidEmail",
+					"test_email.com"
+				],
+			];
+		}
 
-			$this->assertFalse(
-				ValidatorHelper::ValidEmail("test_email@hotmail")
-			);
+		/**
+		 * @dataProvider ValidateEmailThrowErrorProvider
+		 */
+		public function testValidateEmailThrowError(
+			$exception,
+			string $exceptionMessage,
+			string $argument
+		): void {
+			$this->expectException($exception);
+			$this->expectExceptionMessage(TranslateHelper::Translate($exceptionMessage));
+			ValidatorHelper::ValidateEmail($argument);
+		}
 
-			$this->assertFalse(
-				ValidatorHelper::ValidEmail("test_email@hotmail.c")
-			);
+		public function ValidateEmailSuccessProvider() {
+			return [
+				["test_email@hotmail.co"],
+				["test_email@hotmail.com"],
+				["test_email@hotmail.co.uk"],
+				["test_email@hotmail.com.lb"],
+			];
+		}
 
-			$this->assertFalse(
-				ValidatorHelper::ValidEmail("test_email.com")
+		/**
+		 * @dataProvider ValidateEmailSuccessProvider
+		 */
+		public function testValidateEmailSuccess(
+			string $argument
+		): void {
+			$this->assertTrue(
+				ValidatorHelper::ValidateEmail($argument)
 			);
 		}
 
-		public function testValidEmailSuccess(): void {
-			$this->assertTrue(
-				ValidatorHelper::ValidEmail("test_email@hotmail.co")
-			);
+		public function ValidatePhoneNumberThrowErrorProvider() {
+			return [
+				[
+					InvalidPhoneNumberException::class,
+					"exception.InvalidPhoneNumber",
+					"Not a Mobile"
+				],
+				[
+					InvalidPhoneNumberException::class,
+					"exception.InvalidPhoneNumber",
+					"Special Characters !@#$%^&*()_-+="
+				],
+			];
+		}
 
-			$this->assertTrue(
-				ValidatorHelper::ValidEmail("test_email@hotmail.com")
-			);
+		/**
+		 * @dataProvider ValidatePhoneNumberThrowErrorProvider
+		 */
+		public function testValidatePhoneNumberThrowError(
+			$exception,
+			string $exceptionMessage,
+			string $argument
+		): void {
+			$this->expectException($exception);
+			$this->expectExceptionMessage(TranslateHelper::Translate($exceptionMessage));
+			ValidatorHelper::ValidatePhoneNumber($argument);
+		}
 
-			$this->assertTrue(
-				ValidatorHelper::ValidEmail("test_email@hotmail.co.uk")
-			);
+		public function ValidatePhoneNumberSuccessProvider() {
+			return [
+				["03/333333"],
+				["03-333333"],
+				["+961 3 333333"],
+			];
+		}
 
+		/**
+		 * @dataProvider ValidatePhoneNumberSuccessProvider
+		 */
+		public function testValidatePhoneNumberSuccess(
+			string $argument
+		): void {
 			$this->assertTrue(
-				ValidatorHelper::ValidEmail("test_email@hotmail.com.lb")
+				ValidatorHelper::ValidatePhoneNumber($argument)
 			);
 		}
 
-		public function testValidPhoneNbFail(): void {
-			$this->assertFalse(
-				ValidatorHelper::ValidPhoneNb("Not a Mobile")
-			);
+		public function ValidateNumberThrowErrorProvider() {
+			return [
+				[
+					InvalidNumberException::class,
+					"exception.InvalidNumber",
+					"Not a NUmber"
+				],
+				[
+					InvalidNumberException::class,
+					"exception.InvalidNumber",
+					"Special Characters !@#$%^&*()_-+="
+				],
+				[
+					InvalidNumberException::class,
+					"exception.InvalidNumber",
+					"123456789a"
+				],
+				[
+					InvalidNumberException::class,
+					"exception.InvalidNumber",
+					"123456789$"
+				],
+			];
+		}
 
-			$this->assertFalse(
-				ValidatorHelper::ValidPhoneNb("Special Characters !@#$%^&*()_-+=")
+		/**
+		 * @dataProvider ValidateNumberThrowErrorProvider
+		 */
+		public function testValidateNumberThrowError(
+			$exception,
+			string $exceptionMessage,
+			string $argument
+		): void {
+			$this->expectException($exception);
+			$this->expectExceptionMessage(TranslateHelper::Translate($exceptionMessage));
+			ValidatorHelper::ValidateNumber($argument);
+		}
+
+		public function testValidateNumberSuccess(): void {
+			$this->assertTrue(
+				ValidatorHelper::ValidateNumber("0123456789")
 			);
 		}
 
-		public function testValidPhoneNbSuccess(): void {
-			$this->assertTrue(
-				ValidatorHelper::ValidPhoneNb("03/333333")
-			);
-
-			$this->assertTrue(
-				ValidatorHelper::ValidPhoneNb("03-333333")
-			);
-
-			$this->assertTrue(
-				ValidatorHelper::ValidPhoneNb("+961 3 333333")
-			);
-		}
-
-		public function testValidNumberFail(): void {
-			$this->assertFalse(
-				ValidatorHelper::ValidNumber("Not a NUmber")
-			);
-
-			$this->assertFalse(
-				ValidatorHelper::ValidNumber("Special Characters !@#$%^&*()_-+=")
-			);
-
-			$this->assertFalse(
-				ValidatorHelper::ValidNumber("123456789a")
-			);
-
-			$this->assertFalse(
-				ValidatorHelper::ValidNumber("123456789$")
-			);
-		}
-
-		public function testValidNumberSuccess(): void {
-			$this->assertTrue(
-				ValidatorHelper::ValidNumber("0123456789")
-			);
-		}
-
-		public function testCleanPhoneNbSuccess(): void {
+		public function testCleanPhoneNumberSuccess(): void {
 			$acceptedChars = [
 				"-",
 				"/",
@@ -102,7 +176,7 @@
 			foreach ($acceptedChars AS $char) {
 				$this->assertEquals(
 					"03333333",
-					ValidatorHelper::CleanPhoneNb(" 03{$char}333333 ")
+					ValidatorHelper::CleanPhoneNumber(" 03{$char}333333 ")
 				);
 			}
 
@@ -114,9 +188,63 @@
 			foreach ($nonAcceptedChars AS $char) {
 				$this->assertEquals(
 					"03{$char}333333",
-					ValidatorHelper::CleanPhoneNb(" 03{$char}333333 ")
+					ValidatorHelper::CleanPhoneNumber(" 03{$char}333333 ")
 				);
 			}
+		}
+
+		public function testValidateUsernameLengthBelowMinimumThrowError(): void {
+			$this->expectException(InvalidUsernameLengthException::class);
+			$this->expectExceptionMessage(TranslateHelper::Translate("exception.InvalidUsernameLength"));
+			ValidatorHelper::ValidateUsername(Helper::GenerateRandomKey(5, true, true));
+		}
+
+		public function testValidateUsernameLengthAboveMaximumThrowError(): void {
+			$this->expectException(InvalidUsernameLengthException::class);
+			$this->expectExceptionMessage(TranslateHelper::Translate("exception.InvalidUsernameLength"));
+			ValidatorHelper::ValidateUsername(Helper::GenerateRandomKey(21, true, true));
+		}
+
+		public function testValidateUsernameCharactersThrowError_01(): void {
+			$this->expectException(InvalidUsernameCharactersException::class);
+			$this->expectExceptionMessage(TranslateHelper::Translate("exception.InvalidUsernameCharacters"));
+			ValidatorHelper::ValidateUsername(Helper::GenerateRandomKey(12, false, false, true));
+		}
+
+		public function testValidateUsernameSuccess(): void {
+			$this->assertTrue(
+				ValidatorHelper::ValidateUsername("rawadymario")
+			);
+			$this->assertTrue(
+				ValidatorHelper::ValidateUsername("rawady_mario")
+			);
+			$this->assertTrue(
+				ValidatorHelper::ValidateUsername("Rawady_Mario")
+			);
+			$this->assertTrue(
+				ValidatorHelper::ValidateUsername("mario_007")
+			);
+			$this->assertTrue(
+				ValidatorHelper::ValidateUsername("Rawady_Mario_007")
+			);
+		}
+
+		public function testValidatePasswordLengthBelowMinimumThrowError(): void {
+			$this->expectException(InvalidPasswordLengthException::class);
+			$this->expectExceptionMessage(TranslateHelper::Translate("exception.InvalidPasswordLength"));
+			ValidatorHelper::ValidatePassword(Helper::GenerateRandomKey(5, true, true, true));
+		}
+
+		public function testValidatePasswordCharactersThrowError(): void {
+			$this->expectException(InvalidPasswordCharactersException::class);
+			$this->expectExceptionMessage(TranslateHelper::Translate("exception.InvalidPasswordCharacters"));
+			ValidatorHelper::ValidatePassword(Helper::GenerateRandomKey(18, true, true, false));
+		}
+
+		public function testValidatePasswordSuccess(): void {
+			$this->assertTrue(
+				ValidatorHelper::ValidatePassword("MarioRawady123$%^")
+			);
 		}
 
 	}
