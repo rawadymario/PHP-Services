@@ -8,31 +8,39 @@
 
 	final class CurrencyHelperTest extends TestCase {
 
-		public function testAddCurrencyUsdPreWithSpaceSuccess(): void {
-			$this->assertEquals(
-				"$ 10",
-				CurrencyHelper::AddCurrency(10, "$", CurrencyPosition::PRE, " ")
-			);
+		public function AddCurrencySuccessProvider() {
+			return [
+				"UsdPreWithSpace" => [
+					"$ 10",
+					[10, "$", CurrencyPosition::PRE, " "]
+				],
+				"UsdPreWithoutSpace" => [
+					"$10",
+					[10, "$", CurrencyPosition::PRE, ""]
+				],
+				"UsdPostWithSpace" => [
+					"10 $",
+					[10, "$", CurrencyPosition::POST, " "]
+				],
+				"UsdPostWithoutSpace" => [
+					"10$",
+					[10, "$", CurrencyPosition::POST, ""]
+				],
+			];
 		}
 
-		public function testAddCurrencyUsdPreWithoutSpaceSuccess(): void {
+		/**
+		 * @dataProvider AddCurrencySuccessProvider
+		 */
+		public function testAddCurrencySuccess(string $expected, array $arguments): void {
 			$this->assertEquals(
-				"$10",
-				CurrencyHelper::AddCurrency(10, "$", CurrencyPosition::PRE)
-			);
-		}
-
-		public function testAddCurrencyUsdPostWithSpaceSuccess(): void {
-			$this->assertEquals(
-				"10 $",
-				CurrencyHelper::AddCurrency(10, "$", CurrencyPosition::POST, " ")
-			);
-		}
-
-		public function testAddCurrencyUsdPostWithoutSpaceSuccess(): void {
-			$this->assertEquals(
-				"10$",
-				CurrencyHelper::AddCurrency(10, "$", CurrencyPosition::POST)
+				$expected,
+				CurrencyHelper::AddCurrency(
+					$arguments[0],
+					$arguments[1],
+					$arguments[2],
+					$arguments[3],
+				)
 			);
 		}
 
@@ -44,35 +52,24 @@
 			CurrencyHelper::GetLbpAmount("Mario");
 		}
 
-		public function testGetLbpAmountSuccess(): void {
-			$this->assertEquals(
-				10000,
-				CurrencyHelper::GetLbpAmount(10000)
-			);
+		public function GetLbpAmountSuccessProvider() {
+			return [
+				[10000, 10000],
+				[10250, 10050.04],
+				[10500, 10250.01],
+				[10750, 10650],
+				[10750, 10750],
+				[11000, 10751],
+			];
+		}
 
+		/**
+		 * @dataProvider GetLbpAmountSuccessProvider
+		 */
+		public function testGetLbpAmountSuccess(int $expected, float $argument): void {
 			$this->assertEquals(
-				10250,
-				CurrencyHelper::GetLbpAmount(10050.04)
-			);
-
-			$this->assertEquals(
-				10500,
-				CurrencyHelper::GetLbpAmount(10250.01)
-			);
-
-			$this->assertEquals(
-				10750,
-				CurrencyHelper::GetLbpAmount(10650)
-			);
-
-			$this->assertEquals(
-				10750,
-				CurrencyHelper::GetLbpAmount(10750)
-			);
-
-			$this->assertEquals(
-				11000,
-				CurrencyHelper::GetLbpAmount(10751)
+				$expected,
+				CurrencyHelper::GetLbpAmount($argument)
 			);
 		}
 
