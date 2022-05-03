@@ -1,6 +1,9 @@
 <?php
 	namespace RawadyMario\Helpers;
 
+use RawadyMario\Exceptions\FileNotFoundException;
+use RawadyMario\Exceptions\NotEmptyParamException;
+
 	class MediaHelper {
 		private static $MEDIA_FOLDER = "mediafiles/";
 		private static $UPLOAD_DIR;
@@ -11,7 +14,9 @@
 		/**
 		 * Set the $MEDIA_FOLDER valiable
 		 */
-		public static function SetVariableMediaFolder(string $var): void {
+		public static function SetVariableMediaFolder(
+			string $var
+		): void {
 			self::$MEDIA_FOLDER = $var;
 		}
 
@@ -19,7 +24,12 @@
 		/**
 		 * Set the $UPLOAD_DIR valiable
 		 */
-		public static function SetVariableUploadDir(string $var): void {
+		public static function SetVariableUploadDir(
+			string $var
+		): void {
+			if (!Helper::StringEndsWith($var, ["/", "\\"])) {
+				$var .= "/";
+			}
 			self::$UPLOAD_DIR = $var;
 		}
 
@@ -27,7 +37,12 @@
 		/**
 		 * Set the $MEDIA_ROOT valiable
 		 */
-		public static function SetVariableMediaRoot(string $var): void {
+		public static function SetVariableMediaRoot(
+			string $var
+		): void {
+			if (!Helper::StringEndsWith($var, ["/", "\\"])) {
+				$var .= "/";
+			}
 			self::$MEDIA_ROOT = $var;
 		}
 
@@ -35,7 +50,9 @@
 		/**
 		 * Set the $WEBSITE_VERSION valiable
 		 */
-		public static function SetVariableWebsiteVersion(string $var): void {
+		public static function SetVariableWebsiteVersion(
+			string $var
+		): void {
 			self::$WEBSITE_VERSION = $var;
 		}
 
@@ -45,69 +62,76 @@
 		 * @param string $path
 		 * @return string
 		 */
-		public static function GetMediaFullPath(string $path, string $subFldr="", bool $addDomain=false, bool $getNextGen=false, bool $withVersion=true, string $default=""): string {
+		public static function GetMediaFullPath(
+			?string $path=null,
+			?string $subFolder=null,
+			bool $getNextGen=false,
+			bool $withVersion=true,
+			bool $withDomain=true
+		): string {
+			if (Helper::StringNullOrEmpty(self::$UPLOAD_DIR)) {
+				throw new NotEmptyParamException("UPLOAD_DIR");
+			}
+			if (Helper::StringNullOrEmpty(self::$MEDIA_ROOT)) {
+				throw new NotEmptyParamException("MEDIA_ROOT");
+			}
+			if (Helper::StringNullOrEmpty($path)) {
+				throw new NotEmptyParamException("path");
+			}
+
+			$path = str_replace(self::$MEDIA_FOLDER, "", $path);
+			[
+				"dirname" => $dirName,
+				"basename" => $baseName,
+				"filename" => $fileName,
+				"extension" => $extension,
+			] = pathinfo($path);
+			if ($getNextGen) {
+				$newExtension = "webp";
+				$path = str_replace(".{$extension}", ".{$newExtension}", $path);
+				$extension = $newExtension;
+			}
+
+			if (!Helper::StringNullOrEmpty($subFolder)) {
+				$subFolders = [];
+				if ($subFolder == "th") {
+					$subFolders = ["th", "ld", "hd"];
+				}
+				else if ($subFolder == "ld") {
+					$subFolders = ["ld", "hd"];
+				}
+				else if ($subFolder == "hd") {
+					$subFolders = ["hd"];
+				}
+				else {
+					$subFolders = [$subFolder];
+				}
+
+				$options = [];
+				foreach ($subFolders AS $subFolder) {
+					$options[] = $dirName . "/" . $fileName . "-" . $subFolder . "." . $extension;
+				}
+			}
+			$options[] = $dirName . "/" . $fileName . "." . $extension;
+
 			$url = "";
-
-			if (!Helper::StringNullOrEmpty($path)) {
-				$path = str_replace(self::$MEDIA_FOLDER, "", $path);
-
-				$baseName	= pathinfo($path, PATHINFO_BASENAME);
-				$fileName	= pathinfo($path, PATHINFO_FILENAME);
-				$extension	= pathinfo($path, PATHINFO_EXTENSION);
-				$extNextGen	= "webp";
-
-				$pre	= str_replace($baseName, "", $path);
-
-				$options	= [];
-				if ($subFldr != "") {
-					$subFldrs = [];
-					if ($subFldr == "th") {
-						$subFldrs = ["th", "ld", "hd"];
-					}
-					else if ($subFldr == "ld") {
-						$subFldrs = ["ld", "hd"];
-					}
-					else if ($subFldr == "hd") {
-						$subFldrs = ["hd"];
-					}
-					else {
-						$subFldrs = [$subFldr];
-					}
-
-					foreach ($subFldrs AS $subFldr) {
-						if ($getNextGen) {
-							$options[] = $pre . $fileName . "-" . $subFldr . "." . $extNextGen;
-						}
-						$options[] = $pre . $fileName . "-" . $subFldr . "." . $extension;
-					}
+			foreach ($options AS $option) {
+				if (file_exists(self::$UPLOAD_DIR . $option)) {
+					$url = self::$MEDIA_ROOT . $option;
+					break;
 				}
-
-				if ($getNextGen) {
-					$options[] = $pre . $fileName . "." . $extNextGen;
-				}
-				$options[] = $pre . $fileName . "." . $extension;
-
-				foreach ($options AS $option) {
-					if (file_exists(self::$UPLOAD_DIR . $option)) {
-						$url = self::$MEDIA_ROOT . $option;
-						break;
-					}
-				}
-
-				// if ($addDomain) {
-				// 	$url = makeUrlWithWebsiteRoot($url);
-				// }
-			}
-			else if ($default !== "") {
-				$path = $default;
 			}
 
-			if ($url === "" && $path !== "") {
-				$url = self::$MEDIA_ROOT . $path;
+			if (Helper::StringNullOrEmpty($url)) {
+				throw new FileNotFoundException(self::$MEDIA_ROOT . $path);
 			}
 
-			if ($url !== "" && $withVersion) {
+			if ($withVersion && !Helper::StringNullOrEmpty(self::$WEBSITE_VERSION)) {
 				$url .= "?v=" . self::$WEBSITE_VERSION;
+			}
+
+			if (!$withDomain) {
+				$url = str_replace(self::$MEDIA_ROOT, "", $url);
 			}
 
 			return $url;
