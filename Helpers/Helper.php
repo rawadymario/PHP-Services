@@ -1,9 +1,9 @@
 <?php
 	namespace RawadyMario\Helpers;
 
-use RawadyMario\Exceptions\FileNotFoundException;
-use RawadyMario\Exceptions\NotEmptyParamException;
-use RawadyMario\Models\Code;
+	use RawadyMario\Exceptions\FileNotFoundException;
+	use RawadyMario\Exceptions\NotEmptyParamException;
+	use RawadyMario\Models\Code;
 	use RawadyMario\Models\HttpCode;
 	use RawadyMario\Models\Lang;
 	use RawadyMario\Models\Status;

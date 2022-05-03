@@ -8,14 +8,6 @@ Packagist Link: [https://packagist.org/packages/rawadymario/services](https://pa
 
 ## List of Files
 
-### Constants
-
-- Code
-- Date Formats
-- HTTP Codes
-- Lang
-- Status
-
 ### Default Translations
 
 - Date
@@ -23,50 +15,48 @@ Packagist Link: [https://packagist.org/packages/rawadymario/services](https://pa
 - Global
 - Number
 
-## Exceptions
+### Exceptions
 
-Customized Exception Classes. `More to be added!`
+Customized Exception Classes.
 
-- Invalid URL
-- Unknown Exception
+`Check Exceptions Folder for the full list!`
 
-## Helpers
+### Helpers
 
 - Currency Helper
 - Date Helper
 - Helper
 - Lang Helper
 - Media Helper
-- Query Helper
 - Translate Helper
+  - Supported Languages
+    - English
+    - Arabic
+    - French
+- Upload Helper
 - Validator Helper
-- View Helper
 
-> Default Functions
+### Models
 
-Below is the list of all the default functions to run before using a helper:
+- Code
+- Currency Position
+- Date Formats
+- Date Format Types
+- Date Types
+- HTTP Codes
+- Lang
+- Status
 
-1. TranslateHelper
-   1. AddDefaults()
-   2. AddCustomDir(`string $customDir`)
-
-> Constants
-
-Below is the list of all the constants to update before using a helper:
+## Default Functions
 
 1. LangHelper
-   1. $DEFAULT
-   2. $ACTIVE
+   1. SetVariableDefault(`string $var`)
+   2. SetVariableActive(`string $var`)
 2. MediaHelper
-   1. $MEDIA_FOLDER
-   2. $UPLOAD_DIR
-   3. $MEDIA_ROOT
-   4. $WEBSITE_VERSION
+   1. SetVariableMediaFolder(`string $var`)
+   2. SetVariableUploadDir(`string $var`)
+   3. SetVariableMediaRoot(`string $var`)
+   4. SetVariableWebsiteVersion(`string $var`)
 3. TranslateHelper
-   1. $VALS
-
-
-
-
-
-Translations in all the supported languages `(en, ar, fr)`
+   1. AddDefaults()
+   2. AddCustomDir(`string $customDir`)
