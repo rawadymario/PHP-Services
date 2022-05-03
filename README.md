@@ -27,6 +27,7 @@ Customized Exception Classes.
 - Date Helper
 - Helper
 - Lang Helper
+- MachineInfoHelper
 - Media Helper
 - Translate Helper
   - Supported Languages
@@ -35,6 +36,10 @@ Customized Exception Classes.
     - French
 - Upload Helper
 - Validator Helper
+
+> To Revisit:
+
+- MachineInfoHelper
 
 ### Models
 
