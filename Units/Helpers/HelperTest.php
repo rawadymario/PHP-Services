@@ -866,10 +866,20 @@
 			Helper::GetHtmlContentFromFile(__DIR__ . "/../_TestsForUnits/randomfile.html");
 		}
 
-		public function testGetHtmlContentFromFileSuccess() {
+		public function testGetHtmlContentFromFileWithoutReplaceSuccess() {
 			$this->assertEquals(
-				"<h1>testGetHtmlContentFromFileSuccess</h1>",
-				Helper::GetHtmlContentFromFile(__DIR__ . "/../_TestsForUnits/testGetHtmlContentFromFileSuccess.html")
+				"<h1>testGetHtmlContentFromFileWithoutReplaceSuccess</h1>",
+				Helper::GetHtmlContentFromFile(__DIR__ . "/../_TestsForUnits/testGetHtmlContentFromFileWithoutReplaceSuccess.html")
+			);
+		}
+
+		public function testGetHtmlContentFromFileWithReplaceSuccess() {
+			$this->assertEquals(
+				"<h1>testGetHtmlContentFromFileWithReplaceSuccess</h1>\n<h2>Replaced Text 01</h2>\n<h3>Replaced Text 02</h3>",
+				Helper::GetHtmlContentFromFile(__DIR__ . "/../_TestsForUnits/testGetHtmlContentFromFileWithReplaceSuccess.html", [
+					"::replace_1::" => "Replaced Text 01",
+					"::replace_2::" => "Replaced Text 02",
+				])
 			);
 		}
 

@@ -64,8 +64,6 @@ Below is the list of all the constants to update before using a helper:
    4. $WEBSITE_VERSION
 3. TranslateHelper
    1. $VALS
-4. ViewHelper
-   1. $ROOT_TEMPLATES_FOLDER
 
 
 

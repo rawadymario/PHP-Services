@@ -706,7 +706,8 @@ use RawadyMario\Models\Code;
 		 * Get HTML content from the given file path
 		 */
 		public static function GetHtmlContentFromFile(
-			?string $filePath=null
+			?string $filePath=null,
+			?array $replace=null
 		): string {
 			if (self::StringNullOrEmpty($filePath)) {
 				throw new NotEmptyParamException('filePath');
@@ -714,7 +715,16 @@ use RawadyMario\Models\Code;
 			if (!file_exists($filePath)) {
 				throw new FileNotFoundException('filePath');
 			}
-			return file_get_contents($filePath);
+
+			$content = file_get_contents($filePath);
+			if (!Helper::ArrayNullOrEmpty($replace)) {
+				$content = str_replace(
+					array_keys($replace),
+					array_values($replace),
+					$content
+				);
+			}
+			return $content;
 		}
 
 

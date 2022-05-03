@@ -19,4 +19,3 @@
 
 - MediaHelper
 - QueryHelper
-- ViewHelper
