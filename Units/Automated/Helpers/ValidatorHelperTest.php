@@ -1,5 +1,5 @@
 <?php
-	//To Run: .\vendor/bin/phpunit .\Units\Helpers\ValidatorHelperTest.php
+	//To Run: .\vendor/bin/phpunit .\Units\Automated\Helpers\ValidatorHelperTest.php
 	use PHPUnit\Framework\TestCase;
 	use RawadyMario\Exceptions\InvalidEmailException;
 	use RawadyMario\Exceptions\InvalidNumberException;

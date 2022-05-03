@@ -1,5 +1,5 @@
 <?php
-	//To Run: .\vendor/bin/phpunit .\Units\Helpers\CurrencyHelperTest.php
+	//To Run: .\vendor/bin/phpunit .\Units\Automated\Helpers\CurrencyHelperTest.php
 	use PHPUnit\Framework\TestCase;
 	use RawadyMario\Exceptions\NotNumericParamException;
 	use RawadyMario\Helpers\CurrencyHelper;

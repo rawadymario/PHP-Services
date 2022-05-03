@@ -1,5 +1,5 @@
 <?php
-	//To Run: .\vendor/bin/phpunit .\Units\Helpers\MediaHelperTest.php
+	//To Run: .\vendor/bin/phpunit .\Units\Automated\Helpers\MediaHelperTest.php
 	use PHPUnit\Framework\TestCase;
 	use RawadyMario\Exceptions\FileNotFoundException;
 	use RawadyMario\Exceptions\NotEmptyParamException;
@@ -11,7 +11,7 @@
 		private const WEBSITE_VERSION = "2.0.1";
 
 		public function setUp(): void {
-			MediaHelper::SetVariableUploadDir(__DIR__ . "/../_TestsForUnits/Media");
+			MediaHelper::SetVariableUploadDir(__DIR__ . "/../../_TestsForUnits/Media");
 			MediaHelper::SetVariableMediaRoot(self::MEDIA_ROOT);
 			MediaHelper::SetVariableWebsiteVersion(self::WEBSITE_VERSION);
 

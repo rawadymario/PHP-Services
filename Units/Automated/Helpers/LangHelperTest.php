@@ -1,5 +1,5 @@
 <?php
-	//To Run: .\vendor/bin/phpunit .\Units\Helpers\LangHelperTest.php
+	//To Run: .\vendor/bin/phpunit .\Units\Automated\Helpers\LangHelperTest.php
 	use PHPUnit\Framework\TestCase;
 	use RawadyMario\Models\Lang;
 	use RawadyMario\Helpers\LangHelper;

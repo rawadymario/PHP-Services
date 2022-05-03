@@ -1,5 +1,5 @@
 <?php
-	//To Run: .\vendor/bin/phpunit .\Units\Helpers\DateHelperTest.php
+	//To Run: .\vendor/bin/phpunit .\Units\Automated\Helpers\DateHelperTest.php
 	use PHPUnit\Framework\TestCase;
 	use RawadyMario\Exceptions\InvalidParamException;
 	use RawadyMario\Exceptions\NotEmptyParamException;

@@ -1,5 +1,5 @@
 <?php
-	//To Run: .\vendor/bin/phpunit .\Units\Helpers\TranslateHelperTest.php
+	//To Run: .\vendor/bin/phpunit .\Units\Automated\Helpers\TranslateHelperTest.php
 	use PHPUnit\Framework\TestCase;
 	use RawadyMario\Exceptions\NotEmptyParamException;
 	use RawadyMario\Models\Lang;
@@ -32,7 +32,7 @@
 				"Array should be Empty but it is not!"
 			);
 
-			TranslateHelper::AddCustomDir(__DIR__ . "/../_TestsForUnits/CustomTranslations");
+			TranslateHelper::AddCustomDir(__DIR__ . "/../../_TestsForUnits/CustomTranslations");
 
 			$this->assertNotEmpty(
 				TranslateHelper::GetTranlationsArray(),
@@ -107,7 +107,7 @@
 				TranslateHelper::Translate("test.test1")
 			);
 
-			TranslateHelper::AddCustomDir(__DIR__ . "/../_TestsForUnits/CustomTranslations");
+			TranslateHelper::AddCustomDir(__DIR__ . "/../../_TestsForUnits/CustomTranslations");
 
 			$this->assertEquals(
 				"Test 1",

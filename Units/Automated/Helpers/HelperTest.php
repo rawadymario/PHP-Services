@@ -1,5 +1,5 @@
 <?php
-	//To Run: .\vendor/bin/phpunit .\Units\Helpers\HelperTest.php
+	//To Run: .\vendor/bin/phpunit .\Units\Automated\Helpers\HelperTest.php
 	use PHPUnit\Framework\TestCase;
 	use RawadyMario\Exceptions\FileNotFoundException;
 	use RawadyMario\Exceptions\NotEmptyParamException;
@@ -745,7 +745,7 @@
 			);
 
 			$this->assertTrue(
-				Helper::DirExists("Units", __DIR__ . "/../../")
+				Helper::DirExists("Units", __DIR__ . "/../../../")
 			);
 
 			$this->assertTrue(
@@ -869,14 +869,14 @@
 		public function testGetHtmlContentFromFileWithoutReplaceSuccess() {
 			$this->assertEquals(
 				"<h1>testGetHtmlContentFromFileWithoutReplaceSuccess</h1>",
-				Helper::GetHtmlContentFromFile(__DIR__ . "/../_TestsForUnits/testGetHtmlContentFromFileWithoutReplaceSuccess.html")
+				Helper::GetHtmlContentFromFile(__DIR__ . "/../../_TestsForUnits/testGetHtmlContentFromFileWithoutReplaceSuccess.html")
 			);
 		}
 
 		public function testGetHtmlContentFromFileWithReplaceSuccess() {
 			$this->assertEquals(
 				"<h1>testGetHtmlContentFromFileWithReplaceSuccess</h1>\n<h2>Replaced Text 01</h2>\n<h3>Replaced Text 02</h3>",
-				Helper::GetHtmlContentFromFile(__DIR__ . "/../_TestsForUnits/testGetHtmlContentFromFileWithReplaceSuccess.html", [
+				Helper::GetHtmlContentFromFile(__DIR__ . "/../../_TestsForUnits/testGetHtmlContentFromFileWithReplaceSuccess.html", [
 					"::replace_1::" => "Replaced Text 01",
 					"::replace_2::" => "Replaced Text 02",
 				])
@@ -923,7 +923,7 @@
 						"Spanish",
 					]
 				],
-				Helper::GetJsonContentFromFileAsArray(__DIR__ . "/../_TestsForUnits/testGetJsonContentFromFileAsArraySuccess.json")
+				Helper::GetJsonContentFromFileAsArray(__DIR__ . "/../../_TestsForUnits/testGetJsonContentFromFileAsArraySuccess.json")
 			);
 		}
 
@@ -1028,7 +1028,7 @@
 		}
 
 		public function testGetAllFilesSuccess() {
-			$dir = str_replace("\Helpers", "\_TestsForUnits\Recursive", __DIR__);
+			$dir = str_replace("\Automated\Helpers", "\_TestsForUnits\Recursive", __DIR__);
 
 			$this->assertEqualsCanonicalizing(
 				[
