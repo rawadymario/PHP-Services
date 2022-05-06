@@ -33,5 +33,3 @@
 - MachineInfoHelper
 
 ### Unfinished Tests
-
-- CookieHelper
