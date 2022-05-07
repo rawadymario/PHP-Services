@@ -40,6 +40,6 @@
         }
     },
     "scripts": {
-        "phpunit": ".\\vendor/bin/phpunit .\\tests\\Units\\Automated"
+        "phpunit": ".\\vendor/bin/phpunit .\\tests\\PhpUnits"
 	}
   }

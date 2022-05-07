@@ -54,7 +54,7 @@ Customized Exception Classes.
 
 ## Default Functions
 
-1. LangHelper
+1. Language
    1. SetVariableDefault(`string $var`)
    2. SetVariableActive(`string $var`)
 2. MediaHelper
@@ -62,6 +62,6 @@ Customized Exception Classes.
    2. SetVariableUploadDir(`string $var`)
    3. SetVariableMediaRoot(`string $var`)
    4. SetVariableWebsiteVersion(`string $var`)
-3. TranslateHelper
+3. Translate
    1. AddDefaults()
    2. AddCustomDir(`string $customDir`)
