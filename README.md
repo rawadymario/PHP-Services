@@ -8,38 +8,31 @@ Packagist Link: [https://packagist.org/packages/rawadymario/services](https://pa
 
 ## List of Files
 
-### Default Translations
-
-- Date
-- Exceptions
-- Global
-- Number
-
 ### Exceptions
 
-Customized Exception Classes.
+> Customized Exception Classes.
 
-`Check Exceptions Folder for the full list!`
+- Check Exceptions Folder for the full list
 
 ### Helpers
 
-- Currency Helper
-- Date Helper
 - Helper
-- Lang Helper
-- MachineInfoHelper
-- Media Helper
-- Translate Helper
-  - Supported Languages
-    - English
-    - Arabic
-    - French
-- Upload Helper
-- Validator Helper
+- Validator
 
-> To Revisit:
+### Languages
 
-- MachineInfoHelper
+> Supported Languages: (English, Arabic, French)
+
+- Classes
+  - Language
+  - Translate
+- Mappings
+  - Date
+  - Exceptions
+  - Global
+  - Number
+- Models
+  - Lang
 
 ### Models
 
@@ -49,7 +42,6 @@ Customized Exception Classes.
 - Date Format Types
 - Date Types
 - HTTP Codes
-- Lang
 - Status
 
 ## Default Functions

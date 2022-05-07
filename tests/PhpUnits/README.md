@@ -12,6 +12,7 @@
 
 - Helpers
   - Helper
+  - Validator
 - Languages
   - Language
   - Translate
