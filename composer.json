@@ -1,20 +1,31 @@
 {
-	"name": "rawadymario/services",
-	"description": "All Services used in RawadyMario Projects",
-	"keywords": ["rawadymario", "services"],
-	"homepage": "https://github.com/rawadymario/rawadymario-services",
+	"name": "rawadymario/php-services",
 	"type": "library",
-	"license": "proprietary",
+	"description": "Commonly used services in any PHP Project",
+	"homepage": "https://github.com/rawadymario/PHP-Services",
+	"keywords": [
+		"Services",
+		"PHP"
+	],
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Mario Rawady",
+			"email": "hello@rawadymario.com",
+			"homepage": "https://rawadymario.com",
+			"role": "Developer"
+		}
+	],
+    "config": {
+        "preferred-install": "dist"
+    },
+	"minimum-stability": "stable",
 	"require": {
 	  "php": ">=7.4.9"
 	},
-	"authors": [
-	  {
-		"name": "Mario Rawady",
-		"email": "rawady_mario@hotmail.com"
-	  }
-	],
-	"minimum-stability": "stable",
+	"require-dev": {
+        "phpunit/phpunit": "^9"
+    },
 	"autoload": {
 		"psr-4": {
 			"RawadyMario\\": "src"
@@ -23,7 +34,12 @@
             ""
         ]
 	},
-	"require-dev": {
-        "phpunit/phpunit": "^9"
-    }
+    "autoload-dev": {
+        "psr-4": {
+            "RawadyMario\\": "tests/"
+        }
+    },
+    "scripts": {
+        "phpunit": ".\\vendor/bin/phpunit .\\tests\\Units\\Automated"
+	}
   }
