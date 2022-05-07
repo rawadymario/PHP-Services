@@ -1,8 +1,8 @@
 <?php
-	//To Run: .\vendor/bin/phpunit .\tests\PhpUnits\Languages\LanguageTest.php
+	//To Run: .\vendor/bin/phpunit .\tests\PhpUnits\Microservices\Language\Helpers\LanguageTest.php
 	use PHPUnit\Framework\TestCase;
-	use RawadyMario\Languages\Classes\Language;
-	use RawadyMario\Languages\Models\Lang;
+	use RawadyMario\Language\Helpers\Language;
+	use RawadyMario\Language\Models\Lang;
 
 	final class LanguageTest extends TestCase {
 

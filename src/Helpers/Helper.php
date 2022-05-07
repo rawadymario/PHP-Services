@@ -5,7 +5,7 @@
 	use RawadyMario\Exceptions\NotEmptyParamException;
 	use RawadyMario\Models\Code;
 	use RawadyMario\Models\HttpCode;
-	use RawadyMario\Languages\Models\Lang;
+	use RawadyMario\Language\Models\Lang;
 	use RawadyMario\Models\Status;
 
 	class Helper {

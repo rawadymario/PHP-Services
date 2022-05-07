@@ -9,7 +9,7 @@
 	use RawadyMario\Exceptions\InvalidUsernameCharactersException;
 	use RawadyMario\Exceptions\InvalidUsernameLengthException;
 	use RawadyMario\Helpers\Helper;
-	use RawadyMario\Languages\Classes\Translate;
+	use RawadyMario\Language\Helpers\Translate;
 	use RawadyMario\Helpers\Validator;
 
 	final class ValidatorTest extends TestCase {

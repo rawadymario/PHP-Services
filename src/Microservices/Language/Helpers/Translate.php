@@ -1,5 +1,5 @@
 <?php
-	namespace RawadyMario\Languages\Classes;
+	namespace RawadyMario\Language\Helpers;
 
 	use RawadyMario\Exceptions\NotEmptyParamException;
 	use RawadyMario\Helpers\Helper;

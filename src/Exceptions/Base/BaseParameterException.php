@@ -2,7 +2,7 @@
 	namespace RawadyMario\Exceptions\Base;
 
 	use Exception;
-	use RawadyMario\Languages\Classes\Translate;
+	use RawadyMario\Language\Helpers\Translate;
 
 	class BaseParameterException extends Exception {
 

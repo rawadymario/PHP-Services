@@ -5,10 +5,10 @@
 	use RawadyMario\Exceptions\NotEmptyParamException;
 	use RawadyMario\Models\Code;
 	use RawadyMario\Models\HttpCode;
-	use RawadyMario\Languages\Models\Lang;
+	use RawadyMario\Language\Models\Lang;
 	use RawadyMario\Models\Status;
 	use RawadyMario\Helpers\Helper;
-	use RawadyMario\Languages\Classes\Translate;
+	use RawadyMario\Language\Helpers\Translate;
 
 	final class HelperTest extends TestCase {
 

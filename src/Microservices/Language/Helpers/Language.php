@@ -1,8 +1,8 @@
 <?php
-	namespace RawadyMario\Languages\Classes;
+	namespace RawadyMario\Language\Helpers;
 
 	use RawadyMario\Helpers\Helper;
-	use RawadyMario\Languages\Models\Lang;
+	use RawadyMario\Language\Models\Lang;
 
 	class Language {
 		public static $DEFAULT = Lang::EN;
