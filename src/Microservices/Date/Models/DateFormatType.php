@@ -2,7 +2,7 @@
 	namespace RawadyMario\Date\Models;
 
 
-	class DateFormatTypes {
+	class DateFormatType {
 		public const MAIN	= "main";
 		public const FULL	= "full";
 		public const SAVE	= "save";

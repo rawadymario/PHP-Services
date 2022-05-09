@@ -3,12 +3,12 @@
 	use PHPUnit\Framework\TestCase;
 	use RawadyMario\Exceptions\InvalidParamException;
 	use RawadyMario\Exceptions\NotEmptyParamException;
-	use RawadyMario\Date\Models\DateFormats;
+	use RawadyMario\Date\Models\DateFormat;
 	use RawadyMario\Language\Models\Lang;
 	use RawadyMario\Date\Helpers\Date;
 	use RawadyMario\Language\Helpers\Translate;
-	use RawadyMario\Date\Models\DateFormatTypes;
-	use RawadyMario\Date\Models\DateTypes;
+	use RawadyMario\Date\Models\DateFormatType;
+	use RawadyMario\Date\Models\DateType;
 
 	final class DateTest extends TestCase {
 
@@ -53,54 +53,54 @@
 
 			$this->assertEquals(
 				"2022-01-07",
-				Date::RenderDate(strtotime("2022-01-07"), DateFormats::DATE_SAVE, "", true)
+				Date::RenderDate(strtotime("2022-01-07"), DateFormat::DATE_SAVE, "", true)
 			);
 
 			$this->assertEquals(
 				"07/01/2022",
-				Date::RenderDate("2022-01-07", DateFormats::DATE_MAIN)
+				Date::RenderDate("2022-01-07", DateFormat::DATE_MAIN)
 			);
 
 			$this->assertEquals(
 				"07/01",
-				Date::RenderDate("2022-01-07", DateFormats::DATE_MAIN_NO_YEAR)
+				Date::RenderDate("2022-01-07", DateFormat::DATE_MAIN_NO_YEAR)
 			);
 
 			$this->assertEquals(
 				"07 Jan, 2022",
-				Date::RenderDate("2022-01-07", DateFormats::DATE_NICE)
+				Date::RenderDate("2022-01-07", DateFormat::DATE_NICE)
 			);
 
 			$this->assertEquals(
 				"٠٧ كانون ثاني، ٢٠٢٢",
-				Date::RenderDate("2022-01-07", DateFormats::DATE_NICE, Lang::AR)
+				Date::RenderDate("2022-01-07", DateFormat::DATE_NICE, Lang::AR)
 			);
 
 			$this->assertEquals(
 				"11:35:23",
-				Date::RenderDate(strtotime("2022-01-07 11:35:23"), DateFormats::TIME_SAVE, "", true)
+				Date::RenderDate(strtotime("2022-01-07 11:35:23"), DateFormat::TIME_SAVE, "", true)
 			);
 
 			$this->assertEquals(
 				"07 Jan, 2022 11:35",
-				Date::RenderDate("2022-01-07 11:35:23", DateFormats::DATETIME_NICE)
+				Date::RenderDate("2022-01-07 11:35:23", DateFormat::DATETIME_NICE)
 			);
 		}
 
 		public function testRenderDateFromTimeSuccess(): void {
 			$this->assertEquals(
 				"2022-01-07",
-				Date::RenderDateFromTime(strtotime("2022-01-07"), DateFormats::DATE_SAVE, "")
+				Date::RenderDateFromTime(strtotime("2022-01-07"), DateFormat::DATE_SAVE, "")
 			);
 
 			$this->assertEquals(
 				"11:35:23",
-				Date::RenderDateFromTime(strtotime("2022-01-07 11:35:23"), DateFormats::TIME_SAVE, "")
+				Date::RenderDateFromTime(strtotime("2022-01-07 11:35:23"), DateFormat::TIME_SAVE, "")
 			);
 
 			$this->assertEquals(
 				"07 Jan, 2022 11:35",
-				Date::RenderDateFromTime(strtotime("2022-01-07 11:35:23"), DateFormats::DATETIME_NICE, "")
+				Date::RenderDateFromTime(strtotime("2022-01-07 11:35:23"), DateFormat::DATETIME_NICE, "")
 			);
 		}
 
@@ -215,47 +215,47 @@
 
 			$this->assertEquals(
 				"07 January, 1992",
-				Date::RenderDateExtended("1992-01-07 05:30:10", Lang::EN, false, DateFormatTypes::FULL)
+				Date::RenderDateExtended("1992-01-07 05:30:10", Lang::EN, false, DateFormatType::FULL)
 			);
 
 			$this->assertEquals(
 				"yesterday",
-				Date::RenderDateExtended("1992-01-07 05:30:10", Lang::EN, false, DateFormatTypes::NICE, "1992-01-08 05:30:10")
+				Date::RenderDateExtended("1992-01-07 05:30:10", Lang::EN, false, DateFormatType::NICE, "1992-01-08 05:30:10")
 			);
 
 			$this->assertEquals(
 				"07 Jan",
-				Date::RenderDateExtended("1992-01-07 05:30:10", Lang::EN, false, DateFormatTypes::NICE, "1992-01-08 05:30:11")
+				Date::RenderDateExtended("1992-01-07 05:30:10", Lang::EN, false, DateFormatType::NICE, "1992-01-08 05:30:11")
 			);
 
 			$this->assertEquals(
 				"07 Jan, 05:30",
-				Date::RenderDateExtended("1992-01-07 05:30:10", Lang::EN, true, DateFormatTypes::NICE, "1992-01-08 05:30:11")
+				Date::RenderDateExtended("1992-01-07 05:30:10", Lang::EN, true, DateFormatType::NICE, "1992-01-08 05:30:11")
 			);
 
 			$this->assertEquals(
 				"tomorrow",
-				Date::RenderDateExtended("1992-01-07 05:30:10", Lang::EN, false, DateFormatTypes::NICE, "1992-01-06 05:30:10")
+				Date::RenderDateExtended("1992-01-07 05:30:10", Lang::EN, false, DateFormatType::NICE, "1992-01-06 05:30:10")
 			);
 
 			$this->assertEquals(
 				"07 Jan",
-				Date::RenderDateExtended("1992-01-07 05:30:10", Lang::EN, false, DateFormatTypes::NICE, "1992-01-06 05:30:09")
+				Date::RenderDateExtended("1992-01-07 05:30:10", Lang::EN, false, DateFormatType::NICE, "1992-01-06 05:30:09")
 			);
 
 			$this->assertEquals(
 				"today",
-				Date::RenderDateExtended("1992-01-07 05:30:10", Lang::EN, false, DateFormatTypes::NICE, "1992-01-07 12:00:00")
+				Date::RenderDateExtended("1992-01-07 05:30:10", Lang::EN, false, DateFormatType::NICE, "1992-01-07 12:00:00")
 			);
 
 			$this->assertEquals(
 				"today at 05:30",
-				Date::RenderDateExtended("1992-01-07 05:30:10", Lang::EN, true, DateFormatTypes::NICE, "1992-01-07 12:00:00")
+				Date::RenderDateExtended("1992-01-07 05:30:10", Lang::EN, true, DateFormatType::NICE, "1992-01-07 12:00:00")
 			);
 
 			$this->assertEquals(
 				"اليوم في ٠٥:٣٠",
-				Date::RenderDateExtended("1992-01-07 05:30:10", Lang::AR, true, DateFormatTypes::NICE, "1992-01-07 12:00:00")
+				Date::RenderDateExtended("1992-01-07 05:30:10", Lang::AR, true, DateFormatType::NICE, "1992-01-07 12:00:00")
 			);
 
 		}
@@ -341,48 +341,48 @@
 		public function testGetFormatFromType(): void {
 			$this->assertEquals(
 				[
-					DateTypes::DATE => DateFormats::DATE_SAVE,
-					DateTypes::TIME => DateFormats::TIME_SAVE,
-					DateTypes::DATETIME => DateFormats::DATETIME_SAVE,
+					DateType::DATE => DateFormat::DATE_SAVE,
+					DateType::TIME => DateFormat::TIME_SAVE,
+					DateType::DATETIME => DateFormat::DATETIME_SAVE,
 				],
 				Date::GetFormatFromType()
 			);
 
 			$this->assertEquals(
 				[
-					DateTypes::DATE => DateFormats::DATE_SAVE,
-					DateTypes::TIME => DateFormats::TIME_MAIN,
-					DateTypes::DATETIME => DateFormats::DATETIME_SAVE,
+					DateType::DATE => DateFormat::DATE_SAVE,
+					DateType::TIME => DateFormat::TIME_MAIN,
+					DateType::DATETIME => DateFormat::DATETIME_SAVE,
 				],
 				Date::GetFormatFromType(null, null, false)
 			);
 
 			$this->assertEquals(
 				[
-					DateTypes::DATE => DateFormats::DATE_MAIN,
-					DateTypes::TIME => DateFormats::TIME_SAVE,
-					DateTypes::DATETIME => DateFormats::DATETIME_MAIN,
+					DateType::DATE => DateFormat::DATE_MAIN,
+					DateType::TIME => DateFormat::TIME_SAVE,
+					DateType::DATETIME => DateFormat::DATETIME_MAIN,
 				],
-				Date::GetFormatFromType(DateFormatTypes::MAIN, null)
+				Date::GetFormatFromType(DateFormatType::MAIN, null)
 			);
 
 			$this->assertEquals(
 				[
-					DateTypes::DATE => DateFormats::DATE_MAIN_NO_YEAR,
-					DateTypes::TIME => DateFormats::TIME_MAIN,
-					DateTypes::DATETIME => DateFormats::DATETIME_MAIN_NO_YEAR,
+					DateType::DATE => DateFormat::DATE_MAIN_NO_YEAR,
+					DateType::TIME => DateFormat::TIME_MAIN,
+					DateType::DATETIME => DateFormat::DATETIME_MAIN_NO_YEAR,
 				],
-				Date::GetFormatFromType(DateFormatTypes::MAIN, null, false)
+				Date::GetFormatFromType(DateFormatType::MAIN, null, false)
 			);
 
 			$this->assertEquals(
-				DateFormats::DATE_NICE,
-				Date::GetFormatFromType(DateFormatTypes::NICE, DateTypes::DATE)
+				DateFormat::DATE_NICE,
+				Date::GetFormatFromType(DateFormatType::NICE, DateType::DATE)
 			);
 
 			$this->assertEquals(
-				DateFormats::DATETIME_NICE_NO_YEAR,
-				Date::GetFormatFromType(DateFormatTypes::NICE, DateTypes::DATETIME, false)
+				DateFormat::DATETIME_NICE_NO_YEAR,
+				Date::GetFormatFromType(DateFormatType::NICE, DateType::DATETIME, false)
 			);
 		}
 

@@ -2,7 +2,7 @@
 	namespace RawadyMario\Date\Models;
 
 
-	class DateFormats {
+	class DateFormat {
 		public const TIME_SAVE	= "H:i:s";
 		public const TIME_MAIN	= "H:i";
 

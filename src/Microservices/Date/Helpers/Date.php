@@ -3,9 +3,9 @@
 
 	use RawadyMario\Exceptions\InvalidParamException;
 	use RawadyMario\Exceptions\NotEmptyParamException;
-	use RawadyMario\Date\Models\DateFormats;
-	use RawadyMario\Date\Models\DateFormatTypes;
-	use RawadyMario\Date\Models\DateTypes;
+	use RawadyMario\Date\Models\DateFormat;
+	use RawadyMario\Date\Models\DateFormatType;
+	use RawadyMario\Date\Models\DateType;
 	use RawadyMario\Helpers\Helper;
 	use RawadyMario\Language\Helpers\Language;
 	use RawadyMario\Language\Helpers\Translate;
@@ -32,7 +32,7 @@
 		 */
 		public static function RenderDate(
 			?string $date,
-			string $format=DateFormats::DATE_SAVE,
+			string $format=DateFormat::DATE_SAVE,
 			?string $lang="",
 			bool $isStr=false
 		): string {
@@ -58,7 +58,7 @@
 		 */
 		public static function RenderDateFromTime(
 			int $dateStr,
-			string $format=DateFormats::DATE_SAVE,
+			string $format=DateFormat::DATE_SAVE,
 			?string $lang=""
 		): string {
 			return self::RenderDate($dateStr, $format, $lang, true);
@@ -110,7 +110,7 @@
 			?string $date,
 			?string $lang="",
 			bool $withTime=false,
-			string $formatType=DateFormatTypes::NICE,
+			string $formatType=DateFormatType::NICE,
 			?string $comparisonDate=null
 		): string {
 			if (Helper::StringNullOrEmpty($date)) {
@@ -118,7 +118,7 @@
 			}
 
 			if (self::CleanDate($comparisonDate) === "null") {
-				$comparisonDate = date(DateFormats::DATETIME_SAVE);
+				$comparisonDate = date(DateFormat::DATETIME_SAVE);
 			}
 			$comparisonDateStr = strtotime($comparisonDate);
 
@@ -127,8 +127,8 @@
 			}
 
 			if (self::RenderDate($date, "Y", Lang::EN) != date("Y", $comparisonDateStr)) {
-				$dateFormat = self::GetFormatFromType($formatType, DateTypes::DATE);
-				$dateTimeFormat = self::GetFormatFromType($formatType, DateTypes::DATETIME);
+				$dateFormat = self::GetFormatFromType($formatType, DateType::DATE);
+				$dateTimeFormat = self::GetFormatFromType($formatType, DateType::DATETIME);
 
 				$format = $withTime ? $dateTimeFormat : $dateFormat;
 				return self::RenderDate($date, $format, $lang);
@@ -141,21 +141,21 @@
 				if ($timeStampDiff > 0 && $timeStampDiff <= (60 * 60 * 24)) {
 					$newDate = Translate::Translate("date.yesterday", $lang);
 					if ($withTime) {
-						$newDate .= " " .  Translate::Translate("date.at", $lang) . " " . self::RenderDate($date, DateFormats::TIME_MAIN, $lang);
+						$newDate .= " " .  Translate::Translate("date.at", $lang) . " " . self::RenderDate($date, DateFormat::TIME_MAIN, $lang);
 					}
 					return $newDate;
 				}
 				else if ($timeStampDiff < 0 && $timeStampDiff >= -(60 * 60 * 24)) {
 					$newDate = Translate::Translate("date.tomorrow", $lang);
 					if ($withTime) {
-						$newDate .= " " .  Translate::Translate("date.at", $lang) . " " . self::RenderDate($date, DateFormats::TIME_MAIN, $lang);
+						$newDate .= " " .  Translate::Translate("date.at", $lang) . " " . self::RenderDate($date, DateFormat::TIME_MAIN, $lang);
 					}
 					return $newDate;
 
 				}
 				else {
-					$dateFormat = self::GetFormatFromType($formatType, DateTypes::DATE, false);
-					$dateTimeFormat = self::GetFormatFromType($formatType, DateTypes::DATETIME, false);
+					$dateFormat = self::GetFormatFromType($formatType, DateType::DATE, false);
+					$dateTimeFormat = self::GetFormatFromType($formatType, DateType::DATETIME, false);
 
 					$format = $withTime ? $dateTimeFormat : $dateFormat;
 					return self::RenderDate($date, $format, $lang);
@@ -164,7 +164,7 @@
 			else {
 				$newDate = Translate::Translate("date.today", $lang);
 				if ($withTime) {
-					$newDate .= " " .  Translate::Translate("date.at", $lang) . " " . self::RenderDate($date, DateFormats::TIME_MAIN, $lang);
+					$newDate .= " " .  Translate::Translate("date.at", $lang) . " " . self::RenderDate($date, DateFormat::TIME_MAIN, $lang);
 				}
 				return $newDate;
 			}
@@ -240,54 +240,54 @@
 
 		/**
 		 * Get date and time format from the given date type
-		 * $type must be of type (DateFormatTypes)
-		 * $returnType must be of type (DateTypes)
+		 * $type must be of type (DateFormatType)
+		 * $returnType must be of type (DateType)
 		 */
 		public static function GetFormatFromType(
-			?string $type=DateFormatTypes::SAVE,
+			?string $type=DateFormatType::SAVE,
 			?string $returnType=null,
 			bool $withYear=true
 		) {
-			$dateFormat = DateFormats::DATE_SAVE;
-			$timeFormat = DateFormats::TIME_SAVE;
-			$datetimeFormat = DateFormats::DATETIME_SAVE;
+			$dateFormat = DateFormat::DATE_SAVE;
+			$timeFormat = DateFormat::TIME_SAVE;
+			$datetimeFormat = DateFormat::DATETIME_SAVE;
 			if (!$withYear) {
-				$timeFormat = DateFormats::TIME_MAIN;
+				$timeFormat = DateFormat::TIME_MAIN;
 			}
 
 			switch ($type) {
-				case DateFormatTypes::MAIN:
-					$dateFormat = DateFormats::DATE_MAIN;
-					$datetimeFormat = DateFormats::DATETIME_MAIN;
+				case DateFormatType::MAIN:
+					$dateFormat = DateFormat::DATE_MAIN;
+					$datetimeFormat = DateFormat::DATETIME_MAIN;
 					if (!$withYear) {
-						$dateFormat = DateFormats::DATE_MAIN_NO_YEAR;
-						$datetimeFormat = DateFormats::DATETIME_MAIN_NO_YEAR;
+						$dateFormat = DateFormat::DATE_MAIN_NO_YEAR;
+						$datetimeFormat = DateFormat::DATETIME_MAIN_NO_YEAR;
 					}
 					break;
 
-				case DateFormatTypes::NICE:
-					$dateFormat = DateFormats::DATE_NICE;
-					$datetimeFormat = DateFormats::DATETIME_NICE;
+				case DateFormatType::NICE:
+					$dateFormat = DateFormat::DATE_NICE;
+					$datetimeFormat = DateFormat::DATETIME_NICE;
 					if (!$withYear) {
-						$dateFormat = DateFormats::DATE_NICE_NO_YEAR;
-						$datetimeFormat = DateFormats::DATETIME_NICE_NO_YEAR;
+						$dateFormat = DateFormat::DATE_NICE_NO_YEAR;
+						$datetimeFormat = DateFormat::DATETIME_NICE_NO_YEAR;
 					}
 					break;
 
-				case DateFormatTypes::FULL:
-					$dateFormat = DateFormats::DATE_FULL;
-					$datetimeFormat = DateFormats::DATETIME_FULL;
+				case DateFormatType::FULL:
+					$dateFormat = DateFormat::DATE_FULL;
+					$datetimeFormat = DateFormat::DATETIME_FULL;
 					if (!$withYear) {
-						$dateFormat = DateFormats::DATE_FULL_NO_YEAR;
-						$datetimeFormat = DateFormats::DATETIME_FULL_NO_YEAR;
+						$dateFormat = DateFormat::DATE_FULL_NO_YEAR;
+						$datetimeFormat = DateFormat::DATETIME_FULL_NO_YEAR;
 					}
 					break;
 			}
 
 			$arr = [
-				DateTypes::DATE => $dateFormat,
-				DateTypes::TIME => $timeFormat,
-				DateTypes::DATETIME => $datetimeFormat,
+				DateType::DATE => $dateFormat,
+				DateType::TIME => $timeFormat,
+				DateType::DATETIME => $datetimeFormat,
 			];
 
 			if ($returnType && isset($arr[$returnType])) {
