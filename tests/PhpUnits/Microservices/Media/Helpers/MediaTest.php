@@ -1,5 +1,5 @@
 <?php
-	//To Run: .\vendor/bin/phpunit .\tests\PhpUnits\Microservices\MEdia\Helpers\MediaTest.php
+	//To Run: .\vendor/bin/phpunit .\tests\PhpUnits\Microservices\Media\Helpers\MediaTest.php
 	use PHPUnit\Framework\TestCase;
 	use RawadyMario\Exceptions\FileNotFoundException;
 	use RawadyMario\Exceptions\NotEmptyParamException;

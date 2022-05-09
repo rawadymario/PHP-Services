@@ -11,6 +11,7 @@
 	use RawadyMario\Language\Helpers\Translate;
 
 	final class HelperTest extends TestCase {
+		private const UPLOAD_DIR = __DIR__ . "/../_TestsForUnits/Upload/";
 
 		public function testCleanStringSuccess(): void {
 			$this->assertEquals(
@@ -750,6 +751,49 @@
 
 			$this->assertTrue(
 				Helper::DirExists("_TestsForUnits", __DIR__ . "/../../", true)
+			);
+		}
+
+		public function testCreateFolderSuccess(): void {
+			$this->assertFalse(
+				Helper::DirExists("NewFolder", self::UPLOAD_DIR)
+			);
+			$this->assertTrue(
+				Helper::CreateFolder(self::UPLOAD_DIR . "NewFolder")
+			);
+		}
+
+		public function testCreateFolderFail(): void {
+			$this->assertTrue(
+				Helper::DirExists("NewFolder", self::UPLOAD_DIR)
+			);
+			$this->assertFalse(
+				Helper::CreateFolder(self::UPLOAD_DIR . "NewFolder")
+			);
+		}
+
+		public function testDeleteFolderSuccess(): void {
+			$this->assertTrue(
+				Helper::DirExists("NewFolder", self::UPLOAD_DIR)
+			);
+			$this->assertTrue(
+				Helper::DeleteFileOrFolder(self::UPLOAD_DIR . "NewFolder")
+			);
+		}
+
+		public function testDeleteFileSuccess(): void {
+			$newFile = self::UPLOAD_DIR . "unit-test.txt";
+
+			$this->assertFalse(
+				file_exists($newFile)
+			);
+			copy(self::UPLOAD_DIR . "test.txt", $newFile);
+			$this->assertTrue(
+				file_exists($newFile)
+			);
+
+			$this->assertTrue(
+				Helper::DeleteFileOrFolder($newFile)
 			);
 		}
 

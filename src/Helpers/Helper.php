@@ -598,6 +598,42 @@
 
 
 		/**
+		 * Create the given folder
+		 */
+		public static function CreateFolder(
+			string $dir,
+			string $permission="0777"
+		): bool {
+			if (!is_dir($dir)) {
+				mkdir($dir, $permission, true);
+				return true;
+			}
+			return false;
+		}
+
+
+		/**
+		 * Delete the given file/folder
+		 */
+		public static function DeleteFileOrFolder(
+			string $dir
+		): bool {
+			if (file_exists($dir)) {
+				if (is_dir($dir)) {
+					rmdir($dir);
+					return true;
+				}
+
+				if (!is_dir($dir)) {
+					unlink($dir);
+					return true;
+				}
+			}
+			return false;
+		}
+
+
+		/**
 		 * Retreive Youtube embed id from the video full link
 		 */
 		public static function GetYoutubeId(
