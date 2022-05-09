@@ -12,7 +12,7 @@
 		private const WEBSITE_VERSION = "2.0.1";
 
 		public function setUp(): void {
-			Media::SetVariableUploadDir(__DIR__ . "/../../../_TestsForUnits/Media");
+			Media::SetVariableUploadDir(__DIR__ . "/../../../../_CommonFiles/Media");
 			Media::SetVariableMediaRoot(self::MEDIA_ROOT);
 			Media::SetVariableWebsiteVersion(self::WEBSITE_VERSION);
 

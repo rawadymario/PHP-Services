@@ -11,7 +11,7 @@
 	use RawadyMario\Language\Helpers\Translate;
 
 	final class HelperTest extends TestCase {
-		private const UPLOAD_DIR = __DIR__ . "/../_TestsForUnits/Upload/";
+		private const UPLOAD_DIR = __DIR__ . "/../../_CommonFiles/Upload/";
 
 		public function testCleanStringSuccess(): void {
 			$this->assertEquals(
@@ -742,15 +742,19 @@
 			);
 
 			$this->assertFalse(
-				Helper::DirExists("_TestsForUnits", __DIR__ . "/")
+				Helper::DirExists("_CommonFiles", __DIR__ . "/")
 			);
 
 			$this->assertTrue(
 				Helper::DirExists("PhpUnits", __DIR__ . "/../../")
 			);
 
+			$this->assertFalse(
+				Helper::DirExists("_CommonFiles", __DIR__ . "/../../../")
+			);
+
 			$this->assertTrue(
-				Helper::DirExists("_TestsForUnits", __DIR__ . "/../../", true)
+				Helper::DirExists("_CommonFiles", __DIR__ . "/../../../", true)
 			);
 		}
 
@@ -907,20 +911,20 @@
 			$this->expectExceptionMessage(Translate::TranslateString("exception.FileNotFound", null, [
 				"::params::" => "filePath"
 			]));
-			Helper::GetHtmlContentFromFile(__DIR__ . "/../_TestsForUnits/randomfile.html");
+			Helper::GetHtmlContentFromFile(__DIR__ . "/../../_CommonFiles/randomfile.html");
 		}
 
 		public function testGetHtmlContentFromFileWithoutReplaceSuccess() {
 			$this->assertEquals(
 				"<h1>testGetHtmlContentFromFileWithoutReplaceSuccess</h1>",
-				Helper::GetHtmlContentFromFile(__DIR__ . "/../_TestsForUnits/testGetHtmlContentFromFileWithoutReplaceSuccess.html")
+				Helper::GetHtmlContentFromFile(__DIR__ . "/../../_CommonFiles/testGetHtmlContentFromFileWithoutReplaceSuccess.html")
 			);
 		}
 
 		public function testGetHtmlContentFromFileWithReplaceSuccess() {
 			$this->assertEquals(
 				"<h1>testGetHtmlContentFromFileWithReplaceSuccess</h1>\n<h2>Replaced Text 01</h2>\n<h3>Replaced Text 02</h3>",
-				Helper::GetHtmlContentFromFile(__DIR__ . "/../_TestsForUnits/testGetHtmlContentFromFileWithReplaceSuccess.html", [
+				Helper::GetHtmlContentFromFile(__DIR__ . "/../../_CommonFiles/testGetHtmlContentFromFileWithReplaceSuccess.html", [
 					"::replace_1::" => "Replaced Text 01",
 					"::replace_2::" => "Replaced Text 02",
 				])
@@ -948,7 +952,7 @@
 			$this->expectExceptionMessage(Translate::TranslateString("exception.FileNotFound", null, [
 				"::params::" => "filePath"
 			]));
-			Helper::GetJsonContentFromFileAsArray(__DIR__ . "/../_TestsForUnits/randomfile.json");
+			Helper::GetJsonContentFromFileAsArray(__DIR__ . "/../../_CommonFiles/randomfile.json");
 		}
 
 		public function testGetJsonContentFromFileAsArraySuccess() {
@@ -967,7 +971,7 @@
 						"Spanish",
 					]
 				],
-				Helper::GetJsonContentFromFileAsArray(__DIR__ . "/../_TestsForUnits/testGetJsonContentFromFileAsArraySuccess.json")
+				Helper::GetJsonContentFromFileAsArray(__DIR__ . "/../../_CommonFiles/testGetJsonContentFromFileAsArraySuccess.json")
 			);
 		}
 
@@ -1072,7 +1076,7 @@
 		}
 
 		public function testGetAllFilesSuccess() {
-			$dir = str_replace("\Helpers", "\_TestsForUnits\Recursive", __DIR__);
+			$dir = str_replace("\PhpUnits\Helpers", "\_CommonFiles\Recursive", __DIR__);
 
 			$this->assertEqualsCanonicalizing(
 				[

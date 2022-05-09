@@ -32,7 +32,7 @@
 				"Array should be Empty but it is not!"
 			);
 
-			Translate::AddCustomDir(__DIR__ . "/../../../_TestsForUnits/CustomTranslations");
+			Translate::AddCustomDir(__DIR__ . "/../../../../_CommonFiles/CustomTranslations");
 
 			$this->assertNotEmpty(
 				Translate::GetTranlationsArray(),
@@ -107,7 +107,7 @@
 				Translate::Translate("test.test1")
 			);
 
-			Translate::AddCustomDir(__DIR__ . "/../../../_TestsForUnits/CustomTranslations");
+			Translate::AddCustomDir(__DIR__ . "/../../../../_CommonFiles/CustomTranslations");
 
 			$this->assertEquals(
 				"Test 1",
