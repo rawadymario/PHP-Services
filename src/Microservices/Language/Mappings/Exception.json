@@ -64,6 +64,11 @@
 			"en": "Invalid number",
 			"fr": "Numéro invalide",
 			"ar": "رقم غير صالح"
+		},
+		"InvalidCookie": {
+			"en": "Cookie with name (::param::) was not found!",
+			"fr": "Le cookie de site Web avec le nom (::param::) n'a pas été trouvé!",
+			"ar": "لم يتم العثور على ملف تعريف ارتباط موقع الويب الذي يحمل الاسم (::param::)!"
 		}
 	}
 }
