@@ -65,6 +65,18 @@ use RawadyMario\Helpers\MetaSeo;
 			MetaSeo::SetTwitterCard("testtt"); //Should default to: summary_large_image
 			MetaSeo::SetFavicon("https://rawadymario.com/assets/img/favicon.png");
 
+			MetaSeo::AddToMetaArray("test", [
+				"type" => "meta",
+				"name" => "test",
+				"content" => "This is a test text"
+			]);
+
+			MetaSeo::AddToPreHeadArray("pre_1", "<!-- Here Goes Pre Head Scripts 01 -->");
+			MetaSeo::AddToPreHeadArray("pre_2", "<!-- Here Goes Pre Head Scripts 02 -->");
+
+			MetaSeo::AddToPostHeadArray("post_1", "<!-- Here Goes Post Head Scripts 01 -->");
+			MetaSeo::AddToPostHeadArray("post_2", "<!-- Here Goes Post Head Scripts 02 -->");
+
 			$expected = Helper::GetHtmlContentFromFile(__DIR__ . "/../../_CommonFiles/MetaSeo/header.html");
 			$actual = MetaSeo::RenderFull();
 

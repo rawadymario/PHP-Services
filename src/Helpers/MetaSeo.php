@@ -47,13 +47,12 @@
 
 			self::BuildMetaArray();
 
-			//Top Head
-				//Google Analytics
-				//...
+			$html[] = self::RenderPreHeadArray();
 
 			if (!Helper::StringNullOrEmpty(self::GetTitle())) {
 				$html[] = "<title>" . self::GetTitle() . "</title>";
 			}
+
 			if (!Helper::StringNullOrEmpty(self::GetFavicon())) {
 				$html[] = "<link rel=\"icon\" type=\"image/png\" href=\"" . self::GetFavicon() . "\">";
 			}
@@ -62,6 +61,8 @@
 
 			//Styles
 			//Scripts
+
+			$html[] = self::RenderPostHeadArray();
 
 			return Helper::ImplodeArrToStr($html, "\n");
 		}
@@ -282,6 +283,22 @@
 			return Helper::ImplodeArrToStr($html, "\n");
 		}
 
+		protected static function RenderPreHeadArray(): string {
+			$html = [];
+			foreach (self::$preHeadArray AS $index => $preHead) {
+				$html[] = $preHead;
+			}
+			return Helper::ImplodeArrToStr($html, "\n");
+		}
+
+		protected static function RenderPostHeadArray(): string {
+			$html = [];
+			foreach (self::$postHeadArray AS $index => $postHead) {
+				$html[] = $postHead;
+			}
+			return Helper::ImplodeArrToStr($html, "\n");
+		}
+
 		public static function AddToMetaArray(string $key, array $array): void {
 			self::$metaArray[$key] = $array;
 		}
@@ -296,8 +313,8 @@
 			return self::$metaArray;
 		}
 
-		public static function AddToPreHeadArray(string $key, array $array): void {
-			self::$preHeadArray[$key] = $array;
+		public static function AddToPreHeadArray(string $key, string $text): void {
+			self::$preHeadArray[$key] = $text;
 		}
 
 		public static function RemoveFromPreHeadArray(string $key): void {
@@ -310,8 +327,8 @@
 			return self::$preHeadArray;
 		}
 
-		public static function AddToPostHeadArray(string $key, array $array): void {
-			self::$postHeadArray[$key] = $array;
+		public static function AddToPostHeadArray(string $key, string $text): void {
+			self::$postHeadArray[$key] = $text;
 		}
 
 		public static function RemoveFromPostHeadArray(string $key): void {
