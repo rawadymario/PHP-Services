@@ -69,6 +69,16 @@
 			"en": "Cookie with name (::param::) was not found!",
 			"fr": "Le cookie de site Web avec le nom (::param::) n'a pas été trouvé!",
 			"ar": "لم يتم العثور على ملف تعريف ارتباط موقع الويب الذي يحمل الاسم (::param::)!"
+		},
+		"InvalidArgumentWithAllowed": {
+			"en": "Invalid argument \"::argument::\" having the value \"::value::\". Allowed value(s): \"::allowed::\"",
+			"fr": "Argument non valide \"::argument::\" ayant la valeur \"::value::\". Valeur(s) autorisée(s): \"::allowed::\"",
+			"ar": "وسيطة غير صالحة \"::الوسيطة::\" لها القيمة \"::value::\". القيمة (القيم) المسموح بها: \"::allowed::\""
+		},
+		"InvalidArgument": {
+			"en": "Invalid argument \"::argument::\" having the value \"::value::\".",
+			"fr": "Argument non valide \"::argument::\" ayant la valeur \"::value::\".",
+			"ar": "وسيطة غير صالحة \"::الوسيطة::\" لها القيمة \"::value::\"."
 		}
 	}
 }

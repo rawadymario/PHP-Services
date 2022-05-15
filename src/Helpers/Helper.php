@@ -922,7 +922,7 @@
 			if (self::StringNullOrEmpty($scheme)) {
 				return $string;
 			}
-			if (self::StringBeginsWith($string, ["http://", "https://"])) {
+			if (self::IsValidUrl($string)) {
 				return $string;
 			}
 
@@ -947,7 +947,7 @@
 				return $string;
 			}
 
-			if (self::StringBeginsWith($string, ["http://", "https://"])) {
+			if (self::IsValidUrl($string)) {
 				$string = str_replace(["http://", "https://"], "", $string);
 			}
 
@@ -955,6 +955,14 @@
 				$scheme .= "://";
 			}
 			return $scheme . $string;
+		}
+
+
+		/**
+		 * Check if the given string is a valid link
+		 */
+		public static function IsValidUrl(string $string): bool {
+			return self::StringBeginsWith($string, ["http://", "https://"]);
 		}
 
 	}

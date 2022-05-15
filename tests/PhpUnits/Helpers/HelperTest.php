@@ -1195,4 +1195,42 @@
 			);
 		}
 
+		public function testIsValidUrl() {
+			$this->assertFalse(
+				Helper::IsValidUrl("Mario Rawady")
+			);
+
+			$this->assertFalse(
+				Helper::IsValidUrl("Mario Rawady: https://rawadymario.com")
+			);
+
+			$this->assertFalse(
+				Helper::IsValidUrl("http//rawadymario.com")
+			);
+
+			$this->assertFalse(
+				Helper::IsValidUrl("http:/rawadymario.com")
+			);
+
+			$this->assertFalse(
+				Helper::IsValidUrl("http:rawadymario.com")
+			);
+
+			$this->assertFalse(
+				Helper::IsValidUrl("https:/rawadymario.com")
+			);
+
+			$this->assertTrue( //To be fixed!
+				Helper::IsValidUrl("http://rawadymario.com Mario Rawady")
+			);
+
+			$this->assertTrue(
+				Helper::IsValidUrl("http://rawadymario.com")
+			);
+
+			$this->assertTrue(
+				Helper::IsValidUrl("https://rawadymario.com")
+			);
+		}
+
 	}
