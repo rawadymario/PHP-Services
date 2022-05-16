@@ -59,8 +59,17 @@
 
 			$html[] = self::RenderMetaArray();
 
-			//Styles
-			//Scripts
+			$stylesHtml = Style::GetFilesIncludes();
+			if (!Helper::StringNullOrEmpty($stylesHtml)) {
+				$html[] = "<!-- Styles -->";
+				$html[] = $stylesHtml;
+			}
+
+			$scriptsHtml = Script::GetFilesIncludes();
+			if (!Helper::StringNullOrEmpty($scriptsHtml)) {
+				$html[] = "<!-- Scripts -->";
+				$html[] = $scriptsHtml;
+			}
 
 			$html[] = self::RenderPostHeadArray();
 
@@ -313,6 +322,10 @@
 			return self::$metaArray;
 		}
 
+		public static function ClearMetaArray(): void {
+			self::$metaArray = [];
+		}
+
 		public static function AddToPreHeadArray(string $key, string $text): void {
 			self::$preHeadArray[$key] = $text;
 		}
@@ -327,6 +340,10 @@
 			return self::$preHeadArray;
 		}
 
+		public static function ClearPreHearArray(): void {
+			self::$preHeadArray = [];
+		}
+
 		public static function AddToPostHeadArray(string $key, string $text): void {
 			self::$postHeadArray[$key] = $text;
 		}
@@ -339,6 +356,10 @@
 
 		public static function GetPostHeadArray(): array {
 			return self::$postHeadArray;
+		}
+
+		public static function ClearPostHearArray(): void {
+			self::$postHeadArray = [];
 		}
 
 		public static function GetClientName(): string {

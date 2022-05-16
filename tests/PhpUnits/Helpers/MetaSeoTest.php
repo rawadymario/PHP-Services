@@ -3,16 +3,17 @@
 
 	use PHPUnit\Framework\TestCase;
 	use RawadyMario\Exceptions\InvalidArgumentException;
-use RawadyMario\Helpers\Helper;
-use RawadyMario\Helpers\MetaSeo;
+	use RawadyMario\Helpers\Helper;
+	use RawadyMario\Helpers\MetaSeo;
+	use RawadyMario\Helpers\Script;
+	use RawadyMario\Helpers\Style;
 
 	class MetaSeoTest extends TestCase {
 
 		public function setUp(): void {
-			$metaSeoArray = MetaSeo::GetMetaArray();
-			foreach ($metaSeoArray as $key => $value) {
-				MetaSeo::RemoveFromMetaArray($key);
-			}
+			MetaSeo::ClearMetaArray();
+			MetaSeo::ClearPreHearArray();
+			MetaSeo::ClearPostHearArray();
 
 			parent::setUp();
 		}
@@ -76,6 +77,16 @@ use RawadyMario\Helpers\MetaSeo;
 
 			MetaSeo::AddToPostHeadArray("post_1", "<!-- Here Goes Post Head Scripts 01 -->");
 			MetaSeo::AddToPostHeadArray("post_2", "<!-- Here Goes Post Head Scripts 02 -->");
+
+			Style::AddFile("file_1", "file_1.css");
+			Style::AddFile("file_2", "file_2.css");
+			Style::AddStyle("style_1", "<link rel=\"stylesheet\" href=\"style_1.css\">");
+			Style::AddStyle("style_2", "<link rel=\"stylesheet\" href=\"style_2.css\">");
+
+			Script::AddFile("file_1", "file_1.js");
+			Script::AddFile("file_2", "file_2.js");
+			Script::AddScript("script_1", "<script src=\"script_1.js\"></script>");
+			Script::AddScript("script_2", "<script src=\"script_2.js\"></script>");
 
 			$expected = Helper::GetHtmlContentFromFile(__DIR__ . "/../../_CommonFiles/MetaSeo/header.html");
 			$actual = MetaSeo::RenderFull();
