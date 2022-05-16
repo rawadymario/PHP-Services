@@ -9,41 +9,41 @@
 		public function testSettersAndGettersSuccess() {
 			$now = time();
 
-			Cookie::SetExpireInUnix(time());
-			$this->assertEquals($now, Cookie::GetExpire());
+			Cookie::set_expire_in_unix(time());
+			$this->assertEquals($now, Cookie::get_expire());
 
-			Cookie::SetExpireInDays(10);
-			$this->assertEquals($now + (60 * 60 * 24 * 10), Cookie::GetExpire());
+			Cookie::set_expire_in_days(10);
+			$this->assertEquals($now + (60 * 60 * 24 * 10), Cookie::get_expire());
 
-			Cookie::SetExpireInUnix(0);
-			$this->assertEquals(time() + (60 * 60 * 24 * 365), Cookie::GetExpire());
+			Cookie::set_expire_in_unix(0);
+			$this->assertEquals(time() + (60 * 60 * 24 * 365), Cookie::get_expire());
 
-			$this->assertEquals("rm_", Cookie::GetPrefix());
+			$this->assertEquals("rm_", Cookie::get_prefix());
 
-			Cookie::SetPrefix("testcookie_");
-			$this->assertEquals("testcookie_", Cookie::GetPrefix());
+			Cookie::set_prefix("testcookie_");
+			$this->assertEquals("testcookie_", Cookie::get_prefix());
 
-			$this->assertEquals("/", Cookie::GetPath());
+			$this->assertEquals("/", Cookie::get_path());
 
-			Cookie::SetPath("/test/path/");
-			$this->assertEquals("/test/path/", Cookie::GetPath());
+			Cookie::set_path("/test/path/");
+			$this->assertEquals("/test/path/", Cookie::get_path());
 
-			Cookie::SetDomain("testcookie.com");
-			$this->assertEquals("testcookie.com", Cookie::GetDomain());
+			Cookie::set_domain("testcookie.com");
+			$this->assertEquals("testcookie.com", Cookie::get_domain());
 
-			$this->assertFalse(Cookie::GetSecure());
+			$this->assertFalse(Cookie::get_secure());
 
-			Cookie::SetSecure(true);
-			$this->assertTrue(Cookie::GetSecure());
+			Cookie::set_secure(true);
+			$this->assertTrue(Cookie::get_secure());
 
-			$this->assertFalse(Cookie::GetHttpOnly());
+			$this->assertFalse(Cookie::get_http_only());
 
-			Cookie::SetHttpOnly(true);
-			$this->assertTrue(Cookie::GetHttpOnly());
+			Cookie::set_http_only(true);
+			$this->assertTrue(Cookie::get_http_only());
 		}
 
 		public function testGetCookieThrowError() {
 			$this->expectException(InvalidCookieException::class);
-			Cookie::Get("invalid");
+			Cookie::get("invalid");
 		}
 	}
