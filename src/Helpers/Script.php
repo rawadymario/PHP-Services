@@ -3,53 +3,53 @@
 
 	class Script {
 		protected static $files_array = [];
-		protected static $scriptsArray = [];
+		protected static $scripts_array = [];
 
-		public static function AddFile(string $key, string $file): void {
+		public static function add_file(string $key, string $file): void {
 			self::$files_array[$key] = $file;
 		}
 
-		public static function RemoveFile(string $key): void {
+		public static function remove_file(string $key): void {
 			if (isset(self::$files_array[$key])) {
 				unset(self::$files_array[$key]);
 			}
 		}
 
-		public static function GetFiles(): array {
+		public static function get_files(): array {
 			return self::$files_array;
 		}
 
-		public static function ClearFiles(): void {
+		public static function clear_files(): void {
 			self::$files_array = [];
 		}
 
-		public static function AddScript(string $key, string $script): void {
-			self::$scriptsArray[$key] = $script;
+		public static function add_script(string $key, string $script): void {
+			self::$scripts_array[$key] = $script;
 		}
 
-		public static function RemoveScript(string $key): void {
-			if (isset(self::$scriptsArray[$key])) {
-				unset(self::$scriptsArray[$key]);
+		public static function remove_script(string $key): void {
+			if (isset(self::$scripts_array[$key])) {
+				unset(self::$scripts_array[$key]);
 			}
 		}
 
-		public static function GetScripts(): array {
-			return self::$scriptsArray;
+		public static function get_scripts(): array {
+			return self::$scripts_array;
 		}
 
-		public static function ClearScripts(): void {
-			self::$scriptsArray = [];
+		public static function clear_scripts(): void {
+			self::$scripts_array = [];
 		}
 
-		public static function GetFilesIncludes(): string {
+		public static function get_files_includes(): string {
 			$html = [];
 
-			$files = self::GetFiles();
+			$files = self::get_files();
 			foreach ($files AS $file) {
 				$html[] = "<script src=\"$file\"></script>";
 			}
 
-			$scripts = self::GetScripts();
+			$scripts = self::get_scripts();
 			foreach ($scripts AS $script) {
 				$html[] = $script;
 			}

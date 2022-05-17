@@ -8,57 +8,57 @@
 	class ScriptTest extends TestCase {
 
 		public function setUp(): void {
-			Script::ClearFiles();
-			Script::ClearScripts();
+			Script::clear_files();
+			Script::clear_scripts();
 
 			parent::setUp();
 		}
 
-		public function testAddFileSuccess() {
-			$this->assertEmpty(Script::GetFiles());
+		public function test_add_file_success() {
+			$this->assertEmpty(Script::get_files());
 
-			Script::AddFile("test", "");
-			$this->assertCount(1, Script::GetFiles());
+			Script::add_file("test", "");
+			$this->assertCount(1, Script::get_files());
 		}
 
-		public function testRemoveFileSuccess() {
-			$this->assertEmpty(Script::GetFiles());
+		public function test_remove_file_success() {
+			$this->assertEmpty(Script::get_files());
 
-			Script::AddFile("test", "");
-			$this->assertCount(1, Script::GetFiles());
+			Script::add_file("test", "");
+			$this->assertCount(1, Script::get_files());
 
-			Script::RemoveFile("test");
-			$this->assertEmpty(Script::GetFiles());
+			Script::remove_file("test");
+			$this->assertEmpty(Script::get_files());
 		}
 
-		public function testAddScriptSuccess() {
-			$this->assertEmpty(Script::GetScripts());
+		public function test_add_script_success() {
+			$this->assertEmpty(Script::get_scripts());
 
-			Script::AddScript("test", "");
-			$this->assertCount(1, Script::GetScripts());
+			Script::add_script("test", "");
+			$this->assertCount(1, Script::get_scripts());
 		}
 
-		public function testRemoveScriptSuccess() {
-			$this->assertEmpty(Script::GetScripts());
+		public function test_remove_script_success() {
+			$this->assertEmpty(Script::get_scripts());
 
-			Script::AddScript("test", "");
-			$this->assertCount(1, Script::GetScripts());
+			Script::add_script("test", "");
+			$this->assertCount(1, Script::get_scripts());
 
-			Script::RemoveScript("test");
-			$this->assertEmpty(Script::GetScripts());
+			Script::remove_script("test");
+			$this->assertEmpty(Script::get_scripts());
 		}
 
-		public function testGetFilesIncludesSuccess() {
-			Script::AddFile("file_1", "file_1.js");
-			Script::AddFile("file_2", "file_2.js");
-			Script::AddFile("file_3", "file_3.js");
+		public function test_get_files_includes_success() {
+			Script::add_file("file_1", "file_1.js");
+			Script::add_file("file_2", "file_2.js");
+			Script::add_file("file_3", "file_3.js");
 
-			Script::AddScript("script_1", "<script src=\"script_1.js\"></script>");
-			Script::AddScript("script_2", "<script src=\"script_2.js\"></script>");
-			Script::AddScript("script_3", "<script src=\"script_3.js\"></script>");
+			Script::add_script("script_1", "<script src=\"script_1.js\"></script>");
+			Script::add_script("script_2", "<script src=\"script_2.js\"></script>");
+			Script::add_script("script_3", "<script src=\"script_3.js\"></script>");
 
 			$expected = Helper::get_html_content_from_file(__DIR__ . "/../../_CommonFiles/Script/scripts.html");
-			$actual = Script::GetFilesIncludes();
+			$actual = Script::get_files_includes();
 
 			$this->assertEquals($expected, $actual);
 		}

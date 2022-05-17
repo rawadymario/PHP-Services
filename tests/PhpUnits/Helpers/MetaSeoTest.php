@@ -18,14 +18,14 @@
 			parent::setUp();
 		}
 
-		public function testadd_to_meta_arraySuccess() {
+		public function test_add_to_meta_array_success() {
 			$this->assertEmpty(MetaSeo::get_meta_array());
 
 			MetaSeo::add_to_meta_array("test", []);
 			$this->assertCount(1, MetaSeo::get_meta_array());
 		}
 
-		public function testremove_from_meta_arraySuccess() {
+		public function test_remove_from_meta_array_success() {
 			$this->assertEmpty(MetaSeo::get_meta_array());
 
 			MetaSeo::add_to_meta_array("test", []);
@@ -35,7 +35,7 @@
 			$this->assertEmpty(MetaSeo::get_meta_array());
 		}
 
-		public function testInvalidArgumentFail() {
+		public function test_InvalidArgument_fail() {
 			MetaSeo::add_to_meta_array("test", []);
 
 			$this->expectException(InvalidArgumentException::class);
@@ -43,7 +43,7 @@
 			MetaSeo::render_full();
 		}
 
-		public function testRenderFullSuccess() {
+		public function test_RenderFull_success() {
 			MetaSeo::set_client_name("Mario Rawady");
 			MetaSeo::set_pre_title("Software Engineer");
 			MetaSeo::set_post_title("Home Page");
