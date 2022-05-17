@@ -41,7 +41,7 @@
 			if (!is_numeric($amount)) {
 				throw new NotNumericParamException("amount");
 			}
-			return Helper::ConvertToDec((ceil($amount / 250) * 250), $decimalPlaces);
+			return Helper::convert_to_dec((ceil($amount / 250) * 250), $decimalPlaces);
 		}
 
 

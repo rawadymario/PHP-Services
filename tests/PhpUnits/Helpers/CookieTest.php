@@ -6,7 +6,7 @@
 
 	final class CookieTest extends TestCase {
 
-		public function testSettersAndGettersSuccess() {
+		public function test_setters_and_getters_success() {
 			$now = time();
 
 			Cookie::set_expire_in_unix(time());
@@ -42,7 +42,7 @@
 			$this->assertTrue(Cookie::get_http_only());
 		}
 
-		public function testGetCookieThrowError() {
+		public function test_get_cookie_throw_error() {
 			$this->expectException(InvalidCookieException::class);
 			Cookie::get("invalid");
 		}

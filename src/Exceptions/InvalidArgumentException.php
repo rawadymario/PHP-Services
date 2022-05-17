@@ -13,7 +13,7 @@
 			string $value,
 			?string $allowed=null
 		) {
-			if (!Helper::StringNullOrEmpty($allowed)) {
+			if (!Helper::string_null_or_empty($allowed)) {
 				$this->message = "exception.InvalidArgumentWithAllowed";
 			}
 

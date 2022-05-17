@@ -54,7 +54,7 @@
 			string $field,
 			string $lang=""
 		): string {
-			if (Helper::StringNullOrEmpty($lang)) {
+			if (Helper::string_null_or_empty($lang)) {
 				$lang = self::$ACTIVE;
 			}
 

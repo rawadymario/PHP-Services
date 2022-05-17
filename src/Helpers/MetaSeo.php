@@ -49,31 +49,31 @@
 
 			$html[] = self::RenderPreHeadArray();
 
-			if (!Helper::StringNullOrEmpty(self::GetTitle())) {
+			if (!Helper::string_null_or_empty(self::GetTitle())) {
 				$html[] = "<title>" . self::GetTitle() . "</title>";
 			}
 
-			if (!Helper::StringNullOrEmpty(self::GetFavicon())) {
+			if (!Helper::string_null_or_empty(self::GetFavicon())) {
 				$html[] = "<link rel=\"icon\" type=\"image/png\" href=\"" . self::GetFavicon() . "\">";
 			}
 
 			$html[] = self::RenderMetaArray();
 
 			$stylesHtml = Style::GetFilesIncludes();
-			if (!Helper::StringNullOrEmpty($stylesHtml)) {
+			if (!Helper::string_null_or_empty($stylesHtml)) {
 				$html[] = "<!-- Styles -->";
 				$html[] = $stylesHtml;
 			}
 
 			$scriptsHtml = Script::GetFilesIncludes();
-			if (!Helper::StringNullOrEmpty($scriptsHtml)) {
+			if (!Helper::string_null_or_empty($scriptsHtml)) {
 				$html[] = "<!-- Scripts -->";
 				$html[] = $scriptsHtml;
 			}
 
 			$html[] = self::RenderPostHeadArray();
 
-			return Helper::ImplodeArrToStr($html, "\n");
+			return Helper::implode_arr_to_str($html, "\n");
 		}
 
 		protected static function BuildMetaArray(): void {
@@ -220,7 +220,7 @@
 				"content" => self::GetPhoto()
 			]);
 
-			if (!Helper::StringNullOrEmpty(self::GetFacebookAppId())) {
+			if (!Helper::string_null_or_empty(self::GetFacebookAppId())) {
 				self::AddToMetaArray("fbAppId", [
 					"type" => "meta",
 					"property" => "fb:app_id",
@@ -228,7 +228,7 @@
 				]);
 			}
 
-			if (!Helper::StringNullOrEmpty(self::GetFacebookAdmins())) {
+			if (!Helper::string_null_or_empty(self::GetFacebookAdmins())) {
 				self::AddToMetaArray("fbAdmins", [
 					"type" => "meta",
 					"property" => "fb:admins",
@@ -277,7 +277,7 @@
 
 				switch ($type) {
 					case "meta":
-						$html[] = "<meta " . Helper::GererateKeyValueStringFromArray($metaSubArray) . ">";
+						$html[] = "<meta " . Helper::gererate_key_value_string_from_array($metaSubArray) . ">";
 						break;
 
 					case "comment":
@@ -289,7 +289,7 @@
 				}
 			}
 
-			return Helper::ImplodeArrToStr($html, "\n");
+			return Helper::implode_arr_to_str($html, "\n");
 		}
 
 		protected static function RenderPreHeadArray(): string {
@@ -297,7 +297,7 @@
 			foreach (self::$preHeadArray AS $index => $preHead) {
 				$html[] = $preHead;
 			}
-			return Helper::ImplodeArrToStr($html, "\n");
+			return Helper::implode_arr_to_str($html, "\n");
 		}
 
 		protected static function RenderPostHeadArray(): string {
@@ -305,7 +305,7 @@
 			foreach (self::$postHeadArray AS $index => $postHead) {
 				$html[] = $postHead;
 			}
-			return Helper::ImplodeArrToStr($html, "\n");
+			return Helper::implode_arr_to_str($html, "\n");
 		}
 
 		public static function AddToMetaArray(string $key, array $array): void {
@@ -387,7 +387,7 @@
 		}
 
 		public static function GetTitle(): string {
-			return Helper::ImplodeArrToStr([
+			return Helper::implode_arr_to_str([
 				self::$preTitle,
 				self::$title,
 				self::$postTitle
@@ -412,7 +412,7 @@
 
 		public static function SetKeywords($var): void {
 			if (is_array($var)) {
-				$var = Helper::ImplodeArrToStr($var, ",");
+				$var = Helper::implode_arr_to_str($var, ",");
 			}
 			self::$keywords = $var;
 		}

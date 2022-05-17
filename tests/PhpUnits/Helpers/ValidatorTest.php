@@ -196,19 +196,19 @@
 		public function testValidateUsernameLengthBelowMinimumThrowError(): void {
 			$this->expectException(InvalidUsernameLengthException::class);
 			$this->expectExceptionMessage(Translate::Translate("exception.InvalidUsernameLength"));
-			Validator::ValidateUsername(Helper::GenerateRandomKey(5, true, true));
+			Validator::ValidateUsername(Helper::generate_random_key(5, true, true));
 		}
 
 		public function testValidateUsernameLengthAboveMaximumThrowError(): void {
 			$this->expectException(InvalidUsernameLengthException::class);
 			$this->expectExceptionMessage(Translate::Translate("exception.InvalidUsernameLength"));
-			Validator::ValidateUsername(Helper::GenerateRandomKey(21, true, true));
+			Validator::ValidateUsername(Helper::generate_random_key(21, true, true));
 		}
 
 		public function testValidateUsernameCharactersThrowError_01(): void {
 			$this->expectException(InvalidUsernameCharactersException::class);
 			$this->expectExceptionMessage(Translate::Translate("exception.InvalidUsernameCharacters"));
-			Validator::ValidateUsername(Helper::GenerateRandomKey(12, false, false, true));
+			Validator::ValidateUsername(Helper::generate_random_key(12, false, false, true));
 		}
 
 		public function testValidateUsernameSuccess(): void {
@@ -232,13 +232,13 @@
 		public function testValidatePasswordLengthBelowMinimumThrowError(): void {
 			$this->expectException(InvalidPasswordLengthException::class);
 			$this->expectExceptionMessage(Translate::Translate("exception.InvalidPasswordLength"));
-			Validator::ValidatePassword(Helper::GenerateRandomKey(5, true, true, true));
+			Validator::ValidatePassword(Helper::generate_random_key(5, true, true, true));
 		}
 
 		public function testValidatePasswordCharactersThrowError(): void {
 			$this->expectException(InvalidPasswordCharactersException::class);
 			$this->expectExceptionMessage(Translate::Translate("exception.InvalidPasswordCharacters"));
-			Validator::ValidatePassword(Helper::GenerateRandomKey(18, true, true, false));
+			Validator::ValidatePassword(Helper::generate_random_key(18, true, true, false));
 		}
 
 		public function testValidatePasswordSuccess(): void {

@@ -29,7 +29,7 @@
 		public static function SetVariableUploadDir(
 			string $var
 		): void {
-			if (!Helper::StringEndsWith($var, ["/", "\\"])) {
+			if (!Helper::string_ends_with($var, ["/", "\\"])) {
 				$var .= "/";
 			}
 			self::$UPLOAD_DIR = $var;
@@ -42,7 +42,7 @@
 		public static function SetVariableMediaRoot(
 			string $var
 		): void {
-			if (!Helper::StringEndsWith($var, ["/", "\\"])) {
+			if (!Helper::string_ends_with($var, ["/", "\\"])) {
 				$var .= "/";
 			}
 			self::$MEDIA_ROOT = $var;
@@ -71,13 +71,13 @@
 			bool $withVersion=true,
 			bool $withDomain=true
 		): string {
-			if (Helper::StringNullOrEmpty(self::$UPLOAD_DIR)) {
+			if (Helper::string_null_or_empty(self::$UPLOAD_DIR)) {
 				throw new NotEmptyParamException("UPLOAD_DIR");
 			}
-			if (Helper::StringNullOrEmpty(self::$MEDIA_ROOT)) {
+			if (Helper::string_null_or_empty(self::$MEDIA_ROOT)) {
 				throw new NotEmptyParamException("MEDIA_ROOT");
 			}
-			if (Helper::StringNullOrEmpty($path)) {
+			if (Helper::string_null_or_empty($path)) {
 				throw new NotEmptyParamException("path");
 			}
 
@@ -94,7 +94,7 @@
 				$extension = $newExtension;
 			}
 
-			if (!Helper::StringNullOrEmpty($imageCode)) {
+			if (!Helper::string_null_or_empty($imageCode)) {
 				$imageCodes = [];
 				if ($imageCode === Image::THUMBNAIL_CODE) {
 					$imageCodes = [
@@ -133,11 +133,11 @@
 				}
 			}
 
-			if (Helper::StringNullOrEmpty($url)) {
+			if (Helper::string_null_or_empty($url)) {
 				throw new FileNotFoundException(self::$MEDIA_ROOT . $path);
 			}
 
-			if ($withVersion && !Helper::StringNullOrEmpty(self::$WEBSITE_VERSION)) {
+			if ($withVersion && !Helper::string_null_or_empty(self::$WEBSITE_VERSION)) {
 				$url .= "?v=" . self::$WEBSITE_VERSION;
 			}
 

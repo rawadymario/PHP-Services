@@ -20,7 +20,7 @@
 		public static function CleanDate(
 			?string $val
 		): string {
-			if (Helper::StringNullOrEmpty($val)) {
+			if (Helper::string_null_or_empty($val)) {
 				return "null";
 			}
 			return "'$val'";
@@ -36,11 +36,11 @@
 			?string $lang="",
 			bool $isStr=false
 		): string {
-			if (Helper::StringNullOrEmpty($date)) {
+			if (Helper::string_null_or_empty($date)) {
 				throw new NotEmptyParamException("date");
 			}
 
-			if (Helper::StringNullOrEmpty($lang)) {
+			if (Helper::string_null_or_empty($lang)) {
 				$lang = Language::$ACTIVE;
 			}
 
@@ -77,7 +77,7 @@
 				throw new InvalidParamException("month");
 			}
 
-			if (Helper::StringNullOrEmpty($lang)) {
+			if (Helper::string_null_or_empty($lang)) {
 				$lang = Language::$ACTIVE;
 			}
 
@@ -93,7 +93,7 @@
 			string $weekDay,
 			?string $lang=""
 		): string {
-			if (Helper::StringNullOrEmpty($lang)) {
+			if (Helper::string_null_or_empty($lang)) {
 				$lang = Language::$ACTIVE;
 			}
 
@@ -113,7 +113,7 @@
 			string $formatType=DateFormatType::NICE,
 			?string $comparisonDate=null
 		): string {
-			if (Helper::StringNullOrEmpty($date)) {
+			if (Helper::string_null_or_empty($date)) {
 				throw new NotEmptyParamException("date");
 			}
 
@@ -122,7 +122,7 @@
 			}
 			$comparisonDateStr = strtotime($comparisonDate);
 
-			if (Helper::StringNullOrEmpty($lang)) {
+			if (Helper::string_null_or_empty($lang)) {
 				$lang = Language::$ACTIVE;
 			}
 
@@ -180,10 +180,10 @@
 			?string $date1=null,
 			?string $date2=null
 		): float {
-			if (Helper::StringNullOrEmpty($date1)) {
+			if (Helper::string_null_or_empty($date1)) {
 				throw new NotEmptyParamException("date1");
 			}
-			if (Helper::StringNullOrEmpty($date2)) {
+			if (Helper::string_null_or_empty($date2)) {
 				throw new NotEmptyParamException("date2");
 			}
 
@@ -193,7 +193,7 @@
 			$date2Str = strtotime($date2);
 			$daysStr = abs($date2Str - $date1Str);
 
-			return Helper::ConvertToDec($daysStr / $oneDayStr);
+			return Helper::convert_to_dec($daysStr / $oneDayStr);
 		}
 
 
@@ -207,23 +207,23 @@
 			bool $getMonths=true,
 			bool $getDays=true
 		): string {
-			if (Helper::StringNullOrEmpty($dob)) {
+			if (Helper::string_null_or_empty($dob)) {
 				throw new NotEmptyParamException("dob");
 			}
 
-			if (Helper::StringNullOrEmpty($lang)) {
+			if (Helper::string_null_or_empty($lang)) {
 				$lang = Language::$ACTIVE;
 			}
 
-			if (Helper::StringNullOrEmpty($dateTime)) {
+			if (Helper::string_null_or_empty($dateTime)) {
 				$dateTime = 'now';
 			}
 
 			$dateDiff = date_diff(date_create($dateTime), date_create($dob));
 
-			$years	= Helper::ConvertToInt($dateDiff->format("%Y"));
-			$months	= Helper::ConvertToInt($dateDiff->format("%M"));
-			$days = Helper::ConvertToInt($dateDiff->format("%d"));
+			$years	= Helper::convert_to_int($dateDiff->format("%Y"));
+			$months	= Helper::convert_to_int($dateDiff->format("%M"));
+			$days = Helper::convert_to_int($dateDiff->format("%d"));
 
 			$age = Translate::TranslateStringSimple($years, $lang) . " " . ($years == 1 ? Translate::Translate("date.year", $lang) : Translate::Translate("date.years", $lang));
 			if ($getMonths && $months > 0) {

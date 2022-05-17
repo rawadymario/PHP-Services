@@ -88,7 +88,7 @@
 			Script::AddScript("script_1", "<script src=\"script_1.js\"></script>");
 			Script::AddScript("script_2", "<script src=\"script_2.js\"></script>");
 
-			$expected = Helper::GetHtmlContentFromFile(__DIR__ . "/../../_CommonFiles/MetaSeo/header.html");
+			$expected = Helper::get_html_content_from_file(__DIR__ . "/../../_CommonFiles/MetaSeo/header.html");
 			$actual = MetaSeo::RenderFull();
 
 			$this->assertEquals($expected, $actual);

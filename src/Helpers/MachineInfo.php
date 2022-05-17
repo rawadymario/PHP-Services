@@ -146,7 +146,7 @@
 		public static function GetIpInfo(
 			?string $ip=null
 		): array {
-			if (Helper::StringNullOrEmpty($ip)) {
+			if (Helper::string_null_or_empty($ip)) {
 				$ip = self::GetIpAddress();
 			}
 

@@ -25,9 +25,9 @@
 		 */
 		public static function AddDefaults(): void {
 			$dir = __DIR__ . "\..\Mappings";
-			$filesArr = Helper::GetAllFiles($dir);
+			$files_arr = Helper::get_all_files($dir);
 
-			foreach ($filesArr AS $filePath) {
+			foreach ($files_arr AS $filePath) {
 				self::AddFileContentToVals($filePath);
 			}
 		}
@@ -39,10 +39,10 @@
 		public static function AddCustomDir(
 			string $customDir
 		): void {
-			if (!Helper::StringNullOrEmpty($customDir) && is_dir($customDir)) {
-				$filesArr = Helper::GetAllFiles($customDir);
+			if (!Helper::string_null_or_empty($customDir) && is_dir($customDir)) {
+				$files_arr = Helper::get_all_files($customDir);
 
-				foreach ($filesArr AS $filePath) {
+				foreach ($files_arr AS $filePath) {
 					self::AddFileContentToVals($filePath);
 				}
 			}
@@ -59,15 +59,15 @@
 			array $replace=[],
 			bool $withType=true
 		): string {
-			if (Helper::StringNullOrEmpty($key)) {
+			if (Helper::string_null_or_empty($key)) {
 				throw new NotEmptyParamException("key");
 			}
-			if (Helper::StringNullOrEmpty($lang)) {
+			if (Helper::string_null_or_empty($lang)) {
 				$lang = Language::$ACTIVE;
 			}
 
 			$vals = !$withType ? self::$VALS_WITHOUT_TYPE : self::$VALS;
-			if (Helper::ArrayNullOrEmpty($vals)) {
+			if (Helper::array_null_or_empty($vals)) {
 				self::AddDefaults();
 				$vals = !$withType ? self::$VALS_WITHOUT_TYPE : self::$VALS;
 			}
@@ -80,7 +80,7 @@
 				$str = "";
 			}
 
-			if (!Helper::StringNullOrEmpty($str) && count($replace) > 0) {
+			if (!Helper::string_null_or_empty($str) && count($replace) > 0) {
 				$str = str_replace(
 					array_keys($replace),
 					array_values($replace),
@@ -114,28 +114,28 @@
 			array $replace=[],
 			bool $withType=true
 		): string {
-			if (Helper::StringNullOrEmpty($string)) {
+			if (Helper::string_null_or_empty($string)) {
 				throw new NotEmptyParamException("string");
 			}
-			if (Helper::StringNullOrEmpty($lang)) {
+			if (Helper::string_null_or_empty($lang)) {
 				$lang = Language::$ACTIVE;
 			}
 
 			$vals = !$withType ? self::$VALS_WITHOUT_TYPE : self::$VALS;
-			if (Helper::ArrayNullOrEmpty($vals)) {
+			if (Helper::array_null_or_empty($vals)) {
 				self::AddDefaults();
 				$vals = !$withType ? self::$VALS_WITHOUT_TYPE : self::$VALS;
 			}
 
 			foreach ($vals AS $k => $v) {
 				$_langKey = "." . $lang;
-				if (Helper::StringEndsWith($k, "." . $lang)) {
+				if (Helper::string_ends_with($k, "." . $lang)) {
 					$k = str_replace($_langKey, "", $k);
 					$string = str_replace($k, $v, $string);
 				}
 			}
 
-			if (!Helper::StringNullOrEmpty($string) && count($replace) > 0) {
+			if (!Helper::string_null_or_empty($string) && count($replace) > 0) {
 				foreach ($replace AS $k => $v) {
 					$string = str_replace($k, $v, $string);
 				}
@@ -160,14 +160,14 @@
 		private static function AddFileContentToVals(
 			string $filePath
 		): void {
-			$fileArr = Helper::GetJsonContentFromFileAsArray($filePath);
+			$fileArr = Helper::get_json_content_from_file_as_array($filePath);
 
 			$pathArr = explode("/", $filePath);
 			$lastPath = $pathArr[sizeof($pathArr) - 1];
 			$type = strtolower(str_replace(".json", "", $lastPath));
 
-			self::$VALS = array_merge(self::$VALS, Helper::ConvertMultidimentionArrayToSingleDimention($fileArr));
-			self::$VALS_WITHOUT_TYPE = array_merge(self::$VALS_WITHOUT_TYPE, Helper::ConvertMultidimentionArrayToSingleDimention($fileArr[$type]));
+			self::$VALS = array_merge(self::$VALS, Helper::convert_multidimention_array_to_single_dimention($fileArr));
+			self::$VALS_WITHOUT_TYPE = array_merge(self::$VALS_WITHOUT_TYPE, Helper::convert_multidimention_array_to_single_dimention($fileArr[$type]));
 		}
 
 	}

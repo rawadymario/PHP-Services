@@ -13,255 +13,255 @@
 	final class HelperTest extends TestCase {
 		private const UPLOAD_DIR = __DIR__ . "/../../_CommonFiles/Upload/";
 
-		public function testCleanStringSuccess(): void {
+		public function test_clean_string_success(): void {
 			$this->assertEquals(
 				"Mario",
-				Helper::CleanString(" Mario ")
+				Helper::clean_string(" Mario ")
 			);
 
 			$this->assertEquals(
 				"Mario",
-				Helper::CleanString(" Mario\\ ")
+				Helper::clean_string(" Mario\\ ")
 			);
 
 			$this->assertEquals(
 				"Mario\\",
-				Helper::CleanString(" Mario\\\\ ")
+				Helper::clean_string(" Mario\\\\ ")
 			);
 		}
 
-		public function testCleanHtmlTextSuccess() {
+		public function test_clean_html_text_success() {
 			$this->assertEquals(
 				"Mario",
-				Helper::CleanHtmlText(" Mario ")
+				Helper::clean_html_text(" Mario ")
 			);
 
 			$this->assertEquals(
 				"Mario&lt;br /&gt;",
-				Helper::CleanHtmlText(" Mario<br /> ")
+				Helper::clean_html_text(" Mario<br /> ")
 			);
 		}
 
-		public function testConvertToBoolSuccess() {
+		public function test_convert_to_bool_success() {
 			//Type: String
 			$this->assertTrue(
-				Helper::ConvertToBool("Mario")
+				Helper::convert_to_bool("Mario")
 			);
 
 			$this->assertFalse(
-				Helper::ConvertToBool("false")
+				Helper::convert_to_bool("false")
 			);
 
 			$this->assertFalse(
-				Helper::ConvertToBool("")
+				Helper::convert_to_bool("")
 			);
 
 			//Type: Integer || Double
 			$this->assertTrue(
-				Helper::ConvertToBool(100)
+				Helper::convert_to_bool(100)
 			);
 
 			$this->assertTrue(
-				Helper::ConvertToBool(0.1)
+				Helper::convert_to_bool(0.1)
 			);
 
 			$this->assertFalse(
-				Helper::ConvertToBool(0)
+				Helper::convert_to_bool(0)
 			);
 
 			//Type: Boolean
 			$this->assertTrue(
-				Helper::ConvertToBool(true)
+				Helper::convert_to_bool(true)
 			);
 
 			$this->assertFalse(
-				Helper::ConvertToBool(false)
+				Helper::convert_to_bool(false)
 			);
 
 			//Type: Others
 			$this->assertFalse(
-				Helper::ConvertToBool(null)
+				Helper::convert_to_bool(null)
 			);
 		}
 
-		public function testConvertToIntSuccess() {
+		public function test_convert_to_int_success() {
 			$this->assertEquals(
 				0,
-				Helper::ConvertToInt("Mario")
+				Helper::convert_to_int("Mario")
 			);
 
 			$this->assertEquals(
 				10,
-				Helper::ConvertToInt("10")
+				Helper::convert_to_int("10")
 			);
 
 			$this->assertEquals(
 				10,
-				Helper::ConvertToInt(10)
+				Helper::convert_to_int(10)
 			);
 
 			$this->assertEquals(
 				10,
-				Helper::ConvertToInt(10.3)
+				Helper::convert_to_int(10.3)
 			);
 
 			$this->assertEquals(
 				11,
-				Helper::ConvertToInt(10.7)
+				Helper::convert_to_int(10.7)
 			);
 
 			$this->assertEquals(
 				-10,
-				Helper::ConvertToInt(-10.7)
+				Helper::convert_to_int(-10.7)
 			);
 		}
 
-		public function testConvertToDecSuccess() {
+		public function test_convert_to_dec_success() {
 			$this->assertEquals(
 				0,
-				Helper::ConvertToDec("Mario")
+				Helper::convert_to_dec("Mario")
 			);
 
 			$this->assertEquals(
 				10,
-				Helper::ConvertToDec("10")
+				Helper::convert_to_dec("10")
 			);
 
 			$this->assertEquals(
 				10.02,
-				Helper::ConvertToDec("10.02")
+				Helper::convert_to_dec("10.02")
 			);
 
 			$this->assertEquals(
 				10.00,
-				Helper::ConvertToDec("10.002")
+				Helper::convert_to_dec("10.002")
 			);
 
 			$this->assertEquals(
 				10.002,
-				Helper::ConvertToDec("10.002", 3)
+				Helper::convert_to_dec("10.002", 3)
 			);
 
 			$this->assertEquals(
 				-10.00,
-				Helper::ConvertToDec("-10.002")
+				Helper::convert_to_dec("-10.002")
 			);
 		}
 
-		public function testConvertToDecAsStringSuccess() {
+		public function test_convert_to_dec_as_string_success() {
 			$this->assertEquals(
 				"0",
-				Helper::ConvertToDecAsString("Mario")
+				Helper::convert_to_dec_as_string("Mario")
 			);
 
 			$this->assertEquals(
 				"0.0",
-				Helper::ConvertToDecAsString("Mario", 1)
+				Helper::convert_to_dec_as_string("Mario", 1)
 			);
 
 			$this->assertEquals(
 				"10",
-				Helper::ConvertToDecAsString("10")
+				Helper::convert_to_dec_as_string("10")
 			);
 
 			$this->assertEquals(
 				"10.00",
-				Helper::ConvertToDecAsString("10", 2)
+				Helper::convert_to_dec_as_string("10", 2)
 			);
 
 			$this->assertEquals(
 				"10.02",
-				Helper::ConvertToDecAsString("10.02", 2)
+				Helper::convert_to_dec_as_string("10.02", 2)
 			);
 
 			$this->assertEquals(
 				"10.00",
-				Helper::ConvertToDecAsString("10.002", 2)
+				Helper::convert_to_dec_as_string("10.002", 2)
 			);
 
 			$this->assertEquals(
 				"10.002",
-				Helper::ConvertToDecAsString("10.002", 3)
+				Helper::convert_to_dec_as_string("10.002", 3)
 			);
 		}
 
-		public function testStringNullOrEmptySuccess() {
+		public function test_string_null_or_empty_success() {
 			$this->assertTrue(
-				Helper::StringNullOrEmpty(null)
+				Helper::string_null_or_empty(null)
 			);
 
 			$this->assertTrue(
-				Helper::StringNullOrEmpty("")
+				Helper::string_null_or_empty("")
 			);
 
 			$this->assertFalse(
-				Helper::StringNullOrEmpty(1)
+				Helper::string_null_or_empty(1)
 			);
 
 			$this->assertFalse(
-				Helper::StringNullOrEmpty("Mario")
+				Helper::string_null_or_empty("Mario")
 			);
 		}
 
-		public function testArrayNullOrEmptySuccess() {
+		public function test_array_null_or_empty_success() {
 			$this->assertTrue(
-				Helper::ArrayNullOrEmpty(null)
+				Helper::array_null_or_empty(null)
 			);
 
 			$this->assertTrue(
-				Helper::ArrayNullOrEmpty([])
+				Helper::array_null_or_empty([])
 			);
 
 			$this->assertTrue(
-				Helper::ArrayNullOrEmpty(json_decode(""))
+				Helper::array_null_or_empty(json_decode(""))
 			);
 
 			$this->assertFalse(
-				Helper::ArrayNullOrEmpty([
+				Helper::array_null_or_empty([
 					"Mario"
 				])
 			);
 
 			$this->assertFalse(
-				Helper::ArrayNullOrEmpty(json_decode(json_encode([
+				Helper::array_null_or_empty(json_decode(json_encode([
 					"Mario"
 				])))
 			);
 		}
 
-		public function testObjectNullOrEmptySuccess() {
+		public function test_object_null_or_empty_success() {
 			$this->assertTrue(
-				Helper::ObjectNullOrEmpty(null)
+				Helper::object_null_or_empty(null)
 			);
 
 			$this->assertTrue(
-				Helper::ObjectNullOrEmpty(json_decode(""))
+				Helper::object_null_or_empty(json_decode(""))
 			);
 
 			$this->assertFalse(
-				Helper::ObjectNullOrEmpty(json_decode("{}"))
+				Helper::object_null_or_empty(json_decode("{}"))
 			);
 		}
 
-		public function testEncryptPasswordSuccess() {
+		public function test_encrypt_password_success() {
 			$this->assertEquals(
 				"db791c2671a6b3ff88259e6012ff78975cee69aaf3bf669f6fad35edb32a09489d35d880496eac67270203e15bd9a746ee720c8cba6f14c3631839e5d2e46e78",
-				Helper::EncryptPassword("Mario")
+				Helper::encrypt_password("Mario")
 			);
 		}
 
-		public function testGenerateRandomKeySuccess() {
-			$key1En = Helper::GenerateRandomKey(8, false, false, false, Lang::EN);
-			$key1Ar = Helper::GenerateRandomKey(8, false, false, false, Lang::AR);
+		public function test_generate_random_key_success() {
+			$key1En = Helper::generate_random_key(8, false, false, false, Lang::EN);
+			$key1Ar = Helper::generate_random_key(8, false, false, false, Lang::AR);
 
-			$key2En = Helper::GenerateRandomKey(10, true, false, false, Lang::EN);
-			$key2Ar = Helper::GenerateRandomKey(10, true, false, false, Lang::AR);
+			$key2En = Helper::generate_random_key(10, true, false, false, Lang::EN);
+			$key2Ar = Helper::generate_random_key(10, true, false, false, Lang::AR);
 
-			$key3En = Helper::GenerateRandomKey(12, true, true, false, Lang::EN);
-			$key3Ar = Helper::GenerateRandomKey(12, true, true, false, Lang::AR);
+			$key3En = Helper::generate_random_key(12, true, true, false, Lang::EN);
+			$key3Ar = Helper::generate_random_key(12, true, true, false, Lang::AR);
 
-			$key4En = Helper::GenerateRandomKey(16, true, true, true, Lang::EN);
-			$key4Ar = Helper::GenerateRandomKey(16, true, true, true, Lang::AR);
+			$key4En = Helper::generate_random_key(16, true, true, true, Lang::EN);
+			$key4Ar = Helper::generate_random_key(16, true, true, true, Lang::AR);
 
 			$this->assertEquals(0, strlen($key1En));
 			$this->assertEquals(0, strlen($key1Ar));
@@ -278,258 +278,258 @@
 			//TODO: Should add assertion for validating possible strings
 		}
 
-		public function testRemoveSlashesSuccess() {
+		public function test_remove_slashes_success() {
 			$this->assertEquals(
 				"Mario",
-				Helper::RemoveSlashes("\\Mario\\\\")
+				Helper::remove_slashes("\\Mario\\\\")
 			);
 
 			$this->assertEquals(
 				"Mario",
-				Helper::RemoveSlashes("\Mario\\")
+				Helper::remove_slashes("\Mario\\")
 			);
 		}
 
-		public function testRemoveSpacesSuccess() {
+		public function test_remove_spaces_success() {
 			$this->assertEquals(
 				"MarioRawady",
-				Helper::RemoveSpaces("  M a r i o R a w a d y ")
+				Helper::remove_spaces("  M a r i o R a w a d y ")
 			);
 		}
 
-		public function testTruncateStrSuccess() {
+		public function test_truncate_string_success() {
 			$this->assertEquals(
 				"Mario Rawady",
-				Helper::TruncateStr("Mario Rawady", 20)
+				Helper::truncate_string("Mario Rawady", 20)
 			);
 
 			$this->assertEquals(
 				"Mario...",
-				Helper::TruncateStr("Mario Rawady", 5)
+				Helper::truncate_string("Mario Rawady", 5)
 			);
 		}
 
-		public function testStringBeginsWithSuccess() {
+		public function test_string_begins_with_success() {
 			$this->assertTrue(
-				Helper::StringBeginsWith("Mario Rawady", "Mario")
+				Helper::string_begins_with("Mario Rawady", "Mario")
 			);
 
 			$this->assertFalse(
-				Helper::StringBeginsWith("Mario Rawady", "Rawady")
+				Helper::string_begins_with("Mario Rawady", "Rawady")
 			);
 
 			$this->assertTrue(
-				Helper::StringBeginsWith("Mario Rawady", ["Mario"])
+				Helper::string_begins_with("Mario Rawady", ["Mario"])
 			);
 
 			$this->assertTrue(
-				Helper::StringBeginsWith("Mario Rawady", ["Mario", "Rawady"])
+				Helper::string_begins_with("Mario Rawady", ["Mario", "Rawady"])
 			);
 
 			$this->assertTrue(
-				Helper::StringBeginsWith("Mario Rawady", ["Maria", "Mario"])
+				Helper::string_begins_with("Mario Rawady", ["Maria", "Mario"])
 			);
 
 			$this->assertFalse(
-				Helper::StringBeginsWith("Mario Rawady", ["Maria", "Rawady"])
+				Helper::string_begins_with("Mario Rawady", ["Maria", "Rawady"])
 			);
 
 			$this->assertFalse(
-				Helper::StringBeginsWith("Mario Rawady", ["Maria"])
+				Helper::string_begins_with("Mario Rawady", ["Maria"])
 			);
 		}
 
-		public function testStringEndsWithSuccess() {
+		public function test_string_ends_with_success() {
 			$this->assertTrue(
-				Helper::StringEndsWith("Mario Rawady", "Rawady")
+				Helper::string_ends_with("Mario Rawady", "Rawady")
 			);
 
 			$this->assertFalse(
-				Helper::StringEndsWith("Mario Rawady", "Mario")
+				Helper::string_ends_with("Mario Rawady", "Mario")
 			);
 
 			$this->assertTrue(
-				Helper::StringEndsWith("Mario Rawady", ["Rawady"])
+				Helper::string_ends_with("Mario Rawady", ["Rawady"])
 			);
 
 			$this->assertTrue(
-				Helper::StringEndsWith("Mario Rawady", ["Mario", "Rawady"])
+				Helper::string_ends_with("Mario Rawady", ["Mario", "Rawady"])
 			);
 
 			$this->assertTrue(
-				Helper::StringEndsWith("Mario Rawady", ["Rawody", "Rawady"])
+				Helper::string_ends_with("Mario Rawady", ["Rawody", "Rawady"])
 			);
 
 			$this->assertFalse(
-				Helper::StringEndsWith("Mario Rawady", ["Mario", "Rawody"])
+				Helper::string_ends_with("Mario Rawady", ["Mario", "Rawody"])
 			);
 
 			$this->assertFalse(
-				Helper::StringEndsWith("Mario Rawady", ["Rawody"])
+				Helper::string_ends_with("Mario Rawady", ["Rawody"])
 			);
 		}
 
-		public function testStringHasCharSuccess() {
+		public function test_string_has_char_success() {
 			$this->assertTrue(
-				Helper::StringHasChar("Mario Rawady", "Mario")
+				Helper::string_has_char("Mario Rawady", "Mario")
 			);
 
 			$this->assertTrue(
-				Helper::StringHasChar("Mario Rawady", "Rawady")
+				Helper::string_has_char("Mario Rawady", "Rawady")
 			);
 
 			$this->assertFalse(
-				Helper::StringHasChar("Mario Rawady", "Marioss")
+				Helper::string_has_char("Mario Rawady", "Marioss")
 			);
 		}
 
-		public function testIsInStringSuccess() {
+		public function test_is_in_string_success() {
 			$this->assertTrue(
-				Helper::IsInString("Mario", "Mario Rawady")
+				Helper::is_in_string("Mario", "Mario Rawady")
 			);
 
 			$this->assertTrue(
-				Helper::IsInString("Rawady", "Mario Rawady")
+				Helper::is_in_string("Rawady", "Mario Rawady")
 			);
 
 			$this->assertFalse(
-				Helper::IsInString("Marios", "Mario Rawady")
+				Helper::is_in_string("Marios", "Mario Rawady")
 			);
 		}
 
-		public function testStripHtmlSuccess() {
+		public function test_strip_html_success() {
 			$this->assertEquals(
 				"Mario",
-				Helper::StripHtml("<h1>Mario</h1><br />")
+				Helper::strip_html("<h1>Mario</h1><br />")
 			);
 
 			$this->assertEquals(
 				"<h1>Mario</h1>",
-				Helper::StripHtml("<h1>Mario</h1><br />", "<h1>")
+				Helper::strip_html("<h1>Mario</h1><br />", "<h1>")
 			);
 
 			$this->assertEquals(
 				"<h1>Mario</h1><br />",
-				Helper::StripHtml("<h1>Mario</h1><br />", ["<h1>", "<br>"])
+				Helper::strip_html("<h1>Mario</h1><br />", ["<h1>", "<br>"])
 			);
 		}
 
-		public function testTextReplaceSuccess() {
+		public function test_text_replace_success() {
 			$this->assertEquals(
 				"Mario Rawady",
-				Helper::TextReplace("::FirstName:: ::LastName::", [
+				Helper::text_replace("::FirstName:: ::LastName::", [
 					"::FirstName::" => "Mario",
 					"::LastName::" => "Rawady",
 				])
 			);
 		}
 
-		public function testSplitCamelcaseStringSuccess() {
+		public function test_split_camelcase_string_success() {
 			$this->assertEquals(
 				"Mario Abdallah Rawady",
-				Helper::SplitCamelcaseString("MarioAbdallahRawady")
+				Helper::split_camelcase_string("MarioAbdallahRawady")
 			);
 		}
 
-		public function testGetStringSafeSuccess() {
+		public function test_get_string_safe_success() {
 			$this->assertEquals(
 				"",
-				Helper::GetStringSafe(null)
+				Helper::get_string_safe(null)
 			);
 
 			$this->assertEquals(
 				"",
-				Helper::GetStringSafe("")
+				Helper::get_string_safe("")
 			);
 
 			$this->assertEquals(
 				"1",
-				Helper::GetStringSafe(1)
+				Helper::get_string_safe(1)
 			);
 
 			$this->assertEquals(
 				"Mario",
-				Helper::GetStringSafe("Mario")
+				Helper::get_string_safe("Mario")
 			);
 		}
 
-		public function testGenerateClassNameFromStringSuccess() {
+		public function test_generate_class_name_from_string_success() {
 			$this->assertEquals(
 				"MarioAbdallahRawady",
-				Helper::GenerateClassNameFromString("mario-abdallah-rawady")
+				Helper::generate_class_name_from_string("mario-abdallah-rawady")
 			);
 
 			$this->assertEquals(
 				"MarioAbdallahRawady",
-				Helper::GenerateClassNameFromString("Mario Abdallah Rawady")
+				Helper::generate_class_name_from_string("Mario Abdallah Rawady")
 			);
 		}
 
-		public function testSafeNameSuccess() {
+		public function test_safe_name_success() {
 			$this->assertEquals(
 				"marioabdallahrawady",
-				Helper::SafeName("MarioAbdallahRawady")
+				Helper::safe_name("MarioAbdallahRawady")
 			);
 
 			$this->assertEquals(
 				"mario-abdallah-rawady",
-				Helper::SafeName("Mario Abdallah Rawady")
+				Helper::safe_name("Mario Abdallah Rawady")
 			);
 
 			$this->assertEquals(
 				"mario-abdallah-rawady",
-				Helper::SafeName("Mario---Abdallah---Rawady")
+				Helper::safe_name("Mario---Abdallah---Rawady")
 			);
 
 			$this->assertEquals(
 				"mario-abdallah-rawady",
-				Helper::SafeName("Mario@Abdallah!$%Rawady)({}")
+				Helper::safe_name("Mario@Abdallah!$%Rawady)({}")
 			);
 
 			$this->assertEquals(
 				"ماريو-عبدالله-الروادي",
-				Helper::SafeName("ماريو عبدالله الروادي!@#$%^&*()")
+				Helper::safe_name("ماريو عبدالله الروادي!@#$%^&*()")
 			);
 		}
 
-		public function testHasArabicCharSuccess() {
+		public function test_has_arabic_char_success() {
 			$this->assertFalse(
-				Helper::HasArabicChar("Mario Abdallah Rawady")
+				Helper::has_arabic_char("Mario Abdallah Rawady")
 			);
 
 			$this->assertFalse(
-				Helper::HasArabicChar("!@#$%^&*()")
+				Helper::has_arabic_char("!@#$%^&*()")
 			);
 
 			$this->assertFalse(
-				Helper::HasArabicChar("1234567890")
+				Helper::has_arabic_char("1234567890")
 			);
 
 			$this->assertTrue(
-				Helper::HasArabicChar("ماريو عبدالله الروادي")
+				Helper::has_arabic_char("ماريو عبدالله الروادي")
 			);
 
 			$this->assertTrue(
-				Helper::HasArabicChar("Mario Abdallah Rawady ماريو عبدالله الروادي")
+				Helper::has_arabic_char("Mario Abdallah Rawady ماريو عبدالله الروادي")
 			);
 		}
 
-		public function testExplodeStrToArrSuccess() {
+		public function test_explode_str_to_arr_success() {
 			$this->assertEquals(
 				[],
-				Helper::ExplodeStrToArr(null)
+				Helper::explode_str_to_arr(null)
 			);
 
 			$this->assertEquals(
 				[],
-				Helper::ExplodeStrToArr("")
+				Helper::explode_str_to_arr("")
 			);
 
 			$this->assertEquals(
 				[
 					"Mario Abdallah Rawady",
 				],
-				Helper::ExplodeStrToArr("Mario Abdallah Rawady")
+				Helper::explode_str_to_arr("Mario Abdallah Rawady")
 			);
 
 			$this->assertEquals(
@@ -546,7 +546,7 @@
 					"ad",
 					"y",
 				],
-				Helper::ExplodeStrToArr("Mario Abdallah Rawady", "", 2)
+				Helper::explode_str_to_arr("Mario Abdallah Rawady", "", 2)
 			);
 
 			$this->assertEquals(
@@ -555,7 +555,7 @@
 					"Abdallah",
 					"Rawady",
 				],
-				Helper::ExplodeStrToArr("Mario Abdallah Rawady", " ")
+				Helper::explode_str_to_arr("Mario Abdallah Rawady", " ")
 			);
 
 			$this->assertEquals(
@@ -567,24 +567,24 @@
 					"w",
 					"dy",
 				],
-				Helper::ExplodeStrToArr("Mario Abdallah Rawady", "a")
+				Helper::explode_str_to_arr("Mario Abdallah Rawady", "a")
 			);
 		}
 
-		public function testImplodeArrToStrSuccess() {
+		public function test_implode_arr_to_str_success() {
 			$this->assertEquals(
 				"",
-				Helper::ImplodeArrToStr(null)
+				Helper::implode_arr_to_str(null)
 			);
 
 			$this->assertEquals(
 				"",
-				Helper::ImplodeArrToStr([])
+				Helper::implode_arr_to_str([])
 			);
 
 			$this->assertEquals(
 				"Mario Abdallah Rawady",
-				Helper::ImplodeArrToStr([
+				Helper::implode_arr_to_str([
 					"Mario",
 					"Abdallah",
 					"Rawady"
@@ -593,7 +593,7 @@
 
 			$this->assertEquals(
 				"Mario Abdallah Rawady",
-				Helper::ImplodeArrToStr([
+				Helper::implode_arr_to_str([
 					"Mario",
 					"",
 					"Abdallah",
@@ -603,42 +603,42 @@
 			);
 		}
 
-		public function testGetValueFromArrByKeySuccess() {
+		public function test_get_value_from_arr_by_key_success() {
 			$this->assertEquals(
 				"",
-				Helper::GetValueFromArrByKey(null)
+				Helper::get_value_from_arr_by_key(null)
 			);
 
 			$this->assertEquals(
 				"",
-				Helper::GetValueFromArrByKey([])
+				Helper::get_value_from_arr_by_key([])
 			);
 
 			$this->assertEquals(
 				"",
-				Helper::GetValueFromArrByKey([
+				Helper::get_value_from_arr_by_key([
 					"key1" => "Key 1",
 				], "key2")
 			);
 
 			$this->assertEquals(
 				"Key 2",
-				Helper::GetValueFromArrByKey([
+				Helper::get_value_from_arr_by_key([
 					"key1" => "Key 1",
 					"key2" => "Key 2",
 				], "key2")
 			);
 		}
 
-		public function testUnsetArrayEmptyValuesSuccess() {
+		public function test_unset_array_empty_values_success() {
 			$this->assertEquals(
 				[],
-				Helper::UnsetArrayEmptyValues(null)
+				Helper::unset_array_empty_values(null)
 			);
 
 			$this->assertEquals(
 				[],
-				Helper::UnsetArrayEmptyValues([])
+				Helper::unset_array_empty_values([])
 			);
 
 			$this->assertEquals(
@@ -647,7 +647,7 @@
 					"Abdallah",
 					"Rawady"
 				],
-				Helper::UnsetArrayEmptyValues([
+				Helper::unset_array_empty_values([
 					"Mario",
 					"Abdallah",
 					"Rawady"
@@ -660,7 +660,7 @@
 					"Abdallah",
 					"Rawady"
 				],
-				Helper::UnsetArrayEmptyValues([
+				Helper::unset_array_empty_values([
 					"Mario",
 					"",
 					"Abdallah",
@@ -670,20 +670,20 @@
 			);
 		}
 
-		public function testGererateKeyValueStringFromArraySuccess() {
+		public function test_gererate_key_value_string_from_array_success() {
 			$this->assertEquals(
 				"",
-				Helper::GererateKeyValueStringFromArray(null)
+				Helper::gererate_key_value_string_from_array(null)
 			);
 
 			$this->assertEquals(
 				"",
-				Helper::GererateKeyValueStringFromArray([])
+				Helper::gererate_key_value_string_from_array([])
 			);
 
 			$this->assertEquals(
 				'type="text" name="test-input" id="test-input" placeholder="Test Input"',
-				Helper::GererateKeyValueStringFromArray([
+				Helper::gererate_key_value_string_from_array([
 					"type" => "text",
 					"name" => "test-input",
 					"id" => "test-input",
@@ -693,7 +693,7 @@
 
 			$this->assertEquals(
 				'pre_type="text" pre_name="test-input" pre_id="test-input" pre_placeholder="Test Input"',
-				Helper::GererateKeyValueStringFromArray([
+				Helper::gererate_key_value_string_from_array([
 					"type" => "text",
 					"name" => "test-input",
 					"id" => "test-input",
@@ -703,7 +703,7 @@
 
 			$this->assertEquals(
 				'type:"text" name:"test-input" id:"test-input" placeholder:"Test Input"',
-				Helper::GererateKeyValueStringFromArray([
+				Helper::gererate_key_value_string_from_array([
 					"type" => "text",
 					"name" => "test-input",
 					"id" => "test-input",
@@ -713,7 +713,7 @@
 
 			$this->assertEquals(
 				'type=-text- name=-test-input- id=-test-input- placeholder=-Test Input-',
-				Helper::GererateKeyValueStringFromArray([
+				Helper::gererate_key_value_string_from_array([
 					"type" => "text",
 					"name" => "test-input",
 					"id" => "test-input",
@@ -723,7 +723,7 @@
 
 			$this->assertEquals(
 				'type="text"_join_name="test-input"_join_id="test-input"_join_placeholder="Test Input"',
-				Helper::GererateKeyValueStringFromArray([
+				Helper::gererate_key_value_string_from_array([
 					"type" => "text",
 					"name" => "test-input",
 					"id" => "test-input",
@@ -732,60 +732,60 @@
 			);
 		}
 
-		public function testDirExistsSuccess() {
+		public function test_directory_exists_success() {
 			$this->assertFalse(
-				Helper::DirExists(null)
+				Helper::directory_exists(null)
 			);
 
 			$this->assertFalse(
-				Helper::DirExists("")
+				Helper::directory_exists("")
 			);
 
 			$this->assertFalse(
-				Helper::DirExists("_CommonFiles", __DIR__ . "/")
+				Helper::directory_exists("_CommonFiles", __DIR__ . "/")
 			);
 
 			$this->assertTrue(
-				Helper::DirExists("PhpUnits", __DIR__ . "/../../")
+				Helper::directory_exists("PhpUnits", __DIR__ . "/../../")
 			);
 
 			$this->assertFalse(
-				Helper::DirExists("_CommonFiles", __DIR__ . "/../../../")
+				Helper::directory_exists("_CommonFiles", __DIR__ . "/../../../")
 			);
 
 			$this->assertTrue(
-				Helper::DirExists("_CommonFiles", __DIR__ . "/../../../", true)
+				Helper::directory_exists("_CommonFiles", __DIR__ . "/../../../", true)
 			);
 		}
 
-		public function testCreateFolderSuccess(): void {
+		public function test_create_folder_success(): void {
 			$this->assertFalse(
-				Helper::DirExists("NewFolder", self::UPLOAD_DIR)
+				Helper::directory_exists("NewFolder", self::UPLOAD_DIR)
 			);
 			$this->assertTrue(
-				Helper::CreateFolder(self::UPLOAD_DIR . "NewFolder")
+				Helper::create_folder(self::UPLOAD_DIR . "NewFolder")
 			);
 		}
 
-		public function testCreateFolderFail(): void {
+		public function test_create_folder_fail(): void {
 			$this->assertTrue(
-				Helper::DirExists("NewFolder", self::UPLOAD_DIR)
+				Helper::directory_exists("NewFolder", self::UPLOAD_DIR)
 			);
 			$this->assertFalse(
-				Helper::CreateFolder(self::UPLOAD_DIR . "NewFolder")
+				Helper::create_folder(self::UPLOAD_DIR . "NewFolder")
 			);
 		}
 
-		public function testDeleteFolderSuccess(): void {
+		public function test_delete_folder_success(): void {
 			$this->assertTrue(
-				Helper::DirExists("NewFolder", self::UPLOAD_DIR)
+				Helper::directory_exists("NewFolder", self::UPLOAD_DIR)
 			);
 			$this->assertTrue(
-				Helper::DeleteFileOrFolder(self::UPLOAD_DIR . "NewFolder")
+				Helper::delete_file_or_folder(self::UPLOAD_DIR . "NewFolder")
 			);
 		}
 
-		public function testDeleteFileSuccess(): void {
+		public function test_delete_file_success(): void {
 			$newFile = self::UPLOAD_DIR . "unit-test.txt";
 
 			$this->assertFalse(
@@ -797,62 +797,62 @@
 			);
 
 			$this->assertTrue(
-				Helper::DeleteFileOrFolder($newFile)
+				Helper::delete_file_or_folder($newFile)
 			);
 		}
 
-		public function testGetYoutubeIdSuccess() {
+		public function test_get_youtube_id_success() {
 			$this->assertEquals(
 				"",
-				Helper::GetYoutubeId(null)
+				Helper::get_youtube_id(null)
 			);
 
 			$this->assertEquals(
 				"",
-				Helper::GetYoutubeId("")
+				Helper::get_youtube_id("")
 			);
 
 			$this->assertEquals(
 				"IZbN_nmxAGk",
-				Helper::GetYoutubeId("https://www.youtube.com/embed/IZbN_nmxAGk")
+				Helper::get_youtube_id("https://www.youtube.com/embed/IZbN_nmxAGk")
 			);
 		}
 
-		public function testEncryptLinkSuccess() {
+		public function test_encrypt_string_success() {
 			$this->assertEquals(
 				"",
-				Helper::EncryptLink(null)
+				Helper::encrypt_string(null)
 			);
 
 			$this->assertEquals(
 				"",
-				Helper::EncryptLink("")
+				Helper::encrypt_string("")
 			);
 
 			$this->assertEquals(
 				str_replace("&", "[amp;]", base64_encode("https://rawadymario.com/projects?page=2&category=2")),
-				Helper::EncryptLink("https://rawadymario.com/projects?page=2&category=2")
+				Helper::encrypt_string("https://rawadymario.com/projects?page=2&category=2")
 			);
 		}
 
-		public function testDecryptLinkSuccess() {
+		public function test_decrypt_string_success() {
 			$this->assertEquals(
 				"",
-				Helper::DecryptLink(null)
+				Helper::decrypt_string(null)
 			);
 
 			$this->assertEquals(
 				"",
-				Helper::DecryptLink("")
+				Helper::decrypt_string("")
 			);
 
 			$this->assertEquals(
 				"https://rawadymario.com/projects?page=2&category=2",
-				Helper::DecryptLink(str_replace("&", "[amp;]", base64_encode("https://rawadymario.com/projects?page=2&category=2")))
+				Helper::decrypt_string(str_replace("&", "[amp;]", base64_encode("https://rawadymario.com/projects?page=2&category=2")))
 			);
 		}
 
-		public function GetStatusClassFromCodeProvider() {
+		public function get_status_class_from_codeProvider() {
 			return [
 				[Code::SUCCESS, Status::SUCCESS],
 				[HttpCode::OK, Status::SUCCESS],
@@ -878,84 +878,84 @@
 		}
 
 		/**
-		 * @dataProvider GetStatusClassFromCodeProvider
+		 * @dataProvider get_status_class_from_codeProvider
 		 *
 		 * @param $givenCode int
 		 * @param $expectedStatus string
 		 */
-		public function testGetStatusClassFromCodeSuccess(int $givenCode, string $expectedStatus) {
+		public function test_get_status_class_from_code_success(int $givenCode, string $expectedStatus) {
 			$this->assertEquals(
 				$expectedStatus,
-				Helper::GetStatusClassFromCode($givenCode)
+				Helper::get_status_class_from_code($givenCode)
 			);
 		}
 
-		public function testGetHtmlContentFromFileThrowError_01(): void {
+		public function test_get_html_content_from_file_throw_error_01(): void {
 			$this->expectException(NotEmptyParamException::class);
 			$this->expectExceptionMessage(Translate::TranslateString("exception.NotEmptyParam", null, [
-				"::params::" => "filePath"
+				"::params::" => "file_path"
 			]));
-			Helper::GetHtmlContentFromFile(null);
+			Helper::get_html_content_from_file(null);
 		}
 
-		public function testGetHtmlContentFromFileThrowError_02(): void {
+		public function test_get_html_content_from_file_throw_error_02(): void {
 			$this->expectException(NotEmptyParamException::class);
 			$this->expectExceptionMessage(Translate::TranslateString("exception.NotEmptyParam", null, [
-				"::params::" => "filePath"
+				"::params::" => "file_path"
 			]));
-			Helper::GetHtmlContentFromFile("");
+			Helper::get_html_content_from_file("");
 		}
 
-		public function testGetHtmlContentFromFileThrowError_03(): void {
+		public function test_get_html_content_from_file_throw_error_03(): void {
 			$this->expectException(FileNotFoundException::class);
 			$this->expectExceptionMessage(Translate::TranslateString("exception.FileNotFound", null, [
-				"::params::" => "filePath"
+				"::params::" => "file_path"
 			]));
-			Helper::GetHtmlContentFromFile(__DIR__ . "/../../_CommonFiles/randomfile.html");
+			Helper::get_html_content_from_file(__DIR__ . "/../../_CommonFiles/randomfile.html");
 		}
 
-		public function testGetHtmlContentFromFileWithoutReplaceSuccess() {
+		public function test_get_html_content_from_file_without_replace_success() {
 			$this->assertEquals(
 				"<h1>testGetHtmlContentFromFileWithoutReplaceSuccess</h1>",
-				Helper::GetHtmlContentFromFile(__DIR__ . "/../../_CommonFiles/testGetHtmlContentFromFileWithoutReplaceSuccess.html")
+				Helper::get_html_content_from_file(__DIR__ . "/../../_CommonFiles/testGetHtmlContentFromFileWithoutReplaceSuccess.html")
 			);
 		}
 
-		public function testGetHtmlContentFromFileWithReplaceSuccess() {
+		public function test_get_html_content_from_file_with_replace_success() {
 			$this->assertEquals(
 				"<h1>testGetHtmlContentFromFileWithReplaceSuccess</h1>\n<h2>Replaced Text 01</h2>\n<h3>Replaced Text 02</h3>",
-				Helper::GetHtmlContentFromFile(__DIR__ . "/../../_CommonFiles/testGetHtmlContentFromFileWithReplaceSuccess.html", [
+				Helper::get_html_content_from_file(__DIR__ . "/../../_CommonFiles/testGetHtmlContentFromFileWithReplaceSuccess.html", [
 					"::replace_1::" => "Replaced Text 01",
 					"::replace_2::" => "Replaced Text 02",
 				])
 			);
 		}
 
-		public function testGetJsonContentFromFileAsArrayThrowError_01(): void {
+		public function test_get_json_content_from_file_as_array_throw_error_01(): void {
 			$this->expectException(NotEmptyParamException::class);
 			$this->expectExceptionMessage(Translate::TranslateString("exception.NotEmptyParam", null, [
-				"::params::" => "filePath"
+				"::params::" => "file_path"
 			]));
-			Helper::GetJsonContentFromFileAsArray(null);
+			Helper::get_json_content_from_file_as_array(null);
 		}
 
-		public function testGetJsonContentFromFileAsArrayThrowError_02(): void {
+		public function test_get_json_content_from_file_as_array_throw_error_02(): void {
 			$this->expectException(NotEmptyParamException::class);
 			$this->expectExceptionMessage(Translate::TranslateString("exception.NotEmptyParam", null, [
-				"::params::" => "filePath"
+				"::params::" => "file_path"
 			]));
-			Helper::GetJsonContentFromFileAsArray("");
+			Helper::get_json_content_from_file_as_array("");
 		}
 
-		public function testGetJsonContentFromFileAsArrayThrowError_03(): void {
+		public function test_get_json_content_from_file_as_array_throw_error_03(): void {
 			$this->expectException(FileNotFoundException::class);
 			$this->expectExceptionMessage(Translate::TranslateString("exception.FileNotFound", null, [
-				"::params::" => "filePath"
+				"::params::" => "file_path"
 			]));
-			Helper::GetJsonContentFromFileAsArray(__DIR__ . "/../../_CommonFiles/randomfile.json");
+			Helper::get_json_content_from_file_as_array(__DIR__ . "/../../_CommonFiles/randomfile.json");
 		}
 
-		public function testGetJsonContentFromFileAsArraySuccess() {
+		public function test_get_json_content_from_file_as_array_success() {
 			$this->assertEquals(
 				[
 					"fullName" => [
@@ -971,43 +971,43 @@
 						"Spanish",
 					]
 				],
-				Helper::GetJsonContentFromFileAsArray(__DIR__ . "/../../_CommonFiles/testGetJsonContentFromFileAsArraySuccess.json")
+				Helper::get_json_content_from_file_as_array(__DIR__ . "/../../_CommonFiles/testGetJsonContentFromFileAsArraySuccess.json")
 			);
 		}
 
-		public function testGenerateFullUrlSuccess() {
+		public function test_generate_full_url_success() {
 			$this->assertEquals(
 				"home",
-				Helper::GenerateFullUrl("home")
+				Helper::generate_full_url("home")
 			);
 
 			$this->assertEquals(
 				"home/en",
-				Helper::GenerateFullUrl("home", Lang::EN)
+				Helper::generate_full_url("home", Lang::EN)
 			);
 
 			$this->assertEquals(
 				"home?lang=en",
-				Helper::GenerateFullUrl("home", Lang::EN, [], [], "", false)
+				Helper::generate_full_url("home", Lang::EN, [], [], "", false)
 			);
 
 			$this->assertEquals(
 				"products/en/product-001",
-				Helper::GenerateFullUrl("products", Lang::EN, [
+				Helper::generate_full_url("products", Lang::EN, [
 					"key" => "product-001"
 				])
 			);
 
 			$this->assertEquals(
 				"products?lang=en&key=product-001",
-				Helper::GenerateFullUrl("products", Lang::EN, [
+				Helper::generate_full_url("products", Lang::EN, [
 					"key" => "product-001"
 				], [], "", false)
 			);
 
 			$this->assertEquals(
 				"products/en/product-001?filter=active",
-				Helper::GenerateFullUrl("products", Lang::EN, [
+				Helper::generate_full_url("products", Lang::EN, [
 					"key" => "product-001"
 				], [
 					"filter" => "active"
@@ -1016,7 +1016,7 @@
 
 			$this->assertEquals(
 				"products?lang=en&key=product-001&filter=active",
-				Helper::GenerateFullUrl("products", Lang::EN, [
+				Helper::generate_full_url("products", Lang::EN, [
 					"key" => "product-001"
 				], [
 					"filter" => "active"
@@ -1025,7 +1025,7 @@
 
 			$this->assertEquals(
 				"products/en/product-001?filter=active&categories%5B%5D=category-01&categories%5B%5D=category-02&categories%5B%5D=category-03",
-				Helper::GenerateFullUrl("products", Lang::EN, [
+				Helper::generate_full_url("products", Lang::EN, [
 					"key" => "product-001"
 				], [
 					"filter" => "active",
@@ -1039,43 +1039,43 @@
 
 			$this->assertEquals(
 				"https://rawadymario.com/home/en",
-				Helper::GenerateFullUrl("home", Lang::EN, [], [], "https://rawadymario.com/")
+				Helper::generate_full_url("home", Lang::EN, [], [], "https://rawadymario.com/")
 			);
 
 			$this->assertEquals(
 				"https://rawadymario.com/home/en",
-				Helper::GenerateFullUrl("home", Lang::EN, [], [], "https://rawadymario.com")
+				Helper::generate_full_url("home", Lang::EN, [], [], "https://rawadymario.com")
 			);
 
 			$this->assertEquals(
 				"https://rawadymario.com/home/en",
-				Helper::GenerateFullUrl("home", Lang::EN, [], [], "https://rawadymario.com////")
+				Helper::generate_full_url("home", Lang::EN, [], [], "https://rawadymario.com////")
 			);
 
 			$this->assertEquals(
 				"www.rawadymario.com/home/en",
-				Helper::GenerateFullUrl("home", Lang::EN, [], [], "www.rawadymario.com////")
+				Helper::generate_full_url("home", Lang::EN, [], [], "www.rawadymario.com////")
 			);
 		}
 
-		public function testAddVersionParameterToPathSuccess() {
+		public function test_add_version_parameter_to_path_success() {
 			$this->assertEquals(
 				"assets/css/styles.css",
-				Helper::AddVersionParameterToPath("assets/css/styles.css", "")
+				Helper::add_version_parameter_to_path("assets/css/styles.css", "")
 			);
 
 			$this->assertEquals(
 				"https://rawadymario.com/assets/css/styles.css",
-				Helper::AddVersionParameterToPath("assets/css/styles.css", "https://rawadymario.com")
+				Helper::add_version_parameter_to_path("assets/css/styles.css", "https://rawadymario.com")
 			);
 
 			$this->assertEquals(
 				"https://rawadymario.com/assets/css/styles.css?v=1.0",
-				Helper::AddVersionParameterToPath("assets/css/styles.css", "https://rawadymario.com", "1.0")
+				Helper::add_version_parameter_to_path("assets/css/styles.css", "https://rawadymario.com", "1.0")
 			);
 		}
 
-		public function testGetAllFilesSuccess() {
+		public function test_get_all_files_success() {
 			$dir = str_replace("\PhpUnits\Helpers", "\_CommonFiles\Recursive", __DIR__);
 
 			$this->assertEqualsCanonicalizing(
@@ -1083,7 +1083,7 @@
 					$dir . "/file1.html",
 					$dir . "/file2.html",
 				],
-				Helper::GetAllFiles($dir, false)
+				Helper::get_all_files($dir, false)
 			);
 
 			$this->assertEqualsCanonicalizing(
@@ -1095,11 +1095,11 @@
 					$dir . "/Folder2/file1.html",
 					$dir . "/Folder2/file2.html",
 				],
-				Helper::GetAllFiles($dir, true)
+				Helper::get_all_files($dir, true)
 			);
 		}
 
-		public function testConvertMultidimentionArrayToSingleDimentionSuccess() {
+		public function test_convert_multidimention_array_to_single_dimention_success() {
 			$this->assertEquals([
 				"name.first" => "Mario",
 				"name.middle" => "Abdallah",
@@ -1110,7 +1110,7 @@
 				"address.country" => "Lebanon",
 				"contact.info.mobile" => "+961111111",
 				"contact.info.email" => "email@test.com",
-			], Helper::ConvertMultidimentionArrayToSingleDimention([
+			], Helper::convert_multidimention_array_to_single_dimention([
 				"name" => [
 					"first" => "Mario",
 					"middle" => "Abdallah",
@@ -1131,105 +1131,105 @@
 			]));
 		}
 
-		public function testAddSchemeIfMissingSuccess() {
+		public function test_add_scheme_if_missing_success() {
 			$this->assertEquals(
 				"",
-				Helper::AddSchemeIfMissing("", "")
+				Helper::add_scheme_if_missing("", "")
 			);
 
 			$this->assertEquals(
 				"rawadymario.com",
-				Helper::AddSchemeIfMissing("rawadymario.com", "")
+				Helper::add_scheme_if_missing("rawadymario.com", "")
 			);
 
 			$this->assertEquals(
 				"http://rawadymario.com",
-				Helper::AddSchemeIfMissing("http://rawadymario.com", "https://")
+				Helper::add_scheme_if_missing("http://rawadymario.com", "https://")
 			);
 
 			$this->assertEquals(
 				"https://rawadymario.com",
-				Helper::AddSchemeIfMissing("https://rawadymario.com", "http://")
+				Helper::add_scheme_if_missing("https://rawadymario.com", "http://")
 			);
 
 			$this->assertEquals(
 				"https://rawadymario.com",
-				Helper::AddSchemeIfMissing("rawadymario.com", "https")
+				Helper::add_scheme_if_missing("rawadymario.com", "https")
 			);
 
 			$this->assertEquals(
 				"https://rawadymario.com",
-				Helper::AddSchemeIfMissing("rawadymario.com", "https://")
+				Helper::add_scheme_if_missing("rawadymario.com", "https://")
 			);
 		}
 
-		public function testReplaceSchemeSuccess() {
+		public function test_replace_scheme_success() {
 			$this->assertEquals(
 				"",
-				Helper::ReplaceScheme("", "")
+				Helper::replace_scheme("", "")
 			);
 
 			$this->assertEquals(
 				"rawadymario.com",
-				Helper::ReplaceScheme("rawadymario.com", "")
+				Helper::replace_scheme("rawadymario.com", "")
 			);
 
 			$this->assertEquals(
 				"https://rawadymario.com",
-				Helper::ReplaceScheme("http://rawadymario.com", "https://")
+				Helper::replace_scheme("http://rawadymario.com", "https://")
 			);
 
 			$this->assertEquals(
 				"http://rawadymario.com",
-				Helper::ReplaceScheme("https://rawadymario.com", "http://")
+				Helper::replace_scheme("https://rawadymario.com", "http://")
 			);
 
 			$this->assertEquals(
 				"https://rawadymario.com",
-				Helper::ReplaceScheme("rawadymario.com", "https")
+				Helper::replace_scheme("rawadymario.com", "https")
 			);
 
 			$this->assertEquals(
 				"https://rawadymario.com",
-				Helper::ReplaceScheme("rawadymario.com", "https://")
+				Helper::replace_scheme("rawadymario.com", "https://")
 			);
 		}
 
-		public function testIsValidUrl() {
+		public function test_is_valid_url() {
 			$this->assertFalse(
-				Helper::IsValidUrl("Mario Rawady")
+				Helper::is_valid_url("Mario Rawady")
 			);
 
 			$this->assertFalse(
-				Helper::IsValidUrl("Mario Rawady: https://rawadymario.com")
+				Helper::is_valid_url("Mario Rawady: https://rawadymario.com")
 			);
 
 			$this->assertFalse(
-				Helper::IsValidUrl("http//rawadymario.com")
+				Helper::is_valid_url("http//rawadymario.com")
 			);
 
 			$this->assertFalse(
-				Helper::IsValidUrl("http:/rawadymario.com")
+				Helper::is_valid_url("http:/rawadymario.com")
 			);
 
 			$this->assertFalse(
-				Helper::IsValidUrl("http:rawadymario.com")
+				Helper::is_valid_url("http:rawadymario.com")
 			);
 
 			$this->assertFalse(
-				Helper::IsValidUrl("https:/rawadymario.com")
+				Helper::is_valid_url("https:/rawadymario.com")
 			);
 
 			$this->assertTrue( //To be fixed!
-				Helper::IsValidUrl("http://rawadymario.com Mario Rawady")
+				Helper::is_valid_url("http://rawadymario.com Mario Rawady")
 			);
 
 			$this->assertTrue(
-				Helper::IsValidUrl("http://rawadymario.com")
+				Helper::is_valid_url("http://rawadymario.com")
 			);
 
 			$this->assertTrue(
-				Helper::IsValidUrl("https://rawadymario.com")
+				Helper::is_valid_url("https://rawadymario.com")
 			);
 		}
 

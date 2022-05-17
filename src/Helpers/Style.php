@@ -2,25 +2,25 @@
 	namespace RawadyMario\Helpers;
 
 	class Style {
-		protected static $filesArray = [];
+		protected static $files_array = [];
 		protected static $stylesArray = [];
 
 		public static function AddFile(string $key, string $file): void {
-			self::$filesArray[$key] = $file;
+			self::$files_array[$key] = $file;
 		}
 
 		public static function RemoveFile(string $key): void {
-			if (isset(self::$filesArray[$key])) {
-				unset(self::$filesArray[$key]);
+			if (isset(self::$files_array[$key])) {
+				unset(self::$files_array[$key]);
 			}
 		}
 
 		public static function GetFiles(): array {
-			return self::$filesArray;
+			return self::$files_array;
 		}
 
 		public static function ClearFiles(): void {
-			self::$filesArray = [];
+			self::$files_array = [];
 		}
 
 		public static function AddStyle(string $key, string $style): void {
@@ -54,7 +54,7 @@
 				$html[] = $style;
 			}
 
-			return Helper::ImplodeArrToStr($html, "\n");
+			return Helper::implode_arr_to_str($html, "\n");
 		}
 
 	}
