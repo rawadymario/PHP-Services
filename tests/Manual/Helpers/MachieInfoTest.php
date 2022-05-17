@@ -4,7 +4,7 @@
 
 	include_once "../../../vendor/autoload.php";
 
-	$info = MachineInfo::GetAllInfo();
+	$info = MachineInfo::get_all_info();
 
 	echo "<table><tbody>";
 	foreach ($info AS $key => $value) {

@@ -3,13 +3,13 @@
 
 	class MachineInfo {
 
-		public static function GetAllInfo(): array {
+		public static function get_all_info(): array {
 			return [
-				"user_agent" => self::GetUserAgent(),
-				"os" => self::GetOperatingSystem(),
-				"browser" => self::GetBrowser(),
-				"ip_address" => self::GetIpAddress(),
-				"ip_info" => self::GetIpInfo("185.126.44.43"),
+				"user_agent" => self::get_user_agent(),
+				"os" => self::get_operating_system(),
+				"browser" => self::get_browser(),
+				"ip_address" => self::get_ip_address(),
+				"ip_info" => self::get_ip_info("185.126.44.43"),
 			];
 		}
 
@@ -17,7 +17,7 @@
 		/**
 		 * Get the user agent
 		 */
-		public static function GetUserAgent(): string {
+		public static function get_user_agent(): string {
 			return $_SERVER["HTTP_USER_AGENT"];
 		}
 
@@ -25,8 +25,8 @@
 		/**
 		 * Get the user Operating System
 		 */
-		public static function GetOperatingSystem(): string {
-			$userAgent = self::GetUserAgent();
+		public static function get_operating_system(): string {
+			$userAgent = self::get_user_agent();
 			$array = [
 				"/windows nt 10/i"		=> "Windows 10",
 				"/windows nt 6.3/i"		=> "Windows 8.1",
@@ -65,8 +65,8 @@
 		/**
 		 * Get the user Browser Type
 		 */
-		public static function GetBrowser(): string {
-			$userAgent = self::GetUserAgent();
+		public static function get_browser(): string {
+			$userAgent = self::get_user_agent();
 			$array = [
 				"/msie/i"		=> "Internet Explorer",
 				"/firefox/i"	=> "Firefox",
@@ -92,7 +92,7 @@
 		/**
 		 * Get the user IP Address
 		 */
-		public static function GetIpAddress(): string {
+		public static function get_ip_address(): string {
 			/* Check for shared internet/ISP IP */
 			if (!empty($_SERVER["HTTP_CLIENT_IP"]) && self::ValidateIp($_SERVER["HTTP_CLIENT_IP"])) {
 				return $_SERVER["HTTP_CLIENT_IP"];
@@ -143,11 +143,11 @@
 		/**
 		 * Returns all the IP Address Info from http://ipinfo.io API
 		 */
-		public static function GetIpInfo(
+		public static function get_ip_info(
 			?string $ip=null
 		): array {
 			if (Helper::string_null_or_empty($ip)) {
-				$ip = self::GetIpAddress();
+				$ip = self::get_ip_address();
 			}
 
 			// $ipInfo = new IpInfo($ip);
