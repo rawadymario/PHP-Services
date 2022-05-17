@@ -11,72 +11,72 @@
 	class MetaSeoTest extends TestCase {
 
 		public function setUp(): void {
-			MetaSeo::ClearMetaArray();
-			MetaSeo::ClearPreHearArray();
-			MetaSeo::ClearPostHearArray();
+			MetaSeo::clear_meta_array();
+			MetaSeo::clear_pre_head_array();
+			MetaSeo::clear_post_head_array();
 
 			parent::setUp();
 		}
 
-		public function testAddToMetaArraySuccess() {
-			$this->assertEmpty(MetaSeo::GetMetaArray());
+		public function testadd_to_meta_arraySuccess() {
+			$this->assertEmpty(MetaSeo::get_meta_array());
 
-			MetaSeo::AddToMetaArray("test", []);
-			$this->assertCount(1, MetaSeo::GetMetaArray());
+			MetaSeo::add_to_meta_array("test", []);
+			$this->assertCount(1, MetaSeo::get_meta_array());
 		}
 
-		public function testRemoveFromMetaArraySuccess() {
-			$this->assertEmpty(MetaSeo::GetMetaArray());
+		public function testremove_from_meta_arraySuccess() {
+			$this->assertEmpty(MetaSeo::get_meta_array());
 
-			MetaSeo::AddToMetaArray("test", []);
-			$this->assertCount(1, MetaSeo::GetMetaArray());
+			MetaSeo::add_to_meta_array("test", []);
+			$this->assertCount(1, MetaSeo::get_meta_array());
 
-			MetaSeo::RemoveFromMetaArray("test");
-			$this->assertEmpty(MetaSeo::GetMetaArray());
+			MetaSeo::remove_from_meta_array("test");
+			$this->assertEmpty(MetaSeo::get_meta_array());
 		}
 
 		public function testInvalidArgumentFail() {
-			MetaSeo::AddToMetaArray("test", []);
+			MetaSeo::add_to_meta_array("test", []);
 
 			$this->expectException(InvalidArgumentException::class);
 			$this->expectExceptionMessage("Invalid argument \"type\" having the value \"\". Allowed value(s): \"meta, comment\"");
-			MetaSeo::RenderFull();
+			MetaSeo::render_full();
 		}
 
 		public function testRenderFullSuccess() {
-			MetaSeo::SetClientName("Mario Rawady");
-			MetaSeo::SetPreTitle("Software Engineer");
-			MetaSeo::SetPostTitle("Home Page");
-			MetaSeo::SetTitle("Mario Rawady");
-			MetaSeo::SetAuthor("Mario Rawady");
-			MetaSeo::SetKeywords([
+			MetaSeo::set_client_name("Mario Rawady");
+			MetaSeo::set_pre_title("Software Engineer");
+			MetaSeo::set_post_title("Home Page");
+			MetaSeo::set_title("Mario Rawady");
+			MetaSeo::set_author("Mario Rawady");
+			MetaSeo::set_keywords([
 				"Mario",
 				"Rawady",
 				"Software Engineer",
 				"PHP",
 			]);
-			MetaSeo::SetDescription("Mario Rawady is a Software Engineer");
-			MetaSeo::SetPhoto("https://rawadymario.com/assets/img/logo-big.png");
-			MetaSeo::SetUrl("https://rawadymario.com");
-			MetaSeo::SetRobots(true);
-			MetaSeo::SetGoolgeSiteVerification("");
-			MetaSeo::SetCopyright("2022. Mario Rawady");
-			MetaSeo::SetFacebookAppId("123456789");
-			MetaSeo::SetFacebookAdmins("");
-			MetaSeo::SetTwitterCard("testtt"); //Should default to: summary_large_image
-			MetaSeo::SetFavicon("https://rawadymario.com/assets/img/favicon.png");
+			MetaSeo::set_description("Mario Rawady is a Software Engineer");
+			MetaSeo::set_photo("https://rawadymario.com/assets/img/logo-big.png");
+			MetaSeo::set_url("https://rawadymario.com");
+			MetaSeo::set_robots(true);
+			MetaSeo::set_google_site_verification("");
+			MetaSeo::set_copyright("2022. Mario Rawady");
+			MetaSeo::set_facebook_app_id("123456789");
+			MetaSeo::set_facebook_admins("");
+			MetaSeo::set_twitter_card("testtt"); //Should default to: summary_large_image
+			MetaSeo::set_favicon("https://rawadymario.com/assets/img/favicon.png");
 
-			MetaSeo::AddToMetaArray("test", [
+			MetaSeo::add_to_meta_array("test", [
 				"type" => "meta",
 				"name" => "test",
 				"content" => "This is a test text"
 			]);
 
-			MetaSeo::AddToPreHeadArray("pre_1", "<!-- Here Goes Pre Head Scripts 01 -->");
-			MetaSeo::AddToPreHeadArray("pre_2", "<!-- Here Goes Pre Head Scripts 02 -->");
+			MetaSeo::add_to_pre_head_array("pre_1", "<!-- Here Goes Pre Head Scripts 01 -->");
+			MetaSeo::add_to_pre_head_array("pre_2", "<!-- Here Goes Pre Head Scripts 02 -->");
 
-			MetaSeo::AddToPostHeadArray("post_1", "<!-- Here Goes Post Head Scripts 01 -->");
-			MetaSeo::AddToPostHeadArray("post_2", "<!-- Here Goes Post Head Scripts 02 -->");
+			MetaSeo::add_to_post_head_array("post_1", "<!-- Here Goes Post Head Scripts 01 -->");
+			MetaSeo::add_to_post_head_array("post_2", "<!-- Here Goes Post Head Scripts 02 -->");
 
 			Style::AddFile("file_1", "file_1.css");
 			Style::AddFile("file_2", "file_2.css");
@@ -89,7 +89,7 @@
 			Script::AddScript("script_2", "<script src=\"script_2.js\"></script>");
 
 			$expected = Helper::get_html_content_from_file(__DIR__ . "/../../_CommonFiles/MetaSeo/header.html");
-			$actual = MetaSeo::RenderFull();
+			$actual = MetaSeo::render_full();
 
 			$this->assertEquals($expected, $actual);
 		}

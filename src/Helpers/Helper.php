@@ -546,7 +546,7 @@
 		/**
 		 * Generate Key Value String from Array
 		 */
-		public static function gererate_key_value_string_from_array(
+		public static function generate_key_value_string_from_array(
 			?array $params,
 			string $key_prefix="",
 			string $key_value_join="=",

@@ -670,20 +670,20 @@
 			);
 		}
 
-		public function test_gererate_key_value_string_from_array_success() {
+		public function test_generate_key_value_string_from_array_success() {
 			$this->assertEquals(
 				"",
-				Helper::gererate_key_value_string_from_array(null)
+				Helper::generate_key_value_string_from_array(null)
 			);
 
 			$this->assertEquals(
 				"",
-				Helper::gererate_key_value_string_from_array([])
+				Helper::generate_key_value_string_from_array([])
 			);
 
 			$this->assertEquals(
 				'type="text" name="test-input" id="test-input" placeholder="Test Input"',
-				Helper::gererate_key_value_string_from_array([
+				Helper::generate_key_value_string_from_array([
 					"type" => "text",
 					"name" => "test-input",
 					"id" => "test-input",
@@ -693,7 +693,7 @@
 
 			$this->assertEquals(
 				'pre_type="text" pre_name="test-input" pre_id="test-input" pre_placeholder="Test Input"',
-				Helper::gererate_key_value_string_from_array([
+				Helper::generate_key_value_string_from_array([
 					"type" => "text",
 					"name" => "test-input",
 					"id" => "test-input",
@@ -703,7 +703,7 @@
 
 			$this->assertEquals(
 				'type:"text" name:"test-input" id:"test-input" placeholder:"Test Input"',
-				Helper::gererate_key_value_string_from_array([
+				Helper::generate_key_value_string_from_array([
 					"type" => "text",
 					"name" => "test-input",
 					"id" => "test-input",
@@ -713,7 +713,7 @@
 
 			$this->assertEquals(
 				'type=-text- name=-test-input- id=-test-input- placeholder=-Test Input-',
-				Helper::gererate_key_value_string_from_array([
+				Helper::generate_key_value_string_from_array([
 					"type" => "text",
 					"name" => "test-input",
 					"id" => "test-input",
@@ -723,7 +723,7 @@
 
 			$this->assertEquals(
 				'type="text"_join_name="test-input"_join_id="test-input"_join_placeholder="Test Input"',
-				Helper::gererate_key_value_string_from_array([
+				Helper::generate_key_value_string_from_array([
 					"type" => "text",
 					"name" => "test-input",
 					"id" => "test-input",
