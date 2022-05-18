@@ -59,7 +59,7 @@
 			Script::AddScript("script_2", "<script src=\"script_2.js\"></script>");
 			Script::AddScript("script_3", "<script src=\"script_3.js\"></script>");
 
-			$expected = Helper::GetHtmlContentFromFile(__DIR__ . "/../../_CommonFiles/Script/scripts.html");
+			$expected = Helper::GetContentFromFile(__DIR__ . "/../../_CommonFiles/Script/scripts.html");
 			$actual = Script::GetFilesIncludes();
 
 			$this->assertEquals($expected, $actual);

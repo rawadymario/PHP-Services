@@ -897,7 +897,7 @@
 			$this->expectExceptionMessage(Translate::TranslateString("exception.NotEmptyParam", null, [
 				"::params::" => "filePath"
 			]));
-			Helper::GetHtmlContentFromFile(null);
+			Helper::GetContentFromFile(null);
 		}
 
 		public function testGetHtmlContentFromFileThrowError_02(): void {
@@ -905,7 +905,7 @@
 			$this->expectExceptionMessage(Translate::TranslateString("exception.NotEmptyParam", null, [
 				"::params::" => "filePath"
 			]));
-			Helper::GetHtmlContentFromFile("");
+			Helper::GetContentFromFile("");
 		}
 
 		public function testGetHtmlContentFromFileThrowError_03(): void {
@@ -913,20 +913,20 @@
 			$this->expectExceptionMessage(Translate::TranslateString("exception.FileNotFound", null, [
 				"::params::" => "filePath"
 			]));
-			Helper::GetHtmlContentFromFile(__DIR__ . "/../../_CommonFiles/randomfile.html");
+			Helper::GetContentFromFile(__DIR__ . "/../../_CommonFiles/randomfile.html");
 		}
 
 		public function testGetHtmlContentFromFileWithoutReplaceSuccess() {
 			$this->assertEquals(
 				"<h1>testGetHtmlContentFromFileWithoutReplaceSuccess</h1>",
-				Helper::GetHtmlContentFromFile(__DIR__ . "/../../_CommonFiles/testGetHtmlContentFromFileWithoutReplaceSuccess.html")
+				Helper::GetContentFromFile(__DIR__ . "/../../_CommonFiles/testGetHtmlContentFromFileWithoutReplaceSuccess.html")
 			);
 		}
 
 		public function testGetHtmlContentFromFileWithReplaceSuccess() {
 			$this->assertEquals(
 				"<h1>testGetHtmlContentFromFileWithReplaceSuccess</h1>\n<h2>Replaced Text 01</h2>\n<h3>Replaced Text 02</h3>",
-				Helper::GetHtmlContentFromFile(__DIR__ . "/../../_CommonFiles/testGetHtmlContentFromFileWithReplaceSuccess.html", [
+				Helper::GetContentFromFile(__DIR__ . "/../../_CommonFiles/testGetHtmlContentFromFileWithReplaceSuccess.html", [
 					"::replace_1::" => "Replaced Text 01",
 					"::replace_2::" => "Replaced Text 02",
 				])

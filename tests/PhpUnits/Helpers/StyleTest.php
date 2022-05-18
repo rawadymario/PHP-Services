@@ -59,7 +59,7 @@
 			Style::AddStyle("style_2", "<link rel=\"stylesheet\" href=\"style_2.css\">");
 			Style::AddStyle("style_3", "<link rel=\"stylesheet\" href=\"style_3.css\">");
 
-			$expected = Helper::GetHtmlContentFromFile(__DIR__ . "/../../_CommonFiles/Style/styles.html");
+			$expected = Helper::GetContentFromFile(__DIR__ . "/../../_CommonFiles/Style/styles.html");
 			$actual = Style::GetFilesIncludes();
 
 			$this->assertEquals($expected, $actual);
