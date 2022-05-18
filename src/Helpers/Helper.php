@@ -734,9 +734,9 @@
 
 
 		/**
-		 * Get HTML content from the given file path
+		 * Get content from the given file path
 		 */
-		public static function GetHtmlContentFromFile(
+		public static function GetContentFromFile(
 			?string $filePath=null,
 			?array $replace=null
 		): string {
