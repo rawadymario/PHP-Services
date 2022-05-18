@@ -1,4 +1,6 @@
 <?php
+	namespace RawadyMario\Tests\Media\Helpers;
+
 	//To Run: .\vendor/bin/phpunit .\tests\PhpUnits\Microservices\Media\Helpers\MediaTest.php
 	use PHPUnit\Framework\TestCase;
 	use RawadyMario\Exceptions\FileNotFoundException;

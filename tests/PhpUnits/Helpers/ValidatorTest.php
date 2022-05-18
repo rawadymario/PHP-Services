@@ -1,4 +1,6 @@
 <?php
+	namespace RawadyMario\Tests\Helpers;
+
 	//To Run: .\vendor/bin/phpunit .\tests\PhpUnits\Helpers\ValidatorTest.php
 	use PHPUnit\Framework\TestCase;
 	use RawadyMario\Exceptions\InvalidEmailException;

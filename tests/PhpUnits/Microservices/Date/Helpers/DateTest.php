@@ -1,4 +1,6 @@
 <?php
+	namespace RawadyMario\Tests\Date\Helpers;
+
 	//To Run: .\vendor/bin/phpunit .\tests\PhpUnits\Microservices\Date\Helpers\DateTest.php
 	use PHPUnit\Framework\TestCase;
 	use RawadyMario\Exceptions\InvalidParamException;

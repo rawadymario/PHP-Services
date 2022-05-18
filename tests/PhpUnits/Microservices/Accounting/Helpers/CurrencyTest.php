@@ -1,4 +1,6 @@
 <?php
+	namespace RawadyMario\Tests\Accounting\Helpers;
+
 	//To Run: .\vendor/bin/phpunit .\tests\PhpUnits\Microservices\Accounting\Helpers\CurrencyTest.php
 	use PHPUnit\Framework\TestCase;
 	use RawadyMario\Exceptions\NotNumericParamException;

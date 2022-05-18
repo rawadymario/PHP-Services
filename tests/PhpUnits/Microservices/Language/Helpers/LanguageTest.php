@@ -1,4 +1,6 @@
 <?php
+	namespace RawadyMario\Tests\Language\Helpers;
+
 	//To Run: .\vendor/bin/phpunit .\tests\PhpUnits\Microservices\Language\Helpers\LanguageTest.php
 	use PHPUnit\Framework\TestCase;
 	use RawadyMario\Language\Helpers\Language;
