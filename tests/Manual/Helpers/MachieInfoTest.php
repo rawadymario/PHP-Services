@@ -1,5 +1,4 @@
 <?php
-
 	use RawadyMario\Helpers\MachineInfo;
 
 	include_once "../../../vendor/autoload.php";
