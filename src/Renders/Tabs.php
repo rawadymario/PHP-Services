@@ -80,7 +80,7 @@
 				$pre .= "<script>" . Helper::GetContentFromFile(self::CONTENT_DIR . "scripts.js") . "</script>";
 			}
 
-			$html = Helper::GetContentFromFile(self::CONTENT_DIR . "CustomTabs.html", [
+			$html = Helper::GetContentFromFile(self::CONTENT_DIR . "Main.html", [
 				"::id::" =>  $this->id,
 				"::class::" =>  $this->class,
 				"::topTabs::" => $topTabs,
