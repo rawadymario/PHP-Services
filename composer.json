@@ -1,0 +1,45 @@
+{
+	"name": "rawadymario/php-services",
+	"type": "library",
+	"description": "Commonly used services in any PHP Project",
+	"homepage": "https://github.com/rawadymario/PHP-Services",
+	"keywords": [
+		"Services",
+		"PHP"
+	],
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Mario Rawady",
+			"email": "hello@rawadymario.com",
+			"homepage": "https://rawadymario.com",
+			"role": "Developer"
+		}
+	],
+    "config": {
+        "preferred-install": "dist"
+    },
+	"minimum-stability": "stable",
+	"require": {
+	  "php": ">=7.4.9"
+	},
+	"require-dev": {
+        "phpunit/phpunit": "^9"
+    },
+	"autoload": {
+		"psr-4": {
+			"RawadyMario\\": "src"
+		},
+		"classmap": [
+            ""
+        ]
+	},
+    "autoload-dev": {
+        "psr-4": {
+            "RawadyMario\\": "tests/"
+        }
+    },
+    "scripts": {
+        "phpunit": ".\\vendor/bin/phpunit .\\tests\\PhpUnits"
+	}
+  }
