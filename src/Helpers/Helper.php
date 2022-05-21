@@ -604,11 +604,45 @@
 			string $dir,
 			string $permission="0777"
 		): bool {
+			// var_dump($dir);
 			if (!is_dir($dir)) {
 				mkdir($dir, $permission, true);
 				return true;
 			}
 			return false;
+		}
+
+
+		/**
+		 * Create all the unfound folders in a given path
+		 */
+		public static function CreateFolderRecursive(
+			string $dir,
+			string $permission="0777"
+		): bool {
+			if (self::DirExists($dir)) {
+				return true;
+			}
+			
+			$foldersToCreate = [
+				$dir
+			];
+
+			$i = 1;
+			while (true === true) {
+				$newDir = dirname($dir, $i);
+				if (self::DirExists($newDir, "")) {
+					break;
+				}
+				$foldersToCreate[] = $newDir;
+				$i++;
+			}
+			krsort($foldersToCreate);
+			foreach ($foldersToCreate AS $folderToCreate) {
+				self::CreateFolder($folderToCreate, $permission);
+			}
+
+			return true;
 		}
 
 
