@@ -2,8 +2,8 @@
 	namespace RawadyMario\Tests\Helpers;
 
 	use PHPUnit\Framework\TestCase;
-use RawadyMario\Exceptions\FileNotFoundException;
-use RawadyMario\Exceptions\NotEmptyParamException;
+	use RawadyMario\Exceptions\FileNotFoundException;
+	use RawadyMario\Exceptions\NotEmptyParamException;
 	use RawadyMario\Helpers\Helper;
 	use RawadyMario\Helpers\ServerCache;
 	use RawadyMario\Language\Helpers\Translate;
