@@ -1,8 +1,8 @@
 # Common Services Used in all Projects
 
-To install Via Composer: `composer require rawadymario/services`
+To install Via Composer: `composer require rawadymario/php-services`
 
-Packagist Link: [https://packagist.org/packages/rawadymario/services](https://packagist.org/packages/rawadymario/services)
+Packagist Link: [https://packagist.org/packages/rawadymario/php-services](https://packagist.org/packages/rawadymario/php-services)
 
 ---
 
