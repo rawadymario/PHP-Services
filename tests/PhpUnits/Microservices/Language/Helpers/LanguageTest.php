@@ -8,36 +8,10 @@
 
 	final class LanguageTest extends TestCase {
 
-		public function testSetVariableDefaultSuccess(): void {
-			$this->assertEquals(
-				Lang::EN,
-				Language::$DEFAULT
-			);
+		public function setUp(): void {
+			Language::ClearAllowed();
 
-			Language::SetVariableDefault(Lang::AR);
-
-			$this->assertEquals(
-				Lang::AR,
-				Language::$DEFAULT
-			);
-
-			Language::SetVariableDefault(Lang::EN);
-		}
-
-		public function testSetVariableActiveSuccess(): void {
-			$this->assertEquals(
-				Lang::EN,
-				Language::$ACTIVE
-			);
-
-			Language::SetVariableActive(Lang::AR);
-
-			$this->assertEquals(
-				Lang::AR,
-				Language::$ACTIVE
-			);
-
-			Language::SetVariableActive(Lang::EN);
+			parent::setUp();
 		}
 
 		public function testUppercaseSuccess(): void {
@@ -72,6 +46,66 @@
 				"first_name_fr",
 				Language::GetFieldKey("first_name", Lang::FR)
 			);
+		}
+
+		public function testSetDefaultSuccess(): void {
+			$this->assertEquals(
+				Lang::EN,
+				Language::GetDefault()
+			);
+
+			Language::SetDefault(Lang::AR);
+
+			$this->assertEquals(
+				Lang::AR,
+				Language::GetDefault()
+			);
+
+			Language::SetDefault(Lang::EN);
+		}
+
+		public function testSetActiveSuccess(): void {
+			$this->assertEquals(
+				Lang::EN,
+				Language::GetActive()
+			);
+
+			Language::SetActive(Lang::AR);
+
+			$this->assertEquals(
+				Lang::AR,
+				Language::GetActive()
+			);
+
+			Language::SetActive(Lang::EN);
+		}
+
+		public function testAddToAllowedSuccess() {
+			$this->assertEmpty(Language::GetAllowed());
+
+			Language::AddToAllowed(Lang::EN);
+			$this->assertCount(1, Language::GetAllowed());
+
+			Language::AddToAllowed(Lang::AR);
+			$this->assertCount(2, Language::GetAllowed());
+
+			Language::AddToAllowed(Lang::EN);
+			$this->assertCount(2, Language::GetAllowed());
+		}
+
+		public function testRemoveFromAllowedSuccess() {
+			$this->assertEmpty(Language::GetAllowed());
+
+			Language::AddToAllowed(Lang::EN);
+			Language::AddToAllowed(Lang::AR);
+			Language::AddToAllowed(Lang::FR);
+			$this->assertCount(3, Language::GetAllowed());
+
+			Language::RemoveFromAllowed(Lang::FR);
+			$this->assertCount(2, Language::GetAllowed());
+
+			Language::RemoveFromAllowed(Lang::FR);
+			$this->assertCount(2, Language::GetAllowed());
 		}
 
 	}

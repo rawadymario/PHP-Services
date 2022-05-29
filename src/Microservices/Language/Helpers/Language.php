@@ -5,33 +5,11 @@
 	use RawadyMario\Language\Models\Lang;
 
 	class Language {
-		public static $DEFAULT = Lang::EN;
-		public static $ACTIVE = Lang::EN;
+		private static string $default = Lang::EN;
+		private static string $active = Lang::EN;
+		private static array $allowed = [];
 
 
-		/**
-		 * Set the $DEFAULT variable
-		 */
-		public static function SetVariableDefault(
-			string $var
-		): void {
-			self::$DEFAULT = $var;
-		}
-
-
-		/**
-		 * Set the $ACTIVE variable
-		 */
-		public static function SetVariableActive(
-			string $var
-		): void {
-			self::$ACTIVE = $var;
-		}
-
-
-		/**
-		 * Convert Special Lowercase Characters to Uppercase
-		 */
 		public static function Uppercase(
 			string $val
 		): string {
@@ -46,19 +24,56 @@
 			return $val;
 		}
 
-
-		/**
-		 * Get field key
-		 */
 		public static function GetFieldKey(
 			string $field,
-			string $lang=""
+			?string $lang=null
 		): string {
 			if (Helper::StringNullOrEmpty($lang)) {
-				$lang = self::$ACTIVE;
+				$lang = self::GetActive();
 			}
 
 			return $lang == Lang::EN ? $field : $field . "_" . $lang;
+		}
+
+		public static function GetDefault(): string {
+			return self::$default;
+		}
+
+		public static function SetDefault(
+			string $var
+		): void {
+			self::$default = $var;
+		}
+
+		public static function GetActive(): string {
+			return self::$active;
+		}
+
+		public static function SetActive(
+			string $var
+		): void {
+			self::$active = $var;
+		}
+
+		public static function AddToAllowed(string $value): void {
+			if (!in_array($value, self::$allowed)) {
+				array_push(self::$allowed, $value);
+			}
+		}
+
+		public static function RemoveFromAllowed(string $value): void {
+			if (in_array($value, self::$allowed)) {
+				$indexToRemove = array_search($value, self::$allowed);
+				unset(self::$allowed[$indexToRemove]);
+			}
+		}
+
+		public static function GetAllowed(): array {
+			return self::$allowed;
+		}
+
+		public static function ClearAllowed(): void {
+			self::$allowed = [];
 		}
 
 	}
