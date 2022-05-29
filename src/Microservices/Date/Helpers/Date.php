@@ -41,7 +41,7 @@
 			}
 
 			if (Helper::StringNullOrEmpty($lang)) {
-				$lang = Language::$ACTIVE;
+				$lang = Language::GetActive();
 			}
 
 			if (!$isStr) {
@@ -78,7 +78,7 @@
 			}
 
 			if (Helper::StringNullOrEmpty($lang)) {
-				$lang = Language::$ACTIVE;
+				$lang = Language::GetActive();
 			}
 
 			$date = "2000-$month-01";
@@ -94,7 +94,7 @@
 			?string $lang=""
 		): string {
 			if (Helper::StringNullOrEmpty($lang)) {
-				$lang = Language::$ACTIVE;
+				$lang = Language::GetActive();
 			}
 
 			$date = jddayofweek($weekDay-1, 1);
@@ -123,7 +123,7 @@
 			$comparisonDateStr = strtotime($comparisonDate);
 
 			if (Helper::StringNullOrEmpty($lang)) {
-				$lang = Language::$ACTIVE;
+				$lang = Language::GetActive();
 			}
 
 			if (self::RenderDate($date, "Y", Lang::EN) != date("Y", $comparisonDateStr)) {
@@ -212,7 +212,7 @@
 			}
 
 			if (Helper::StringNullOrEmpty($lang)) {
-				$lang = Language::$ACTIVE;
+				$lang = Language::GetActive();
 			}
 
 			if (Helper::StringNullOrEmpty($dateTime)) {

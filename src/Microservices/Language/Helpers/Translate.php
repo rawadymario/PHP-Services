@@ -63,7 +63,7 @@
 				throw new NotEmptyParamException("key");
 			}
 			if (Helper::StringNullOrEmpty($lang)) {
-				$lang = Language::$ACTIVE;
+				$lang = Language::GetActive();
 			}
 
 			$vals = !$withType ? self::$VALS_WITHOUT_TYPE : self::$VALS;
@@ -118,7 +118,7 @@
 				throw new NotEmptyParamException("string");
 			}
 			if (Helper::StringNullOrEmpty($lang)) {
-				$lang = Language::$ACTIVE;
+				$lang = Language::GetActive();
 			}
 
 			$vals = !$withType ? self::$VALS_WITHOUT_TYPE : self::$VALS;

@@ -91,7 +91,7 @@
 			self::AddToMetaArray("lang", [
 				"type" => "meta",
 				"http-equiv" => "Lang",
-				"content" => Language::$ACTIVE
+				"content" => Language::GetActive()
 			]);
 
 			self::AddToMetaArray("xuaCompatible", [
