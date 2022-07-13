@@ -3,13 +3,15 @@
 
 	class MachineInfo {
 
-		public static function GetAllInfo(): array {
+		public static function GetAllInfo(
+			?string $ip=null
+		): array {
 			return [
 				"user_agent" => self::GetUserAgent(),
 				"os" => self::GetOperatingSystem(),
 				"browser" => self::GetBrowser(),
 				"ip_address" => self::GetIpAddress(),
-				"ip_info" => self::GetIpInfo("185.126.44.43"),
+				"ip_info" => self::GetIpInfo($ip),
 			];
 		}
 

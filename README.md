@@ -6,7 +6,7 @@ Packagist Link: [https://packagist.org/packages/rawadymario/php-services](https:
 
 ---
 
-## List of Files
+## Structure
 
 ### Exceptions
 
@@ -16,8 +16,13 @@ Packagist Link: [https://packagist.org/packages/rawadymario/php-services](https:
 
 ### Helpers
 
+- Cookie
 - Helper
 - Machine Info
+- MetaSeo
+- Script
+- ServerCache
+- Style
 - Validator
 
 ### Microservices
@@ -67,16 +72,92 @@ Packagist Link: [https://packagist.org/packages/rawadymario/php-services](https:
 - HTTP Codes
 - Status
 
+### Renders
+
+- Accordion
+- Tabs
+
 ## Default Functions
 
-1. Language
-   1. SetVariableDefault(`string $var`)
-   2. SetVariableActive(`string $var`)
-2. Media
-   1. SetVariableMediaFolder(`string $var`)
-   2. SetVariableUploadDir(`string $var`)
-   3. SetVariableMediaRoot(`string $var`)
-   4. SetVariableWebsiteVersion(`string $var`)
-3. Translate
-   1. AddDefaults()
-   2. AddCustomDir(`string $customDir`)
+> The below functions are used to set the default values before starting to code
+
+### Helpers
+
+- #### Cookie
+
+  - SetExpireInUnix(`int $unix`)
+  - SetExpireInDays(`int $days`)
+  - SetPrefix(`string $prefix`)
+  - SetPath(`string $path`)
+  - SetDomain(`string $domain`)
+  - SetSecure(`bool $secure`)
+  - SetHttpOnly(`bool $httpOnly`)
+
+- #### MetaSeo
+
+  - AddToMetaArray(`string $key, array $array`)
+  - AddToPreHeadArray(`string $key, string $text`)
+  - AddToPostHeadArray(`string $key, string $text`)
+  - SetClientName(`string $var`)
+  - SetPreTitle(`string $var`)
+  - SetPostTitle(`string $var`)
+  - SetTitle(`string $var`)
+  - SetAuthor(`string $var`)
+  - SetKeywords(`string $var`)
+  - SetDescription(`string $var`)
+  - SetPhoto(`string $var`)
+  - SetUrl(`string $var`)
+  - SetRobots(`bool $isLive`)
+  - SetRevisitAfter(`string $var`)
+  - SetFavicon(`string $var`)
+  - SetContentType(`string $var`)
+  - SetXuaCompatible(`string $var`)
+  - SetViewport(`string $var`)
+  - SetGoolgeSiteVerification(`string $var`)
+  - SetCopyright(`string $var`)
+  - SetAppleMobileWebAppCapable(`string $var`)
+  - SetAppleMobileWebAppStatusBarStyle(`string $var`)
+  - SetFacebookType(`string $var`)
+  - SetFacebookAppId(`string $var`)
+  - SetFacebookAdmins(`string $var`)
+  - SetTwitterCard(`string $var`)
+
+- #### Script
+
+  - AddFile(`string $key, string $file`)
+  - AddScript(`string $key, string $script`)
+  - GetFilesIncludes()
+
+- #### ServerCache
+
+  - SetVersion(`string $version`)
+  - SetCacheFolder(`string $cacheFolder`)
+  - SetVersionFolder(`string $versionFolder`)
+
+- #### Style
+
+  - AddFile(`string $key, string $file`)
+  - AddStyle(`string $key, string $style`)
+  - GetFilesIncludes()
+
+### Microservices
+
+- #### Language
+  - Helpers
+    - Language
+      - SetDefault(`string $var`)
+      - SetActive(`string $var`)
+    - Translate
+      - AddDefaults()
+      - AddCustomDir(`string $customDir`)
+
+- #### Media
+  - SetMediaFolder(`string $var`)
+  - SetUploadDir(`string $var`)
+  - SetMediaRoot(`string $var`)
+  - SetWebsiteVersion(`string $var`)
+
+## To Revisit
+
+- MachineInfo
+  - GetIpInfo

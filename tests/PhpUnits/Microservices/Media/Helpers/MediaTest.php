@@ -14,9 +14,9 @@
 		private const WEBSITE_VERSION = "2.0.1";
 
 		public function setUp(): void {
-			Media::SetVariableUploadDir(__DIR__ . "/../../../../_CommonFiles/Media");
-			Media::SetVariableMediaRoot(self::MEDIA_ROOT);
-			Media::SetVariableWebsiteVersion(self::WEBSITE_VERSION);
+			Media::SetUploadDir(__DIR__ . "/../../../../_CommonFiles/Media");
+			Media::SetMediaRoot(self::MEDIA_ROOT);
+			Media::SetWebsiteVersion(self::WEBSITE_VERSION);
 
 			parent::setUp();
 		}

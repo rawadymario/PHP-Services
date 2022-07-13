@@ -16,7 +16,7 @@
 		/**
 		 * Set the $MEDIA_FOLDER valiable
 		 */
-		public static function SetVariableMediaFolder(
+		public static function SetMediaFolder(
 			string $var
 		): void {
 			self::$MEDIA_FOLDER = $var;
@@ -26,7 +26,7 @@
 		/**
 		 * Set the $UPLOAD_DIR valiable
 		 */
-		public static function SetVariableUploadDir(
+		public static function SetUploadDir(
 			string $var
 		): void {
 			if (!Helper::StringEndsWith($var, ["/", "\\"])) {
@@ -39,7 +39,7 @@
 		/**
 		 * Set the $MEDIA_ROOT valiable
 		 */
-		public static function SetVariableMediaRoot(
+		public static function SetMediaRoot(
 			string $var
 		): void {
 			if (!Helper::StringEndsWith($var, ["/", "\\"])) {
@@ -52,7 +52,7 @@
 		/**
 		 * Set the $WEBSITE_VERSION valiable
 		 */
-		public static function SetVariableWebsiteVersion(
+		public static function SetWebsiteVersion(
 			string $var
 		): void {
 			self::$WEBSITE_VERSION = $var;
