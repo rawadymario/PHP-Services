@@ -1,0 +1,5 @@
+var RawadyMarioTable = new function() {
+
+
+
+};
