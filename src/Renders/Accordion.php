@@ -13,8 +13,8 @@
 		protected array $tabs;
 		protected int $tabsCount;
 
-		protected string $primaryColor = "#000";
-		protected string $secondaryColor = "#ddd";
+		protected string $primaryColor;
+		protected string $secondaryColor;
 
 		protected static bool $styleIncluded = false;
 		protected static bool $scriptIncluded = false;
@@ -29,6 +29,9 @@
 			$this->activeTab = "";
 			$this->tabs = [];
 			$this->tabsCount = 0;
+
+			$this->primaryColor = "#000";
+			$this->secondaryColor = "#ddd";
 		}
 
 		public function Render(): string {

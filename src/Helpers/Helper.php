@@ -623,7 +623,7 @@
 			if (self::DirExists($dir)) {
 				return true;
 			}
-			
+
 			$foldersToCreate = [
 				$dir
 			];

@@ -3,6 +3,9 @@
 
 	include_once "../../../vendor/autoload.php";
 
+	/**
+	 * @var Tabs[] $tabs
+	 */
 	$tabs = [];
 	for($i = 1; $i <= 3; $i++) {
 		$tab = new Tabs("tabs_{$i}", "tabs{$i}");

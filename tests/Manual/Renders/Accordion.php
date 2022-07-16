@@ -3,6 +3,9 @@
 
 	include_once "../../../vendor/autoload.php";
 
+	/**
+	 * @var Accordion[] $tabs
+	 */
 	$tabs = [];
 	for($i = 1; $i <= 3; $i++) {
 		$tab = new Accordion("accordion_{$i}", "accordion{$i}");
