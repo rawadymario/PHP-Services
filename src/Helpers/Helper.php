@@ -2,6 +2,7 @@
 	namespace RawadyMario\Helpers;
 
 	use RawadyMario\Exceptions\FileNotFoundException;
+	use RawadyMario\Exceptions\InvalidParamException;
 	use RawadyMario\Exceptions\NotEmptyParamException;
 	use RawadyMario\Models\Code;
 	use RawadyMario\Models\HttpCode;
@@ -300,13 +301,24 @@
 
 
 		/**
-		 * Search if is a string contacins a value
+		 * Search if is a string contains a value
 		 */
 		public static function StringHasChar(
 			string $string,
-			string $search
+			$search
 		): bool {
-			return strpos($string, $search) !== false;
+			if (is_array($search)) {
+				foreach ($search as $searchKey) {
+					if (strpos($string, $searchKey) !== false) {
+						return true;
+					}
+				}
+				return false;
+			}
+			if (is_string($search)) {
+				return strpos($string, $search) !== false;
+			}
+			throw new InvalidParamException("search");
 		}
 
 

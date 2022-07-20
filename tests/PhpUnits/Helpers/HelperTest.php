@@ -4,6 +4,7 @@
 	//To Run: .\vendor/bin/phpunit .\tests\PhpUnits\Helpers\HelperTest.php
 	use PHPUnit\Framework\TestCase;
 	use RawadyMario\Exceptions\FileNotFoundException;
+	use RawadyMario\Exceptions\InvalidParamException;
 	use RawadyMario\Exceptions\NotEmptyParamException;
 	use RawadyMario\Models\Code;
 	use RawadyMario\Models\HttpCode;
@@ -371,7 +372,15 @@
 			);
 		}
 
-		public function testStringHasCharSuccess() {
+		public function testStringHasCharThrowError_01(): void {
+			$this->expectException(InvalidParamException::class);
+			$this->expectExceptionMessage(Translate::TranslateString("exception.InvalidParam", null, [
+				"::params::" => "search"
+			]));
+			Helper::StringHasChar("Mario Rawady", 1);
+		}
+
+		public function testStringHasCharStringSuccess() {
 			$this->assertTrue(
 				Helper::StringHasChar("Mario Rawady", "Mario")
 			);
@@ -382,6 +391,20 @@
 
 			$this->assertFalse(
 				Helper::StringHasChar("Mario Rawady", "Marioss")
+			);
+		}
+
+		public function testStringHasCharArraySuccess() {
+			$this->assertTrue(
+				Helper::StringHasChar("Mario Rawady", ["Mario"])
+			);
+
+			$this->assertTrue(
+				Helper::StringHasChar("Mario Rawady", ["Maa", "Rawady"])
+			);
+
+			$this->assertFalse(
+				Helper::StringHasChar("Mario Rawady", ["Marioss", " Mario", "Rawady "])
 			);
 		}
 
