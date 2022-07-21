@@ -6,10 +6,10 @@
 	class Table {
 		protected const CONTENT_DIR = __DIR__ . "/ContentGenerator/Table/";
 
-		protected bool $isDataTable = false;
-		// protected bool $addIndexing = false;
-		// protected int $indexingKey = 0;
-		// protected array $keyWithoutSort = [];
+		protected bool $isDataTable;
+		protected bool $addIndexing;
+		protected int $indexingKey;
+		protected array $keysWithoutSort;
 
 		protected string $id;
 		protected string $class;
@@ -18,8 +18,13 @@
 		protected array $body;
 		protected array $footer;
 
+		protected array $cellButtons;
 		protected array $topButtons;
 		protected array $bottomButtons;
+
+		protected string $topButtonsDefaultClass;
+		protected string $bottomButtonsDefaultClass;
+		protected string $cellButtonsDefaultClass;
 
 		protected string $primaryColor;
 		protected string $secondaryColor;
@@ -34,12 +39,22 @@
 			$this->id = $id;
 			$this->class = $class;
 
+			$this->isDataTable = false;
+			$this->addIndexing = false;
+			$this->indexingKey = 0;
+			$this->keysWithoutSort = [];
+
 			$this->header = [];
 			$this->body = [];
 			$this->footer = [];
 
 			$this->topButtons = [];
 			$this->bottomButtons = [];
+			$this->cellButtons = [];
+
+			$this->topButtonsDefaultClass = "";
+			$this->bottomButtonsDefaultClass = "";
+			$this->cellButtonsDefaultClass = "";
 
 			$this->primaryColor = "#000";
 			$this->secondaryColor = "#ddd";
@@ -58,8 +73,8 @@
 			$body = $this->RenderBody();
 			$footer = $this->RenderFooter();
 
-			$topButtons = $this->RenderTopButtons();
-			$bottomButtons = $this->RenderBottomButtons();
+			$topButtons = self::RenderTopButtons($this->topButtons);
+			$bottomButtons = self::RenderBottomButtons($this->bottomButtons);
 
 			$pre = "";
 			if (self::$styleIncluded === false) {
@@ -130,6 +145,39 @@
 			];
 		}
 
+		public function AddCellButton(
+			string $key,
+			string $title,
+			string $icon="",
+			string $link="#",
+			string $class="",
+			array $params=[]
+		) {
+			if (!Helper::StringNullOrEmpty($this->cellButtonsDefaultClass)) {
+				if (!Helper::StringHasChar($class, [
+					" " . $this->cellButtonsDefaultClass,
+					" " . $this->cellButtonsDefaultClass . " ",
+					$this->cellButtonsDefaultClass . " "
+				])) {
+					$class .= " " . $this->cellButtonsDefaultClass;
+				}
+			}
+			if (!isset($params["title"]) && !Helper::StringNullOrEmpty($title)) {
+				$params["title"] = $title;
+			}
+			if (!isset($params["data-toggle"])) {
+				$params["data-toggle"] = "tooltip";
+			}
+
+			$this->cellButtons[$key][] = [
+				"title" => "",
+				"icon" => $icon,
+				"link" => $link,
+				"class" => $class,
+				"params" => $params,
+			];
+		}
+
 		public function AddTopButton(
 			string $key,
 			string $title,
@@ -138,6 +186,15 @@
 			string $class="",
 			array $params=[]
 		): void {
+			if (!Helper::StringNullOrEmpty($this->topButtonsDefaultClass)) {
+				if (!Helper::StringHasChar($class, [
+					" " . $this->topButtonsDefaultClass,
+					" " . $this->topButtonsDefaultClass . " ",
+					$this->topButtonsDefaultClass . " "
+				])) {
+					$class .= " " . $this->topButtonsDefaultClass;
+				}
+			}
 			$this->topButtons[$key] = [
 				"title" => $title,
 				"icon" => $icon,
@@ -155,6 +212,15 @@
 			string $class="",
 			array $params=[]
 		): void {
+			if (!Helper::StringNullOrEmpty($this->bottomButtonsDefaultClass)) {
+				if (!Helper::StringHasChar($class, [
+					" " . $this->bottomButtonsDefaultClass,
+					" " . $this->bottomButtonsDefaultClass . " ",
+					$this->bottomButtonsDefaultClass . " "
+				])) {
+					$class .= " " . $this->bottomButtonsDefaultClass;
+				}
+			}
 			$this->bottomButtons[$key] = [
 				"title" => $title,
 				"icon" => $icon,
@@ -162,14 +228,6 @@
 				"class" => $class,
 				"params" => $params,
 			];
-		}
-
-		public function SetPrimaryColor(string $color): void {
-			$this->primaryColor = $color;
-		}
-
-		public function SetSecondaryColor(string $color): void {
-			$this->secondaryColor = $color;
 		}
 
 		private function RenderHeader(): string {
@@ -215,7 +273,7 @@
 			}
 
 			$rows = [];
-			foreach ($data AS $row) {
+			foreach ($data AS $i => $row) {
 				$rowStr = [];
 				foreach ($row AS [
 					"content" => $content,
@@ -229,7 +287,15 @@
 						$params["class"] .= " {$class}";
 					}
 					$paramsStr = Helper::GererateKeyValueStringFromArray($params);
-					$rowStr[] = "<th {$paramsStr}'>{$content}</th>";
+					$rowStr[] = "<td {$paramsStr}'>{$content}</td>";
+				}
+
+				if (count($this->cellButtons) > 0) {
+					$rowButtons = [];
+					foreach ($this->cellButtons AS $cellButtons) {
+						$rowButtons[] = $cellButtons[$i];
+					}
+					$rowStr[] = "<td>" . self::RenderCellButtons($rowButtons) . "</td>";
 				}
 				$rows[] = "<tr>" . implode("", $rowStr) . "<tr>";
 			}
@@ -264,16 +330,24 @@
 			return "<tfoot>" . implode("", $rows) . "</tfoot>";
 		}
 
-		private function RenderTopButtons(): string {
-			$buttons = self::RenderButtonsArray($this->topButtons);
+		private static function RenderCellButtons(array $buttons): string {
+			$buttons = self::RenderButtonsArray($buttons);
+			if (count($buttons) === 0) {
+				return "";
+			}
+			return "<div class='buttons cell'>" . implode("", $buttons) . "</div>";
+		}
+
+		private static function RenderTopButtons(array $buttons): string {
+			$buttons = self::RenderButtonsArray($buttons);
 			if (count($buttons) === 0) {
 				return "";
 			}
 			return "<div class='buttons top'>" . implode("", $buttons) . "</div>";
 		}
 
-		private function RenderBottomButtons(): string {
-			$buttons = self::RenderButtonsArray($this->bottomButtons);
+		private static function RenderBottomButtons(array $buttons): string {
+			$buttons = self::RenderButtonsArray($buttons);
 			if (count($buttons) === 0) {
 				return "";
 			}
@@ -344,7 +418,6 @@
 				if ($class != "") {
 					$params["class"] .= " {$class}";
 				}
-				$params["class"] .= " button";
 				$paramsStr = Helper::GererateKeyValueStringFromArray($params);
 
 				if ($icon != "") {
@@ -355,5 +428,72 @@
 			return $buttons;
 		}
 
+		public function SetPrimaryColor(string $color): void {
+			$this->primaryColor = $color;
+		}
+
+		public function SetSecondaryColor(string $color): void {
+			$this->secondaryColor = $color;
+		}
+
+		public function SetIsDataTable(bool $val): void {
+			$this->isDataTable = $val;
+		}
+
+		public function GetIsDataTable(): bool {
+			return $this->isDataTable;
+		}
+
+		public function SetAddIndexing(bool $val): void {
+			$this->addIndexing = $val;
+		}
+
+		public function GetAddIndexing(): bool {
+			return $this->addIndexing;
+		}
+
+		public function SetIndexingKey(int $val): void {
+			$this->indexingKey = $val;
+		}
+
+		public function GetIndexingKey(): int {
+			return $this->indexingKey;
+		}
+
+		public function AddKeysWithoutSort(string $key): void {
+			$this->keysWithoutSort[] = $key;
+		}
+
+		public function GetKeysWithoutSort(): array {
+			return $this->keysWithoutSort;
+		}
+
+		public function ClearKeysWithoutSort(): void {
+			$this->keysWithoutSort = [];
+		}
+
+		public function SetTopButtonsDefaultClass(string $val): void {
+			$this->topButtonsDefaultClass = $val;
+		}
+
+		public function GetTopButtonsDefaultClass(): string {
+			return $this->topButtonsDefaultClass;
+		}
+
+		public function SetBottomButtonsDefaultClass(string $val): void {
+			$this->bottomButtonsDefaultClass = $val;
+		}
+
+		public function GetBottomButtonsDefaultClass(): string {
+			return $this->bottomButtonsDefaultClass;
+		}
+
+		public function SetCellButtonsDefaultClass(string $val): void {
+			$this->cellButtonsDefaultClass = $val;
+		}
+
+		public function GetCellButtonsDefaultClass(): string {
+			return $this->cellButtonsDefaultClass;
+		}
 
 	}

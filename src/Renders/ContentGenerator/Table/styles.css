@@ -4,28 +4,39 @@
 
 
 .rawaymario-table-holder > .buttons.top {
-
+	margin-bottom: 10px;
 }
 
 .rawaymario-table-holder > .buttons.bottom {
-
+	margin-top: 10px;
 }
 
-.rawaymario-table-holder > .buttons > .button {
-
+.rawaymario-table-holder > .buttons {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+.rawaymario-table-holder > .buttons > a {
+	border: 1px solid '{primaryColor}';
+	margin-right: 10px;
+	padding: 5px 10px;
+	color: '{primaryColor}';
+	text-decoration: none;
+	border-radius: 5px;
+}
+.rawaymario-table-holder > .buttons > a:hover {
+	background-color: '{secondaryColor}';
 }
 
-.rawaymario-table-holder > .buttons > .button > i {
-
-}
-
-.rawaymario-table-holder > .buttons > .button > span {
-
+.rawaymario-table-holder > .buttons > a > i {
+	color: '{primaryColor}';
+	float: right;
+	margin-left: 5px;
 }
 
 
 .rawaymario-table-holder > .rawaymario-table {
-
+	border-collapse: collapse;
 }
 
 
@@ -36,7 +47,9 @@
 
 }
 .rawaymario-table-holder > .rawaymario-table > thead > tr > th {
-
+	text-align: center;
+	border: 1px solid '{primaryColor}';
+	padding: 5px 10px;
 }
 
 
@@ -47,7 +60,28 @@
 
 }
 .rawaymario-table-holder > .rawaymario-table > tbody > tr > td {
-
+	border: 1px solid '{primaryColor}';
+	padding: 5px 10px;
+}
+.rawaymario-table-holder > .rawaymario-table > tbody > tr > td > .buttons.cell {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+}
+.rawaymario-table-holder > .rawaymario-table > tbody > tr > td > .buttons.cell > a {
+	border: 1px solid '{primaryColor}';
+	border-radius: 50%;
+	width: 20px;
+	height: 20px;
+	line-height: 22px;
+	text-align: center;
+	color: '{primaryColor}';
+}
+.rawaymario-table-holder > .rawaymario-table > tbody > tr > td > .buttons.cell > a > i {
+	line-height: 18px;
+}
+.rawaymario-table-holder > .rawaymario-table > tbody > tr > td > .buttons.cell > a:hover {
+	background-color: '{secondaryColor}';
 }
 
 
@@ -57,6 +91,8 @@
 .rawaymario-table-holder > .rawaymario-table > tfoot > tr {
 
 }
-.rawaymario-table-holder > .rawaymario-table > tfoot > tr > td {
-
+.rawaymario-table-holder > .rawaymario-table > tfoot > tr > th {
+	text-align: center;
+	border: 1px solid '{primaryColor}';
+	padding: 5px 10px;
 }
