@@ -30,7 +30,7 @@
 			if (in_array(gettype($value), ["array", "object"])) {
 				$value = json_encode($value);
 			}
-			
+
 			$cacheFile = fopen(self::GetCacheFileName($name), "w") or die("Unable to open cache file!");
 			fwrite($cacheFile, $value);
 			fclose($cacheFile);
