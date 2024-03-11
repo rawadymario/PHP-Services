@@ -1,59 +1,64 @@
 {
-	"name": "dgsplash/php-services",
-	"type": "library",
-	"description": "Commonly used services in any PHP Project",
-	"homepage": "https://github.com/digital-splash/PHP-Services",
-	"keywords": [
-		"Services",
-		"PHP"
-	],
-	"license": "MIT",
-	"authors": [
-		{
-			"name": "Mario Rawady",
-			"email": "rawadymario@dgsplash.com",
-			"homepage": "https://rawadymario.com",
-			"role": "Developer"
-		}
-	],
-	"config": {
-		"preferred-install": "dist"
-	},
-	"minimum-stability": "stable",
-	"repositories": [
-		{
-			"type": "composer",
-			"url": "https://packagist.org"
-		},
-		{
-			"packagist": false
-		}
-	],
-	"require": {
-		"php": ">=7.4",
-		"intervention/image": "^2.7",
-		"phpmailer/phpmailer": "^6.8"
-	},
-	"require-dev": {
-		"phpunit/phpunit": "^9"
-	},
-	"autoload": {
-		"psr-4": {
-			"DigitalSplash\\": "src"
-		},
-		"files": [
-			"./env.php"
-		],
-		"classmap": [
-			""
-		]
-	},
-	"autoload-dev": {
-		"psr-4": {
-			"DigitalSplash\\": "tests/"
-		}
-	},
-	"scripts": {
-		"phpunit": "./vendor/bin/phpunit ./tests/PhpUnits"
-	}
+  "name": "dgsplash/php-services",
+  "type": "library",
+  "description": "Commonly used services in any PHP Project",
+  "homepage": "https://github.com/digital-splash/PHP-Services",
+  "keywords": [
+    "Services",
+    "PHP"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Mario Rawady",
+      "email": "rawadymario@dgsplash.com",
+      "homepage": "https://rawadymario.com",
+      "role": "Developer"
+    }
+  ],
+  "config": {
+    "preferred-install": "dist"
+  },
+  "minimum-stability": "stable",
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://packagist.org"
+    },
+    {
+      "packagist": false
+    }
+  ],
+  "require": {
+    "php": ">=7.4",
+    "intervention/image": "^2.7",
+    "phpmailer/phpmailer": "^6.8",
+    "illuminate/database": "^8.83",
+    "mavinoo/laravel-batch": "^2.3",
+    "hadi-darwish/laravel-batch": "dev-master",
+    "curl/curl": "^2.5",
+    "nesbot/carbon": "^2.71"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9"
+  },
+  "autoload": {
+    "psr-4": {
+      "DigitalSplash\\": "src"
+    },
+    "files": [
+      "./env.php"
+    ],
+    "classmap": [
+      ""
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "DigitalSplash\\": "tests/"
+    }
+  },
+  "scripts": {
+    "phpunit": "./vendor/bin/phpunit ./tests/PhpUnits"
+  }
 }
